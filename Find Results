@@ -1,0 +1,36 @@
+Searching 1 file for "red"
+
+/Users/jesse/carma/plotYSO.py:
+  113      figure = plt.figure()
+  114  
+  115: def plotredblue(plotfile='redblue.pdf', cubefile='l1461n.12co.fits',
+  116:         bluev=[3.5, 6.5], redv=[9.5, 14.5], vunit='km/s', contour=True):
+  117      #Plot the integrated 12CO intensity in two velocity bins, corresponding
+  118      #default to Figure 6. in Nakamura et al. 2012.
+  119      #bluev: Blueshifted velocity range in km/s
+  120:     #redv: Redshifted velocity range in km/s
+  121      from spectral_cube import SpectralCube
+  122      import aplpy
+  ...
+  124      if vunit == 'km/s':
+  125          bluev *= u.km/u.s
+  126:         redv *= u.km/u.s
+  127      cube = SpectralCube.read(cubefile)
+  128      deltav = cube.spectral_axis[1] - cube.spectral_axis[0]
+  129      bluecube = cube.spectral_slab(bluev[0], bluev[1])
+  130:     redcube = cube.spectral_slab(redv[0], redv[1])
+  131:     # wcs = WCS(redcube.header) 
+  132      # bluedata = bluecube.unmasked_data[:]
+  133:     # reddata = redcube.unmasked_data[:]
+  134  
+  135:     #Compute integrated intensity (zeroth moment) of 12CO in each red/blue
+  136      #velocity bin.
+  137:     # redmom0 = reddata.sum(axis=0) * deltav
+  138      # bluemom0 = bluedata.sum(axis=0) * deltav
+  139:     redmom0 = redcube.moment(order=0)
+  140:     redmom0 = redcube.moment(order=0)
+  141:     print redmom0
+  142  
+  143      
+
+20 matches in 1 file
