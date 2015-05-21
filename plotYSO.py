@@ -84,7 +84,7 @@ def ysoslice(ysofile='spitzer_orion.fits', ralim=['5h37m30s',
     # if ysotype == 'all':
         
     return data[iira & iidec] 
-    
+
 def plotyso(plotfile='yso.pdf', cubefile='orion_13co.combine.fits',
         ysofile='spitzer_orion.fits', ralim=['5h37m30s', '5h34m30s'],
         declim=['-6d43m00s', '-5d54m00s'], vlim=[0*u.km/u.s, 20.*u.km/u.s], 
@@ -112,6 +112,7 @@ def plotyso(plotfile='yso.pdf', cubefile='orion_13co.combine.fits',
     
     plt.savefig(plotfile)
     figure = plt.figure()
+    df
 
 def plotredblue(plotfile='redblue.pdf', cubefile='l1461n.12co.fits',
         ralim=None, declim=None, bluev=[3.5, 6.5], redv=[9.5, 14.5],
