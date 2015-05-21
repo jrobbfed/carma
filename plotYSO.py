@@ -85,6 +85,21 @@ def ysoslice(ysofile='spitzer_orion.fits', ralim=['5h37m30s',
         
     return data[iira & iidec] 
 
+def rms(data=None, cubefile=None, ralim=None, declim=None, vrange=[[0,3], [15,20]]):
+    """
+    Calculate the standard deviation in a section of a cube.
+
+    data (spectral-cube.Cube): Cube object from spectral-cube package, which has WCS and spectral-cube
+            axis info. 
+    cubefile (str): FITS file to be converted to a Cube object.
+    ralim (list[str]): Limits on the Right Ascension, in 'hms'.
+    declim (list[str]): Limits on the Declination, in 'dms'
+    vrange (list[flt]): Range to be considered for 
+    """
+
+    
+
+
 def plotyso(plotfile='yso.pdf', cubefile='orion_13co.combine.fits',
         ysofile='spitzer_orion.fits', ralim=['5h37m30s', '5h34m30s'],
         declim=['-6d43m00s', '-5d54m00s'], vlim=[0*u.km/u.s, 20.*u.km/u.s], 
@@ -111,30 +126,32 @@ def plotyso(plotfile='yso.pdf', cubefile='orion_13co.combine.fits',
     ax.plot(yso['RA'], yso['DEC'], 'k+', markersize=8)
     
     plt.savefig(plotfile)
-    figure = plt.figure()
-    df
+
 
 def plotredblue(plotfile='redblue.pdf', cubefile='l1461n.12co.fits',
         ralim=None, declim=None, bluev=[3.5, 6.5], redv=[9.5, 14.5],
-        vunit='km/s', contour=True):
+        vunit='km/s', contour=True, rmsralim=['5h36m50s', '5h35m50s'],
+        rmsdeclim=['-6d24m','-6d2m'], rmsvlim=[15*u.km/u.s, 20*u.km/u.s]):
     #Plot the integrated 12CO intensity in two velocity bins, corresponding
     #default to Figure 6. in Nakamura et al. 2012.
     #bluev: Blueshifted velocity range in km/s
     #redv: Redshifted velocity range in km/s
-    from spectral_cube import SpectralCube
+    from spectral_cube import SpectralCube, Projection
     import aplpy
+    #from wcsaxes import WCS
     from astropy.wcs import WCS
+    import matplotlib.pyplot as plt 
 
+    pass
     if vunit == 'km/s':
         bluev *= u.km/u.s
         redv *= u.km/u.s
     cube = SpectralCube.read(cubefile)
+
     deltav = cube.spectral_axis[1] - cube.spectral_axis[0]
-    bluecube = cube.spectral_slab(bluev[0], bluev[1])
-    redcube = cube.spectral_slab(redv[0], redv[1])
-    # wcs = WCS(redcube.header) 
-    bluedata = bluecube.unmasked_data[:]
-    reddata = redcube.unmasked_data[:]
+    bluedata = cube.spectral_slab(bluev[0], bluev[1]).unmasked_data[:]
+    reddata = cube.spectral_slab(redv[0], redv[1]).unmasked_data[:]
+    wcs_celest = WCS(redcube.header).sub['celestial']
 
     #Compute integrated intensity (zeroth moment) of 12CO in each red/blue
     #velocity bin.
@@ -142,7 +159,27 @@ def plotredblue(plotfile='redblue.pdf', cubefile='l1461n.12co.fits',
     bluemom0 = bluedata.sum(axis=0) * deltav
     # redmom0 = redcube.moment(order=0)
     # bluemom0 = bluecube.moment(order=0)
+    #Make HDU objects, which will allow plotting using APLPY. Projection
+    #creates a 2D version of Cube object
+    redhdu = Projection(redmom0.value, wcs=wcs_celest).hdu
+    bluehdu = Projection(redmom0.value, wcs=wcs_celest).hdu
+
+    fig = aplpy.FITSFigure(redhdu)
+
+    #Make contours and levels for both red and blue. Calculate RMS and mutiply
+    #deltav to get moment0 RMS.
+
+
     print redmom0, bluemom0
+
+    #Make contour plot of redshifted and blueshifted zeroth moment maps.
+    #fig = plt.figure()
+
+    #ax = fig.add_axes([0.1,0.1,0.8,0.8], projection=wcs_celest) 
+    #ax.add
+    #
+
+    return redmom0, bluemom0
 
     
 
