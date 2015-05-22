@@ -85,19 +85,48 @@ def ysoslice(ysofile='spitzer_orion.fits', ralim=['5h37m30s',
         
     return data[iira & iidec] 
 
-def rms(data=None, cubefile=None, ralim=None, declim=None, vrange=[[0,3], [15,20]]):
+def rmscalc(data=None, cubefile=None, ralim=None, declim=None, vlim=[15,20], 
+        vunit='km/s'):
     """
     Calculate the standard deviation in a section of a cube.
 
-    data (spectral-cube.Cube): Cube object from spectral-cube package, which has WCS and spectral-cube
-            axis info. 
-    cubefile (str): FITS file to be converted to a Cube object.
+    data (spectral-cube.Cube or str): Cube object from spectral-cube package, which has WCS and spectral-cube
+            axis info. If str, data should be a file which will be input into spectral_cubeslice
+    #cubefile (str): FITS file to be converted to a Cube object.
     ralim (list[str]): Limits on the Right Ascension, in 'hms'.
     declim (list[str]): Limits on the Declination, in 'dms'
-    vrange (list[flt]): Range to be considered for 
+    vlim (list[flt]): Range to be considered for 
     """
+    from spectral_cube import SpectralCube
 
-    
+    if vunit == 'km/s':
+        vlim *= u.km/u.s
+
+    #Assume data is either a Cube object or a FITS cube file name.    
+    try:
+       subcube = data.spectral_slab(vlim[0], vlim[1])
+    except (AttributeError, TypeError):
+
+        try:
+            subcube = spectral_cubeslice(cubefile=data, ralim=ralim, declim=declim, vlim=vlim)
+        except (AttributeError, TypeError):
+            print ("rms expects either a Cube object or a FITS file name.")
+            raise
+    else:
+
+        #Slice on RA and DEC ****REWRITE SPECTRAL_CUBESLICE INSTEAD TO ACCEPT BOTH Cube AND Filename
+        if ralim != None:
+            ra = subcube.world[0,0,:][2] 
+            dec = subcube.world[0,:,0][1] 
+            #Find indices that correspond to the requested ra,dec,v ranges.
+            clo = SkyCoord(ra=ralim[0], dec=declim[0])
+            chi = SkyCoord(ra=ralim[1], dec=declim[1])
+            iira = np.where((ra < clo.ra) & (ra > chi.ra))[0]  
+            iidec = np.where((dec > clo.dec) & (dec < chi.dec))[0]
+            subcube = subcube[:,iidec[0]:iidec[-1],iira[0]:iira[-1]]
+
+    #Calculate the standard deviation of all pixels in the subcube.
+    return subcube.std()
 
 
 def plotyso(plotfile='yso.pdf', cubefile='orion_13co.combine.fits',
@@ -131,7 +160,7 @@ def plotyso(plotfile='yso.pdf', cubefile='orion_13co.combine.fits',
 def plotredblue(plotfile='redblue.pdf', cubefile='l1461n.12co.fits',
         ralim=None, declim=None, bluev=[3.5, 6.5], redv=[9.5, 14.5],
         vunit='km/s', contour=True, rmsralim=['5h36m50s', '5h35m50s'],
-        rmsdeclim=['-6d24m','-6d2m'], rmsvlim=[15*u.km/u.s, 20*u.km/u.s]):
+        rmsdeclim=['-6d24m','-6d2m'], rmsvlim=[15, 20]):
     #Plot the integrated 12CO intensity in two velocity bins, corresponding
     #default to Figure 6. in Nakamura et al. 2012.
     #bluev: Blueshifted velocity range in km/s
@@ -151,7 +180,7 @@ def plotredblue(plotfile='redblue.pdf', cubefile='l1461n.12co.fits',
     deltav = cube.spectral_axis[1] - cube.spectral_axis[0]
     bluedata = cube.spectral_slab(bluev[0], bluev[1]).unmasked_data[:]
     reddata = cube.spectral_slab(redv[0], redv[1]).unmasked_data[:]
-    wcs_celest = WCS(redcube.header).sub['celestial']
+    wcs_celest = WCS(cube.header).sub(['celestial'])
 
     #Compute integrated intensity (zeroth moment) of 12CO in each red/blue
     #velocity bin.
@@ -168,9 +197,16 @@ def plotredblue(plotfile='redblue.pdf', cubefile='l1461n.12co.fits',
 
     #Make contours and levels for both red and blue. Calculate RMS and mutiply
     #deltav to get moment0 RMS.
+    rms = rmscalc(data=cube, ralim=rmsralim, declim=rmsdeclim, vlim=rmsvlim, vunit=vunit)
+    redrms = rms * reddata.shape[0] * deltav #Quantity in velocity units.
+    bluerms = rms * bluedata.shape[0] * deltav # "
+    redrms = redrms.value
+    bluerms = bluerms.value
 
-
-    print redmom0, bluemom0
+    #Make contour level arrays in integer increments of red/bluerms. 
+    redlevels = np.arange(5*redrms, 50*redrms, redrms)
+    bluelevels = np.arange(5*bluerms, 50*bluerms, bluerms)
+    print redmom0, bluemom0, redrms, bluerms
 
     #Make contour plot of redshifted and blueshifted zeroth moment maps.
     #fig = plt.figure()
