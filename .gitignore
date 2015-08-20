@@ -1,5 +1,4 @@
 *.pdf
-*.fits
-*.fit
+*.fit*
 *.png
 *.jpg
