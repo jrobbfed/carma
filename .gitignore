@@ -2,3 +2,5 @@
 *.fit*
 *.png
 *.jpg
+#This is an independent repo. Look into merging with CARMA.
+miriad-imaging/
