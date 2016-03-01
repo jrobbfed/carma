@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VOTABLE version="1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.ivoa.net/xml/VOTable/v1.2"
+  xsi:schemaLocation="http://www.ivoa.net/xml/VOTable/v1.2 http://www.ivoa.net/xml/VOTable/v1.2">
+ <DESCRIPTION>
+   VizieR Astronomical Server vizier.cfa.harvard.edu
+    Date: 2016-02-24T06:42:45 [V1.99+ (14-Oct-2013)]
+   Explanations and Statistics of UCDs:			See LINK below
+   In case of problem, please report to:	cds-question@unistra.fr
+   In this version, NULL integer columns are written as an empty string
+   &lt;TD&gt;&lt;/TD&gt;, explicitely possible from VOTable-1.3
+ </DESCRIPTION>
+<!-- VOTable description at http://www.ivoa.net/Documents/latest/VOT.html -->
+<INFO ID="VERSION" name="votable-version" value="1.99+ (14-Oct-2013)"/>
+<INFO ID="Ref" name="-ref" value="VIZ56cd47630390"/>
+<INFO ID="MaxTuples" name="-out.max" value="unlimited"/>
+<INFO name="queryParameters" value="30">
+-oc.form=dec
+-out.max=unlimited
+-out.all=2
+-out.add=_RAJ,_DEJ
+-order=I
+-nav=cat:B/mk&amp;tab:{B/mk/mktypes}&amp;key:source=B/mk&amp;HTTPPRM:&amp;-ref=VIZ56cd47630390&amp;-out.max=unlimited&amp;-out.form=HTML Table&amp;-out.all=2&amp;-out.add=_RAJ,_DEJ&amp;-order=I&amp;-oc.form=dec&amp;-c.eq=J2000&amp;-c.r=  2&amp;-c.u=deg&amp;-c.geom=r&amp;-out.src=B/mk/mktypes&amp;-out=Name&amp;-out=Mag&amp;-out=n_Mag&amp;-out=n_SpType&amp;-out=SpType&amp;-sort=SpType&amp;SpType==*[BA]e*&amp;-out=Remarks&amp;-out=Bibcode&amp;-out=RAJ2000&amp;RAJ2000=5 33 .. 5 38&amp;-out=DEJ2000&amp;DEJ2000=-6 45 .. -4 45&amp;-out=rc&amp;-out=Simbad&amp;-meta.ucd=2&amp;-meta=1&amp;-meta.foot=1&amp;-usenav=5&amp;-bmark=GET&amp;
+-c.eq=J2000
+-c.r=  2
+-c.u=deg
+-c.geom=r
+-order=I
+-order=I
+-out.src=B/mk/mktypes
+-source=B/mk/mktypes
+-order=I
+-out=Name
+-out=Mag
+-out=n_Mag
+-out=n_SpType
+-out=SpType
+-sort=SpType
+SpType==*[BA]e*
+-out=Remarks
+-out=Bibcode
+-out=RAJ2000
+RAJ2000=5 33 .. 5 38
+-out=DEJ2000
+DEJ2000=-6 45 .. -4 45
+-out=rc
+-out=Simbad
+</INFO>
+
+<!--
+Execution Reports
+ -->
+
+<RESOURCE ID="yCat_102023" name="B/mk">
+  <DESCRIPTION>Catalogue of Stellar Spectral Classifications (Skiff, 2009-2014)</DESCRIPTION>
+  <COOSYS ID="J2000" system="eq_FK5" equinox="J2000"/>
+  <TABLE ID="B_mk_mktypes" name="B/mk/mktypes">
+    <DESCRIPTION>The catalog of MK Spectral Types (Version 2014-May)</DESCRIPTION>
+    <!-- Definitions of GROUPs and FIELDs -->
+    <FIELD name="_RAJ2000" ucd="pos.eq.ra" ref="J2000" datatype="double" width="9" precision="5" unit="deg"><!-- ucd="POS_EQ_RA" -->
+      <DESCRIPTION>Right ascension (FK5, Equinox=J2000.0) (computed by VizieR, not part of the original data)</DESCRIPTION>
+    </FIELD>
+    <FIELD name="_DEJ2000" ucd="pos.eq.dec" ref="J2000" datatype="double" width="9" precision="5" unit="deg"><!-- ucd="POS_EQ_DEC" -->
+      <DESCRIPTION>Declination (FK5, Equinox=J2000.0) (computed by VizieR, not part of the original data)</DESCRIPTION>
+    </FIELD>
+    <FIELD name="Name" ucd="meta.id" datatype="char" arraysize="27*"><!-- ucd="ID_ALTERNATIVE" -->
+      <DESCRIPTION>Star name as published or valid SIMBAD name (Lortet et al.)</DESCRIPTION>
+    </FIELD>
+    <FIELD name="Mag" ucd="phot.mag" datatype="float" width="5" precision="2" unit="mag"><!-- ucd="PHOT_MAG_UNDEF" -->
+      <DESCRIPTION>? Magnitude, see passband in n_Mag</DESCRIPTION>
+      <VALUES null="NaN" />
+    </FIELD>
+    <FIELD name="n_Mag" ucd="meta.note" datatype="char" arraysize="1"><!-- ucd="NOTE" -->
+      <DESCRIPTION>[PUBVRIJKgzM] Color passband of magnitude (2)</DESCRIPTION>
+    </FIELD>
+    <FIELD name="n_SpType" ucd="meta.note" datatype="char" arraysize="1"><!-- ucd="NOTE" -->
+      <DESCRIPTION>[+] if spectral type is an MK standard</DESCRIPTION>
+    </FIELD>
+    <FIELD name="SpType" ucd="src.spType" datatype="char" arraysize="26*"><!-- ucd="SPECT_TYPE_MK" -->
+      <DESCRIPTION>spectral type (MK, HD, or other)</DESCRIPTION>
+    </FIELD>
+    <FIELD name="Remarks" ucd="meta.note" datatype="char" arraysize="31*"><!-- ucd="REMARKS" -->
+      <DESCRIPTION>Comments (3)</DESCRIPTION>
+    </FIELD>
+    <FIELD name="Bibcode" ucd="meta.bib.bibcode" datatype="char" arraysize="19"><!-- ucd="REFER_BIBCODE" -->
+      <DESCRIPTION>Publication Source</DESCRIPTION>
+    </FIELD>
+    <FIELD name="RAJ2000" ucd="pos.eq.ra;meta.main" ref="J2000" datatype="char" arraysize="11" unit="&quot;h:m:s&quot;"><!-- ucd="POS_EQ_RA_MAIN" -->
+      <DESCRIPTION>Right Ascension (J2000) hour</DESCRIPTION>
+    </FIELD>
+    <FIELD name="DEJ2000" ucd="pos.eq.dec;meta.main" ref="J2000" datatype="char" arraysize="11" unit="&quot;d:m:s&quot;"><!-- ucd="POS_EQ_DEC_MAIN" -->
+      <DESCRIPTION>Declination (J2000) degree</DESCRIPTION>
+    </FIELD>
+    <FIELD name="rc" ucd="meta.ref;pos.frame" datatype="char" arraysize="1"><!-- ucd="REFER_CODE" -->
+      <DESCRIPTION>Source of coordinates (1)</DESCRIPTION>
+    </FIELD>
+    <FIELD name="Simbad" ucd="meta.ref" datatype="char" arraysize="6*"><!-- ucd="DATA_LINK" -->
+      <DESCRIPTION>ask the {\bf\fg{FireBrick}SIMBAD} data-base about this object</DESCRIPTION>
+    </FIELD>
+<DATA><TABLEDATA>
+<TR><TD>084.10596</TD><TD>-6.71603</TD><TD>BD-06 1253</TD><TD>10.90</TD><TD>V</TD><TD></TD><TD>Ae</TD><TD></TD><TD>1946PASP...58..163H</TD><TD>05 36 25.43</TD><TD>-06 42 57.7</TD><TD>U</TD><TD>Simbad</TD></TR>
+<TR><TD>084.10596</TD><TD>-6.71603</TD><TD>BD-06 1253</TD><TD>10.90</TD><TD>V</TD><TD></TD><TD>Ae</TD><TD></TD><TD>1949ApJ...109..231J</TD><TD>05 36 25.43</TD><TD>-06 42 57.7</TD><TD>U</TD><TD>Simbad</TD></TR>
+<TR><TD>084.10596</TD><TD>-6.71603</TD><TD>BD-06 1253</TD><TD>10.90</TD><TD>V</TD><TD></TD><TD>B/Ae</TD><TD>NGC 1999 illum star</TD><TD>1946ApJ...103..249M</TD><TD>05 36 25.43</TD><TD>-06 42 57.7</TD><TD>U</TD><TD>Simbad</TD></TR>
+<TR><TD>083.96021</TD><TD>-5.47636</TD><TD>T Ori</TD><TD>10.00</TD><TD>V</TD><TD></TD><TD>B/Ae shell</TD><TD>spec var</TD><TD>1960ApJS....4..337H</TD><TD>05 35 50.45</TD><TD>-05 28 34.9</TD><TD>U</TD><TD>Simbad</TD></TR>
+<TR><TD>083.97533</TD><TD>-5.62842</TD><TD>HD 37115</TD><TD>7.40</TD><TD>V</TD><TD></TD><TD>Be</TD><TD></TD><TD>1973AJ.....78..687B</TD><TD>05 35 54.08</TD><TD>-05 37 42.3</TD><TD>T</TD><TD>Simbad</TD></TR>
+</TABLEDATA></DATA>
+</TABLE>
+  <INFO name="meta" value="message">
+    memory restriction caused by sort option (partial sort in bunches of 731564)
+  </INFO>
+
+<INFO name="Warning" value="No center provided++++"/>
+<INFO name="Warning" value="skip recno in all column selection"/>
+<INFO name="Warning" value="+++memory restriction caused by {\bf sort} option (partial sort in bunches of 731564)"/>
+</RESOURCE>
+</VOTABLE>

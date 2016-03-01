@@ -4,3 +4,19 @@ Hernandez et al. 2005 - Herbig Ae/Be stars in
 nearby OB associations
 
 Selected stars in all Orion OB associations.
+
+AeBe_OrionA.tsv
+=================================
+Selected Ae and Be stars in the footprint of CARMA Orion.
+
+Catalogue of Stellar Spectral Classifications (Skiff, 2009-2014)
+
+
+Catalog Page on CDS Vizier:
+http://vizier.u-strasbg.fr/viz-bin/VizieR?-source=B/mk
+
+ADS Entry:
+http://cdsads.u-strasbg.fr/cgi-bin/nph-bib_query?2014yCat....1.2023S&db_key=AST&nosetcookie=1
+
+Selection:
+http://vizier.cfa.harvard.edu/viz-bin/VizieR-4?-ref=VIZ56cd47630390&-to=-3b&-from=-3&-this=-3&%2F%2Fsource=B%2Fmk&%2F%2Ftables=B%2Fmk%2Fmktypes&-out.max=unlimited&%2F%2FCDSportal=http%3A%2F%2Fcdsportal.u-strasbg.fr%2FStoreVizierData.html&-out.form=HTML+Table&%2F%2Foutaddvalue=default&-oc.form=sexa&-nav=cat%3AB%2Fmk%26tab%3A%7BB%2Fmk%2Fmktypes%7D%26key%3Asource%3DB%2Fmk%26HTTPPRM%3A&-c=&-c.eq=J2000&-c.r=++2&-c.u=deg&-c.geom=r&-source=B%2Fmk%2Fmktypes&-order=I&recno=&-out=Name&Name=&-out=Mag&Mag=&-out=n_Mag&n_Mag=&-out=n_SpType&n_SpType=&-out=SpType&-sort=SpType&SpType=%3D*%5BBA%5De*&-out=Remarks&Remarks=&-out=Bibcode&Bibcode=&-out=RAJ2000&RAJ2000=5+33+..+5+38&-out=DEJ2000&DEJ2000=-6+45+..+-4+45&-out=rc&rc=&-out=Simbad&-ignore=Simbad%3D*&Simbad=Simbad&%2F%2Fnoneucd1p=on&-file=.&-meta.ucd=2&-meta=1&-meta.foot=1&-usenav=1&-bmark=GET
