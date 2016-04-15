@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VOTABLE version="1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.ivoa.net/xml/VOTable/v1.2"
+  xsi:schemaLocation="http://www.ivoa.net/xml/VOTable/v1.2 http://www.ivoa.net/xml/VOTable/v1.2">
+ <DESCRIPTION>
+   VizieR Astronomical Server vizier.u-strasbg.fr
+    Date: 2016-03-09T18:11:47 [V1.99+ (14-Oct-2013)]
+   Explanations and Statistics of UCDs:			See LINK below
+   In case of problem, please report to:	cds-question@unistra.fr
+   In this version, NULL integer columns are written as an empty string
+   &lt;TD&gt;&lt;/TD&gt;, explicitely possible from VOTable-1.3
+ </DESCRIPTION>
+<!-- VOTable description at http://www.ivoa.net/Documents/latest/VOT.html -->
+<INFO ID="VERSION" name="votable-version" value="1.99+ (14-Oct-2013)"/>
+<INFO ID="Ref" name="-ref" value="VIZ56e0670f4735"/>
+<INFO ID="MaxTuples" name="-out.max" value="50"/>
+<INFO name="queryParameters" value="24">
+-oc.form=dec
+-out.max=50
+-out.all=2
+-order=I
+-out.src=J/A+A/566/A45/list
+-nav=cat:J/A+A/566/A45&amp;tab:{J/A+A/566/A45/list}&amp;key:source=J/A+A/566/A45&amp;HTTPPRM:&amp;&amp;-ref=VIZ56e0670f4735&amp;-out.max=50&amp;-out.form=HTML Table&amp;-out.all=2&amp;-oc.form=sexa&amp;-c.eq=J2000&amp;-c.r=  2&amp;-c.u=arcmin&amp;-c.geom=r&amp;-order=I&amp;-out=GLON&amp;-out=GLAT&amp;-out=Scale&amp;-out=Nx&amp;-out=Ny&amp;-out=Nz&amp;-out=size&amp;-out=fits&amp;-ignore=fits=*&amp;fits=fits&amp;-out=FileName&amp;-out=Title&amp;-out=_RA.icrs&amp;-out=_DE.icrs&amp;-out.all=2&amp;-file=.&amp;-meta.ucd=2&amp;-meta=1&amp;-meta.foot=1&amp;-usenav=1&amp;-bmark=POST&amp;-out.src=J/A+A/566/A45/list
+-c.eq=J2000
+-c.r=  2
+-c.u=arcmin
+-c.geom=r
+-source=J/A+A/566/A45/list
+-order=I
+-out=GLON
+-out=GLAT
+-out=Scale
+-out=Nx
+-out=Ny
+-out=Nz
+-out=size
+-out=fits
+-out=FileName
+-out=Title
+-out=_RA.icrs
+-out=_DE.icrs
+</INFO>
+
+<!--
+Execution Reports
+ -->
+
+<RESOURCE ID="yCat_35660045" name="J/A+A/566/A45">
+  <DESCRIPTION>Orion optical-depth and column-density maps (Lombardi+, 2014)</DESCRIPTION>
+  <COOSYS ID="G" system="galactic"/>
+  <TABLE ID="J_A_A_566_A45_list" name="J/A+A/566/A45/list">
+    <DESCRIPTION>Description of FITS file</DESCRIPTION>
+    <!-- Definitions of GROUPs and FIELDs -->
+    <FIELD name="GLON" ucd="pos.galactic.lon" ref="G" datatype="double" width="9" precision="5" unit="deg"><!-- ucd="POS_GAL_LON" -->
+      <DESCRIPTION>Galactic longitude</DESCRIPTION>
+    </FIELD>
+    <FIELD name="GLAT" ucd="pos.galactic.lat" ref="G" datatype="double" width="9" precision="5" unit="deg"><!-- ucd="POS_GAL_LAT" -->
+      <DESCRIPTION>Galactic latitude</DESCRIPTION>
+    </FIELD>
+    <FIELD name="Scale" ucd="instr.scale" datatype="short" width="2" unit="arcsec/pix"><!-- ucd="INST_SCALE" -->
+      <DESCRIPTION>[15] Scale of the image</DESCRIPTION>
+    </FIELD>
+    <FIELD name="Nx" ucd="meta.number" datatype="short" width="4"><!-- ucd="INST_DET_SIZE" -->
+      <DESCRIPTION>[3444] Number of pixels along X-axis</DESCRIPTION>
+    </FIELD>
+    <FIELD name="Ny" ucd="meta.number" datatype="short" width="4"><!-- ucd="INST_DET_SIZE" -->
+      <DESCRIPTION>[2492] Number of pixels along Y-axis</DESCRIPTION>
+    </FIELD>
+    <FIELD name="Nz" ucd="meta.number" datatype="unsignedByte" width="1"><!-- ucd="INST_DET_SIZE" -->
+      <DESCRIPTION>[7] Number of images (1)</DESCRIPTION>
+    </FIELD>
+    <FIELD name="size" ucd="phys.size;meta.fits" datatype="int" width="6" unit="Kibyte"><!-- ucd="DATA_SIZE" -->
+      <DESCRIPTION>[234683] Size of the FITS file</DESCRIPTION>
+    </FIELD>
+    <FIELD name="fits" ucd="meta.ref.url" datatype="char" arraysize="4"><!-- ucd="DATA_LINK" -->
+      <DESCRIPTION>Download the FITS file</DESCRIPTION>
+    </FIELD>
+    <FIELD name="FileName" ucd="meta.id;meta.fits" datatype="char" arraysize="20"><!-- ucd="ID_FILE" -->
+      <DESCRIPTION>Name of the FITS file</DESCRIPTION>
+    </FIELD>
+    <FIELD name="Title" ucd="meta.title" datatype="char" arraysize="130"><!-- ucd="REMARKS" -->
+      <DESCRIPTION>Title of the images of the FITS file</DESCRIPTION>
+    </FIELD>
+    <FIELD name="_RA.icrs" ucd="pos.eq.ra" datatype="double" width="9" precision="5" unit="deg"><!-- ucd="POS_EQ_RA_OTHER" -->
+      <DESCRIPTION>Right ascension (ICRS) (computed by VizieR, not part of the original data)</DESCRIPTION>
+      <VALUES null="NaN" />
+    </FIELD>
+    <FIELD name="_DE.icrs" ucd="pos.eq.dec" datatype="double" width="9" precision="5" unit="deg"><!-- ucd="POS_EQ_DEC_OTHER" -->
+      <DESCRIPTION>Declination (ICRS) (computed by VizieR, not part of the original data)</DESCRIPTION>
+      <VALUES null="NaN" />
+    </FIELD>
+<DATA><TABLEDATA>
+<TR><TD>210.05208</TD><TD>-17.06875</TD><TD>15</TD><TD>3444</TD><TD>2492</TD><TD>7</TD><TD>234683</TD><TD>fits</TD><TD>planck_herschel.fits</TD><TD>Opacity map and error at 353 GHz, Color temperature and error, Modified black-body exponent and error and Total chi-square images.</TD><TD>086.34183</TD><TD>-05.22661</TD></TR>
+</TABLEDATA></DATA>
+</TABLE>
+
+<INFO name="Warning" value="No center provided++++"/>
+<INFO name="Warning" value="skip recno in all column selection"/>
+</RESOURCE>
+</VOTABLE>
