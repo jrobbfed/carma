@@ -1,0 +1,7 @@
+taskname           = "imhead"
+imagename          =  "nro_13co_dv0.2kms.fits"
+mode               =  "summary"
+hdkey              =  ""
+hdvalue            =  ""
+verbose            =  False
+#imhead(imagename="nro_13co_dv0.2kms.fits",mode="summary",hdkey="",hdvalue="",verbose=False)

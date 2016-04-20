@@ -1,0 +1,7 @@
+taskname           = "imhead"
+imagename          =  "l1461n.13co.fits"
+mode               =  "summary"
+hdkey              =  ""
+hdvalue            =  ""
+verbose            =  False
+#imhead(imagename="l1461n.13co.fits",mode="summary",hdkey="",hdvalue="",verbose=False)
