@@ -1,8 +1,9 @@
 *.ajs
+13co/
 *.aj
-*.pdf
+#*.pdf
 *.fit*
-*.png
-*.jpg
+#*.png
+#*.jpg
 #This is an independent repo. Look into merging with CARMA.
 miriad-imaging/
