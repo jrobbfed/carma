@@ -1,0 +1,2 @@
+*.bck filter=lfs diff=lfs merge=lfs -text
+*.bck.dir/ filter=lfs diff=lfs merge=lfs -text
