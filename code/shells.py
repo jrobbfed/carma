@@ -25,23 +25,24 @@ def main():
     TYPE
         Description
     """
+    movie(test=False, labels=False) 
     #cube_file = '../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits'
-    region_file = '../nro_maps/SouthShells.reg'
-    N = 2 # Number of shell candidates to plot
-    shell_list = get_shells(region_file=region_file)
+    # region_file = '../nro_maps/SouthShells.reg'
+    # N = 2 # Number of shell candidates to plot
+    # shell_list = get_shells(region_file=region_file)
 
-    cube_file = "../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits"
-    #cube_file = "../nro_maps/13CO_20161011_FOREST-BEARS_xyb_spheroidal_dV0.11kms_YS.fits"
+    # cube_file = "../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits"
+    # #cube_file = "../nro_maps/13CO_20161011_FOREST-BEARS_xyb_spheroidal_dV0.11kms_YS.fits"
 
-    for n in range(1,2):
-        shell = shell_list[n]
-        for deg in np.linspace(0, 180, 13):
-            angle = deg*u.deg
-            pv = plot_pv(cube=cube_file, ra_center=shell.ra, dec_center=shell.dec,
-                vel=[4*u.km/u.s, 8*u.km/u.s], length=shell.radius*2.*4.,
-                width=7.5*u.arcsec, angle=105*u.deg,
-                pad_factor=1., plotname='12co_pv_shell'+str(n+1)+'_angle'+str(angle.value)+'morev.png', return_subplot=True,
-                stretch='linear', auto_scale=True)
+    # for n in range(1,2):
+    #     shell = shell_list[n]
+    #     for deg in np.linspace(0, 180, 13):
+    #         angle = deg*u.deg
+    #         pv = plot_pv(cube=cube_file, ra_center=shell.ra, dec_center=shell.dec,
+    #             vel=[4*u.km/u.s, 8*u.km/u.s], length=shell.radius*2.*4.,
+    #             width=7.5*u.arcsec, angle=105*u.deg,
+    #             pad_factor=1., plotname='12co_pv_shell'+str(n+1)+'_angle'+str(angle.value)+'morev.png', return_subplot=True,
+    #             stretch='linear', auto_scale=True)
 
     # cube_file = "../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits"
     # for n in range(N):
@@ -140,20 +141,33 @@ def main():
     # plot_overview(cube=cube, mode=mode, region_file=region_file, plotname=plotname,
     #     interactive=interactive, show_shells=show_shells)
 
-def movie(file='cube_57_90_noboundary.fits'):
+def movie(file='../combined_maps/12co_01_90_noboundary.fits', test=False, labels=True):
     f = fits.open(file)
     header = f[0].header
     f.close()
     vel_min = header['CRVAL3'] - header['CDELT3'] * (header['CRPIX3'] - 1)
-    N = header['NAXIS3']
-    for i in range(N):
+    if test:
+        Ni = 59
+        Nf = 61
+    else:
+        Ni = 0
+        Nf = header['NAXIS3']
+    for i in range(Ni, Nf):
         fig = FITSFigure(file, dimensions=[0,1], slices=[i, 0])
         vel_kms = round((vel_min + header['CDELT3']*i) / 1000., 2)
-        fig.show_grayscale()
-        fig.set_tick_labels_xformat("hh:mm")
-        fig.add_label(84.25,-5, str(vel_kms)+" km/s",size=15)
-        fig.save('12co_carmanro_'+str(vel_kms)+'_kms.png', dpi=300) 
-
+        fig.show_colorscale(cmap='viridis')
+        if labels:
+            fig.set_tick_labels_xformat("hh:mm")
+            fig.add_label(84.25,-5, str(vel_kms)+" km/s",size=15)
+        else:
+            #fig.set_theme('pretty')
+            fig.set_nan_color('black')
+            #fig.hide_grid()
+            fig.hide_axis_labels()
+            fig.hide_tick_labels()
+            fig.ticks.hide()
+        fig.save('12co_movie/12co_carmanro_'+str(vel_kms)+'_kms.png', dpi=200) 
+        fig.close()
 
 def shell_mask(cube, shell):
     """

@@ -1,0 +1,64 @@
+language: python
+
+sudo : false
+
+python:
+    - 2.7
+
+addons:
+    apt:
+        packages:
+            - graphviz
+            - texlive-latex-extra
+            - dvipng
+
+env:
+    global:
+        - SETUP_CMD='test'
+        - CONDA_ADDITIONAL='scipy matplotlib pyqt=4.11.4 pandas statsmodels scikit-learn'
+        - NP_VER=1.10
+        - ASTRO_VER=1.0
+    matrix:
+        - SETUP_CMD='egg_info'
+
+matrix:
+    include:
+        - python: 2.7
+          env: NP_VER=1.9 ASTRO_VER=1.0
+
+        - python: 2.7
+          env: NP_VER=1.10 ASTRO_VER=1.0
+
+        - python: 2.7
+          env: NP_VER=1.10 ASTRO_VER=1.1
+
+        - python: 2.7
+          env: NP_VER=1.11 ASTRO_VER=1.2
+
+
+before_install:
+    - wget http://repo.continuum.io/miniconda/Miniconda-latest-Linux-x86_64.sh -O miniconda.sh
+    - chmod +x miniconda.sh
+    - ./miniconda.sh -b
+    - export PATH=/home/travis/miniconda2/bin:$PATH
+    - export PATH=/home/travis/miniconda/bin:$PATH
+    - conda update --yes conda
+
+install:
+    # Create a new environment
+    - conda create --yes -n test python=$TRAVIS_PYTHON_VERSION pip cython pytest
+    - source activate test
+
+    # Now install dependencies
+    - conda install --yes $CONDA_ADDITIONAL
+    - conda install --yes numpy=$NP_VER astropy=$ASTRO_VER
+
+    # Use pip to install development versions
+    - pip install git+https://github.com/dendrograms/astrodendro.git
+    - pip install git+https://github.com/radio-astro-tools/spectral-cube.git
+    - pip install git+https://github.com/radio-astro-tools/signal-id.git
+    - pip install git+https://github.com/radio-astro-tools/radio_beam.git
+    - pip install emcee
+
+script:
+    - python setup.py $SETUP_CMD
