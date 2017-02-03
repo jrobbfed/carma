@@ -1,0 +1,9 @@
+numpy
+matplotlib
+Cython
+scipy
+astropy-helpers
+astropy
+mock
+numpydoc
+sphinx_bootstrap_theme
