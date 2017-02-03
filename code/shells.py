@@ -166,7 +166,7 @@ def movie(file='../combined_maps/12co_01_90_noboundary.fits', test=False, labels
             fig.hide_axis_labels()
             fig.hide_tick_labels()
             fig.ticks.hide()
-        fig.save('12co_movie/12co_carmanro_'+str(vel_kms)+'_kms.png', dpi=200) 
+        fig.save('12co_movie/12co_carmanro_chan'+str(i+1)+'_'+str(vel_kms)+'_kms.png', dpi=300) 
         fig.close()
 
 def shell_mask(cube, shell):
