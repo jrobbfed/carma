@@ -7,13 +7,16 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from astropy.wcs import WCS
 from wcsaxes import WCSAxes
-from astropy.io import fits
-from astropy.io import ascii
+from astropy.io import (fits, ascii)
+from astropy.table import Table, Column
+#from astropy.io import ascii
 import astropy.coordinates as coord
 import astropy.units as u
 import aplpy
 from aplpy import FITSFigure
 import numpy as np
+from astroquery.simbad import Simbad
+
 
 orion_dist = 414*u.pc #pc
 
@@ -25,7 +28,10 @@ def main():
     TYPE
         Description
     """
-    movie(test=False, labels=False) 
+    simbad_brightstars(output='stars_obaf.txt', output_format='ascii', replace_ra='deg')
+
+    #movie(test=False, labels=False) 
+
     #cube_file = '../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits'
     # region_file = '../nro_maps/SouthShells.reg'
     # N = 2 # Number of shell candidates to plot
@@ -140,6 +146,86 @@ def main():
 
     # plot_overview(cube=cube, mode=mode, region_file=region_file, plotname=plotname,
     #     interactive=interactive, show_shells=show_shells)
+class Shell(object):
+    """Summary
+    
+    Attributes
+    ----------
+    center : TYPE
+        Description
+    dec : TYPE
+        Description
+    ra : TYPE
+        Description
+    radius : TYPE
+        Description
+    vmax : TYPE
+        Description
+    vmin : TYPE
+        Description
+    """
+    def __init__(self, ra=0., dec=0., radius=0., vmin=0., vmax=0.,
+     ra_unit='degree', dec_unit='degree', radius_unit='degree', vunit='km/s'):
+        """Summary
+        
+        Parameters
+        ----------
+        ra : float, optional
+            Description
+        dec : float, optional
+            Description
+        radius : float, optional
+            Description
+        vmin : float, optional
+            Description
+        vmax : float, optional
+            Description
+        ra_unit : str, optional
+            Description
+        dec_unit : str, optional
+            Description
+        radius_unit : str, optional
+            Description
+        vunit : str, optional
+            Description
+        """
+        self.ra = coord.Angle(ra, ra_unit)
+        self.dec = coord.Angle(dec, dec_unit)
+        self.center = coord.SkyCoord(ra, dec, unit=(ra_unit, dec_unit))
+        self.radius = coord.Angle(radius, radius_unit)
+    
+        self.vmin = vmin * u.Unit(vunit)
+        self.vmax = vmax * u.Unit(vunit)
+
+# def glue_search(cube12co='../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits',
+#     cube13co='../nro_maps/13CO_20161011_FOREST-BEARS_xyb_spheroidal_dV0.11kms_YS.fits', 
+#     region_file='../nro_maps/SouthShells.reg', yso_file='../catalogs/spitzer_orion.fit',
+#     mode='glue', plotname=None, show_shells=True, yso_col='Kmag', yso_bins=[5,6,7,8],):
+    
+#     spectral_cube = SpectralCube.read()
+#     shells = get_shells(region_file=region_file)
+#     yso_table = Table(fits.open(yso_file)[1].data)
+
+#     if mode == 'glue':
+#         from glue.app.qt.application import GlueApplication
+#         from glue.qglue import parse_data
+#         from glue.core import DataCollection
+#         from glue.viewers.scatter.qt import ScatterWidget
+#         from glue.viewers.image.qt import ImageWidget
+
+#         #Make yso data collections.
+#         for i in range(len(yso_bins) - 1):
+#             yso = yso_table[(yso_table[yso_col] >= yso_bins[i]) & (yso_table[yso_col] < yso_bins[i+1])]
+#             #print(yso)
+
+#         #Make Simbad star data collections.
+
+
+
+
+
+
+
 
 def movie(file='../combined_maps/12co_01_90_noboundary.fits', test=False, labels=True):
     f = fits.open(file)
@@ -166,7 +252,7 @@ def movie(file='../combined_maps/12co_01_90_noboundary.fits', test=False, labels
             fig.hide_axis_labels()
             fig.hide_tick_labels()
             fig.ticks.hide()
-        fig.save('12co_movie/12co_carmanro_chan'+str(i+1)+'_'+str(vel_kms)+'_kms.png', dpi=300) 
+        fig.save('12co_movie/12co_carmanro_chan0'+str(i+1)+'_'+str(vel_kms)+'_kms.png', dpi=600) 
         fig.close()
 
 def shell_mask(cube, shell):
@@ -192,6 +278,79 @@ def shell_mask(cube, shell):
     radius = abs(wcs.all_world2pix(shell.ra + shell.radius, shell.dec, 0)[0] - center[0])
     mask = (x_grid - center[0]) ** 2. + (y_grid - center[1]) ** 2. < radius ** 2. 
     return mask
+
+def simbad_brightstars(image_file="../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits",
+    brighter_than='G0', extra_criteria="(ra < 84.4 | dec < -6.66)", otypes="Star",
+    replace_ra='hourangle', replace_dec='deg', add_sptype_letter_column=True,
+    output=None, output_format='fits'):
+    """
+    Returns a table of SIMBAD stars brighter than the given spectral type found within the footprint of
+    the input cube or image.
+    
+    Parameters
+    ----------
+    image_file : str, optional
+        Input fits cube or 2-d image with world coordinates in header.
+    brighter_than : str, optional
+        Stars selected will all have spectral types earlier than this.
+    extra_criteria : str, optional
+        In the form of "criteriaA & criteriaB & criteriaC". 
+    otypes : str, optional
+        The SIMBAD object type identifier to use.
+        "Star" finds all objects of the Star category
+             and all subcategories of Star like YSOs.
+    replace_ra : str, optional
+        If not None, replace the right ascension in table with values in this unit.
+        Must be an astropy.unit name.
+    replace_dec : str, optional
+        If not None, replace the declination in table with values in this unit.
+        Must be an astropy.unit name.
+    add_sptype_letter_column : bool, optional
+        If True, add a column to the table consisting of a single letter indicating the spectral type.
+    output : str, optional
+        If None, return table, else `output` is name of the file to write the star table to.
+    
+    """
+    try:
+        wcs = WCS(image_file).celestial #Drop non-celestial axes (like velocity and stokes). 
+    except:
+        raise("image_file must be a fits image or cube with wcs in header.")
+
+    footprint = wcs.calc_footprint()
+
+ 
+    ### ra_min/max, dec_min/max need to be in degrees.
+    ### In the fits headers I have they are, but this may not always be true.
+    ###
+    ra_min, ra_max = footprint[:,0].min(), footprint[:,0].max()
+    dec_min, dec_max = footprint[:,1].min(), footprint[:,1].max()
+
+    s = Simbad()
+    s.add_votable_fields('sptype')
+
+    if extra_criteria:
+        stars = s.query_criteria("ra > {} & ra < {} & dec > {} & dec < {} & sptypes < {} & {}".format(
+            ra_min, ra_max, dec_min, dec_max, brighter_than, extra_criteria), otypes="Star")
+    else:
+        stars = s.query_criteria("ra > {} & ra < {} & dec > {} & dec < {} & sptypes < {}".format(
+            ra_min, ra_max, dec_min, dec_max, brighter_than), otypes="Star")
+
+    stars_coord = coord.SkyCoord(stars['RA'], stars['DEC'], unit=(u.hourangle, u.deg))
+
+    if replace_ra:
+        stars.replace_column('RA', Column(stars_coord.ra, name='RA', unit=replace_ra))
+    if replace_dec:
+        stars.replace_column('DEC', Column(stars_coord.dec, name='DEC', unit=replace_dec))
+
+    if add_sptype_letter_column:
+        stars.add_column(Column([sptype[0] for sptype in stars['SP_TYPE'].astype('str')], name='SP_LETTER', unit='str'))
+
+    if output:
+        stars.write(output, format=output_format)##
+    else:
+        return stars
+
+
 
 def simbad_sources(ra, dec, radius, unit='degree', object_type="Star", fields='sptype'):
     """Returns the simbad sources within `radius` around [`ra`, `dec`].
@@ -261,10 +420,6 @@ def data_cutout(data=None, wcs=None, ra=None, dec=None, radius=None, unit='deg',
     pix_reg = sky_reg.to_pix(wcs)
 
     mask.cutout(da)
-
-
-
-
 def get_shells(velocity_file='SouthShells_vrange.txt', region_file='../nro_maps/SouthShells.reg',
     ra_col="ra", dec_col="dec", radius_col="radius", vmin_col='vmin', vmax_col='vmax',
     ra_unit='deg', dec_unit='deg', radius_unit='deg', v_unit='km/s'):
@@ -310,60 +465,7 @@ def get_shells(velocity_file='SouthShells_vrange.txt', region_file='../nro_maps/
         shell_list += [Shell(ra, dec, radius, vmin_list[i], vmax_list[i])]
 
 
-    return shell_list 
-
-class Shell(object):
-    """Summary
-    
-    Attributes
-    ----------
-    center : TYPE
-        Description
-    dec : TYPE
-        Description
-    ra : TYPE
-        Description
-    radius : TYPE
-        Description
-    vmax : TYPE
-        Description
-    vmin : TYPE
-        Description
-    """
-    def __init__(self, ra=0., dec=0., radius=0., vmin=0., vmax=0.,
-     ra_unit='degree', dec_unit='degree', radius_unit='degree', vunit='km/s'):
-        """Summary
-        
-        Parameters
-        ----------
-        ra : float, optional
-            Description
-        dec : float, optional
-            Description
-        radius : float, optional
-            Description
-        vmin : float, optional
-            Description
-        vmax : float, optional
-            Description
-        ra_unit : str, optional
-            Description
-        dec_unit : str, optional
-            Description
-        radius_unit : str, optional
-            Description
-        vunit : str, optional
-            Description
-        """
-        self.ra = coord.Angle(ra, ra_unit)
-        self.dec = coord.Angle(dec, dec_unit)
-        self.center = coord.SkyCoord(ra, dec, unit=(ra_unit, dec_unit))
-        self.radius = coord.Angle(radius, radius_unit)
-    
-        self.vmin = vmin * u.Unit(vunit)
-        self.vmax = vmax * u.Unit(vunit)
-
-#    def subplot(source_catalog='../')
+    return shell_list
 
 def plot_overview(cube='../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits',
  region_file='../nro_maps/SouthShells.reg', mode='peak', plotname='12co_peak_shells.png',

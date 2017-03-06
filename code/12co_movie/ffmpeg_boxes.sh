@@ -1,0 +1,1 @@
+ffmpeg -i out_blend_24fps_trimmed.mp4 -filter drawbox=x=200:y=ih-h-1365:w=130:h=160:t=max,drawbox=x=1010:y=ih-h-1075:w=150:h=260:t=max,drawbox=x=185:y=ih-h-45:w=358:h=165:t=max,drawbox=x=200:y=ih-h-1525:w=295:h=265:t=max out_blend_24fps_trimmed_masked.mp4
