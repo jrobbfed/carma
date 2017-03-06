@@ -1,0 +1,6946 @@
+{
+  "CoordinateComponent_11": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 2
+  },
+  "CoordinateComponentLink_38": {
+    "to": [
+      "Pixel Axis 0 [x]"
+    ],
+    "index": 0,
+    "frm": [
+      "World 0"
+    ],
+    "pix2world": false,
+    "coords": "Coordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_112": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_26"
+  },
+  "CoordinateComponentLink_90": {
+    "to": [
+      "Pixel Axis 1 [x]_1"
+    ],
+    "index": 1,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "6.0<=Kmag<7.0_3": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#f88e52",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "6.0<=Kmag<7.0_0"
+  },
+  "Pixel Axis 1 [y]_2": {
+    "label": "Pixel Axis 1 [y]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 1,
+    "hidden": true
+  },
+  "DerivedComponent_48": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_26"
+  },
+  "Component_17": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 15
+  },
+  "CoordinateComponentLink_30": {
+    "to": [
+      "Pixel Axis 1 [x]_2"
+    ],
+    "index": 1,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "World 0_3": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "World 0",
+    "hidden": true
+  },
+  "DerivedComponent_61": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_32"
+  },
+  "CoordinateComponentLink_18": {
+    "to": [
+      "Pixel Axis 1 [y]"
+    ],
+    "index": 1,
+    "frm": [
+      "Velocity_0",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_7",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_117": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_100"
+  },
+  "DerivedComponent_0": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_18"
+  },
+  "COO_BIBCODE": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "COO_BIBCODE",
+    "hidden": false
+  },
+  "CoordinateComponentLink_1": {
+    "to": [
+      "World 0"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [x]"
+    ],
+    "pix2world": true,
+    "coords": "Coordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_15": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_51"
+  },
+  "CoordinateComponent_29": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "Vopt": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Vopt",
+    "hidden": true
+  },
+  "DerivedComponent_129": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_40"
+  },
+  "_DEJ2000": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "_DEJ2000",
+    "hidden": false
+  },
+  "DerivedComponent_67": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_0"
+  },
+  "CoordinateComponentLink_48": {
+    "to": [
+      "Pixel Axis 0 [y]"
+    ],
+    "index": 0,
+    "frm": [
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_1",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_68": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_14"
+  },
+  "CoordinateComponentLink_61": {
+    "to": [
+      "Velocity"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "MIPS_ONC_24um": {
+    "_key_joins": [],
+    "_protocol": 4,
+    "_type": "glue.core.data.Data",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.81,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "0.35",
+      "linewidth": 1,
+      "markersize": 3
+    },
+    "coords": "WCSCoordinates_1",
+    "subsets": [
+      "9.0<=Kmag<=10.0",
+      "F Stars",
+      "8.0<=Kmag<9.0",
+      "6.0<=Kmag<7.0",
+      "O Stars",
+      "A Stars",
+      "7.0<=Kmag<8.0",
+      "B Stars",
+      "5.0<=Kmag<6.0"
+    ],
+    "label": "MIPS_ONC_24um",
+    "components": [
+      [
+        "PRIMARY",
+        "Component_26"
+      ],
+      [
+        "Pixel Axis 0 [y]",
+        "CoordinateComponent_27"
+      ],
+      [
+        "Pixel Axis 1 [x]",
+        "CoordinateComponent_28"
+      ],
+      [
+        "Declination",
+        "CoordinateComponent_29"
+      ],
+      [
+        "Right Ascension",
+        "CoordinateComponent_30"
+      ],
+      [
+        "Pixel Axis 0 [y]_2",
+        "DerivedComponent_115"
+      ],
+      [
+        "Pixel Axis 1 [x]_2",
+        "DerivedComponent_116"
+      ],
+      [
+        "Pixel Axis 1 [y]_0",
+        "DerivedComponent_117"
+      ],
+      [
+        "Galactic Latitude",
+        "DerivedComponent_118"
+      ],
+      [
+        "Pixel Axis 1 [x]_1",
+        "DerivedComponent_119"
+      ],
+      [
+        "Pixel Axis 0 [y]_1",
+        "DerivedComponent_120"
+      ],
+      [
+        "Pixel Axis 1 [x]_0",
+        "DerivedComponent_121"
+      ],
+      [
+        "Pixel Axis 2 [x]",
+        "DerivedComponent_122"
+      ],
+      [
+        "Pixel Axis 1 [y]_1",
+        "DerivedComponent_123"
+      ],
+      [
+        "Pixel Axis 1 [y]",
+        "DerivedComponent_124"
+      ],
+      [
+        "Pixel Axis 2 [x]_2",
+        "DerivedComponent_125"
+      ],
+      [
+        "Pixel Axis 0 [y]_0",
+        "DerivedComponent_126"
+      ],
+      [
+        "Pixel Axis 1 [y]_2",
+        "DerivedComponent_127"
+      ],
+      [
+        "Galactic Longitude",
+        "DerivedComponent_128"
+      ],
+      [
+        "Pixel Axis 2 [x]_1",
+        "DerivedComponent_129"
+      ],
+      [
+        "Pixel Axis 2 [x]_0",
+        "DerivedComponent_130"
+      ]
+    ],
+    "uuid": "4bf4da51-6a3f-4e72-8def-89168b896bda"
+  },
+  "A Stars_7": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#07ff01",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "A Stars_1"
+  },
+  "InequalitySubsetState_13": {
+    "left": "SP_LETTER",
+    "op": ">=",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 2.5
+  },
+  "DerivedComponent_17": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_100"
+  },
+  "WCSCoordinates_2": {
+    "_type": "glue.core.coordinates.WCSCoordinates",
+    "header": "WCSAXES =                    3 / Number of coordinate axes                      CRPIX1  =         455.19235889 / Pixel coordinate of reference point            CRPIX2  =        775.958826667 / Pixel coordinate of reference point            CRPIX3  =                  1.0 / Pixel coordinate of reference point            CDELT1  =    -0.00208333333333 / [deg] Coordinate increment at reference point  CDELT2  =     0.00208333333333 / [deg] Coordinate increment at reference point  CDELT3  =                110.0 / [m/s] Coordinate increment at reference point  CUNIT1  = 'deg'                / Units of coordinate increment and value        CUNIT2  = 'deg'                / Units of coordinate increment and value        CUNIT3  = 'm/s'                / Units of coordinate increment and value        CTYPE1  = 'RA---SFL'           / Right ascension, Sanson-Flamsteed projection   CTYPE2  = 'DEC--SFL'           / Declination, Sanson-Flamsteed projection       CTYPE3  = 'VOPT'               / Optical velocity (linear)                      CRVAL1  =            83.783333 / [deg] Coordinate value at reference point      CRVAL2  =            -5.583333 / [deg] Coordinate value at reference point      CRVAL3  =              -2945.0 / [m/s] Coordinate value at reference point      PV1_0   =                  1.0 / [m/s] Coordinate value at reference point      PV1_1   =                  0.0 / [deg] Native longitude of the reference point  PV1_2   =            -5.583333 / [deg] Native latitude  of the reference point  LONPOLE =                  0.0 / [deg] Native longitude of celestial pole       LATPOLE =                 90.0 / [deg] Native latitude of celestial pole        RESTFRQ =       110201354980.0 / [Hz] Line rest frequency                       RADESYS = 'FK5'                / Equatorial coordinate system                   EQUINOX =               2000.0 / [yr] Equinox of equatorial coordinates         SPECSYS = 'LSRK'               / Reference frame of spectral coordinates        MJD-OBS =              57171.0 / [d] MJD of observation matching DATE-OBS       DATE-OBS= '2015-05-29T00:00:00.0' / ISO-8601 observation date matching MJD-OBS  END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "
+  },
+  "CoordinateComponentLink_9": {
+    "to": [
+      "Pixel Axis 0 [z]_0"
+    ],
+    "index": 0,
+    "frm": [
+      "Velocity",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_26": {
+    "to": [
+      "Pixel Axis 1 [y]_2"
+    ],
+    "index": 1,
+    "frm": [
+      "Velocity",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Component_12": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 10
+  },
+  "ImageWidget": {
+    "properties": {
+      "batt": null,
+      "attribute": "STOKES I",
+      "ratt": null,
+      "gatt": null,
+      "rgb_mode": false,
+      "data": "12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms",
+      "slice": [
+        150,
+        "y",
+        "x"
+      ],
+      "rgb_viz": [
+        true,
+        true,
+        true
+      ]
+    },
+    "layers": [
+      {
+        "layer": "12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms",
+        "_type": "glue.viewers.image.layer_artist.ImageLayerArtist",
+        "norm": "DS9Normalize_0",
+        "zorder": 1,
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.scatter.layer_artist.ScatterLayerArtist",
+        "zorder": 2,
+        "yatt": "Pixel Axis 1 [y]_1",
+        "xatt": "Pixel Axis 2 [x]_1",
+        "layer": "B Stars_0",
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.scatter.layer_artist.ScatterLayerArtist",
+        "zorder": 3,
+        "yatt": "Pixel Axis 1 [y]_1",
+        "xatt": "Pixel Axis 2 [x]_1",
+        "layer": "A Stars_0",
+        "visible": true
+      }
+    ],
+    "pos": [
+      3,
+      -1
+    ],
+    "size": [
+      712,
+      1095
+    ],
+    "session": "Session",
+    "_type": "glue.viewers.image.qt.viewer_widget.ImageWidget"
+  },
+  "Pixel Axis 2 [x]": {
+    "label": "Pixel Axis 2 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 2,
+    "hidden": true
+  },
+  "DerivedComponent_79": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_18"
+  },
+  "DerivedComponent_97": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_51"
+  },
+  "8.0<=Kmag<9.0_1": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#8dc1dc",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "8.0<=Kmag<9.0_0"
+  },
+  "CoordinateComponent_24": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 1
+  },
+  "Component_19": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 6
+  },
+  "CoordinateComponentLink_64": {
+    "to": [
+      "Pixel Axis 2 [x]_2"
+    ],
+    "index": 2,
+    "frm": [
+      "Velocity",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "World 1_0": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "World 1",
+    "hidden": true
+  },
+  "Component_20": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 5
+  },
+  "CoordinateComponent_22": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 1
+  },
+  "F Stars_6": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ffaf00",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "F Stars_0"
+  },
+  "CoordinateComponentLink_81": {
+    "to": [
+      "Pixel Axis 0 [y]_1"
+    ],
+    "index": 0,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DS9Normalize_0": {
+    "_type": "glue.viewers.image.ds9norm.DS9Normalize",
+    "bias": 0.4641025641025641,
+    "vmax": 116.12618255615234,
+    "clip_hi": 100,
+    "vmin": -59.23605728149414,
+    "stretch": "linear",
+    "clip_lo": 0,
+    "contrast": 1.4803921568627454
+  },
+  "CoordinateComponentLink_12": {
+    "to": [
+      "Pixel Axis 0 [x]"
+    ],
+    "index": 0,
+    "frm": [
+      "World 0"
+    ],
+    "pix2world": false,
+    "coords": "Coordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_116": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 1 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_44": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_34"
+  },
+  "DataCollection": {
+    "_protocol": 3,
+    "_type": "glue.core.data_collection.DataCollection",
+    "links": [
+      "CoordinateComponentLink",
+      "CoordinateComponentLink_0",
+      "CoordinateComponentLink_1",
+      "CoordinateComponentLink_2",
+      "CoordinateComponentLink_3",
+      "ComponentLink",
+      "ComponentLink_0",
+      "ComponentLink_1",
+      "CoordinateComponentLink_4",
+      "CoordinateComponentLink_5",
+      "CoordinateComponentLink_6",
+      "CoordinateComponentLink_7",
+      "CoordinateComponentLink_8",
+      "CoordinateComponentLink_9",
+      "CoordinateComponentLink_10",
+      "CoordinateComponentLink_11",
+      "CoordinateComponentLink_12",
+      "CoordinateComponentLink_13",
+      "CoordinateComponentLink_14",
+      "CoordinateComponentLink_15",
+      "ComponentLink_2",
+      "CoordinateComponentLink_16",
+      "CoordinateComponentLink_17",
+      "CoordinateComponentLink_18",
+      "CoordinateComponentLink_19",
+      "CoordinateComponentLink_20",
+      "CoordinateComponentLink_21",
+      "CoordinateComponentLink_22",
+      "CoordinateComponentLink_23",
+      "CoordinateComponentLink_24",
+      "CoordinateComponentLink_25",
+      "CoordinateComponentLink_26",
+      "CoordinateComponentLink_27",
+      "CoordinateComponentLink_28",
+      "CoordinateComponentLink_29",
+      "CoordinateComponentLink_30",
+      "CoordinateComponentLink_31",
+      "CoordinateComponentLink_32",
+      "CoordinateComponentLink_33",
+      "ComponentLink_3",
+      "CoordinateComponentLink_34",
+      "CoordinateComponentLink_35",
+      "CoordinateComponentLink_36",
+      "CoordinateComponentLink_37",
+      "CoordinateComponentLink_38",
+      "CoordinateComponentLink_39",
+      "CoordinateComponentLink_40",
+      "CoordinateComponentLink_41",
+      "CoordinateComponentLink_42",
+      "ComponentLink_4",
+      "CoordinateComponentLink_43",
+      "CoordinateComponentLink_44",
+      "CoordinateComponentLink_45",
+      "CoordinateComponentLink_46",
+      "CoordinateComponentLink_47",
+      "CoordinateComponentLink_48",
+      "CoordinateComponentLink_49",
+      "CoordinateComponentLink_50",
+      "ComponentLink_5",
+      "CoordinateComponentLink_51",
+      "CoordinateComponentLink_52",
+      "CoordinateComponentLink_53",
+      "ComponentLink_6",
+      "CoordinateComponentLink_54",
+      "CoordinateComponentLink_55",
+      "CoordinateComponentLink_56",
+      "CoordinateComponentLink_57",
+      "ComponentLink_7",
+      "CoordinateComponentLink_58",
+      "CoordinateComponentLink_59",
+      "CoordinateComponentLink_60",
+      "CoordinateComponentLink_61",
+      "ComponentLink_8",
+      "CoordinateComponentLink_62",
+      "CoordinateComponentLink_63",
+      "CoordinateComponentLink_64",
+      "CoordinateComponentLink_65",
+      "CoordinateComponentLink_66",
+      "CoordinateComponentLink_67",
+      "CoordinateComponentLink_68",
+      "CoordinateComponentLink_69",
+      "CoordinateComponentLink_70",
+      "ComponentLink_9",
+      "CoordinateComponentLink_71",
+      "CoordinateComponentLink_72",
+      "ComponentLink_10",
+      "ComponentLink_11",
+      "CoordinateComponentLink_73",
+      "CoordinateComponentLink_74",
+      "CoordinateComponentLink_75",
+      "CoordinateComponentLink_76",
+      "CoordinateComponentLink_77",
+      "CoordinateComponentLink_78",
+      "CoordinateComponentLink_79",
+      "CoordinateComponentLink_80",
+      "CoordinateComponentLink_81",
+      "CoordinateComponentLink_82",
+      "CoordinateComponentLink_83",
+      "CoordinateComponentLink_84",
+      "CoordinateComponentLink_85",
+      "ComponentLink_12",
+      "CoordinateComponentLink_86",
+      "CoordinateComponentLink_87",
+      "CoordinateComponentLink_88",
+      "ComponentLink_13",
+      "ComponentLink_14",
+      "CoordinateComponentLink_89",
+      "CoordinateComponentLink_90",
+      "CoordinateComponentLink_91",
+      "ComponentLink_15",
+      "CoordinateComponentLink_92",
+      "CoordinateComponentLink_93",
+      "CoordinateComponentLink_94",
+      "CoordinateComponentLink_95",
+      "CoordinateComponentLink_96",
+      "CoordinateComponentLink_97",
+      "CoordinateComponentLink_98",
+      "ComponentLink_16",
+      "CoordinateComponentLink_99",
+      "CoordinateComponentLink_100",
+      "CoordinateComponentLink_101",
+      "CoordinateComponentLink_102",
+      "CoordinateComponentLink_103",
+      "CoordinateComponentLink_104",
+      "CoordinateComponentLink_105",
+      "CoordinateComponentLink_106",
+      "CoordinateComponentLink_107",
+      "CoordinateComponentLink_108",
+      "CoordinateComponentLink_109",
+      "CoordinateComponentLink_110",
+      "CoordinateComponentLink_111",
+      "CoordinateComponentLink_112",
+      "CoordinateComponentLink_113",
+      "CoordinateComponentLink_114",
+      "CoordinateComponentLink_115",
+      "CoordinateComponentLink_116",
+      "CoordinateComponentLink_117",
+      "CoordinateComponentLink_118",
+      "CoordinateComponentLink_119",
+      "CoordinateComponentLink_120",
+      "CoordinateComponentLink_121",
+      "ComponentLink_17",
+      "CoordinateComponentLink_122",
+      "CoordinateComponentLink_123",
+      "CoordinateComponentLink_124",
+      "CoordinateComponentLink_125",
+      "ComponentLink_18",
+      "CoordinateComponentLink_126",
+      "CoordinateComponentLink_127",
+      "CoordinateComponentLink_128",
+      "CoordinateComponentLink_129",
+      "CoordinateComponentLink_130",
+      "CoordinateComponentLink_131",
+      "CoordinateComponentLink_132",
+      "CoordinateComponentLink_133",
+      "CoordinateComponentLink_134",
+      "CoordinateComponentLink_135",
+      "CoordinateComponentLink_136",
+      "CoordinateComponentLink_137",
+      "CoordinateComponentLink_138",
+      "CoordinateComponentLink_139",
+      "CoordinateComponentLink_140"
+    ],
+    "subset_group_count": 19,
+    "cids": [
+      "MAIN_ID",
+      "RA_PREC",
+      "DEC_PREC",
+      "COO_ERR_MAJA",
+      "COO_ERR_MINA",
+      "COO_ERR_ANGLE",
+      "COO_QUAL",
+      "COO_WAVELENGTH",
+      "COO_BIBCODE",
+      "SP_TYPE",
+      "SP_QUAL",
+      "SP_BIBCODE",
+      "SP_LETTER",
+      "Pixel Axis 0 [x]",
+      "World 0",
+      "Pixel Axis 2 [x]",
+      "Pixel Axis 1 [y]",
+      "Pixel Axis 0 [y]_0",
+      "Galactic Longitude",
+      "Pixel Axis 2 [x]_0",
+      "Galactic Latitude",
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [y]_0",
+      "Pixel Axis 1 [x]_0",
+      "Pixel Axis 1 [x]_1",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1",
+      "Pixel Axis 2 [x]_2",
+      "Pixel Axis 1 [x]_2",
+      "Pixel Axis 1 [y]_2",
+      "Declination",
+      "Right Ascension",
+      "Pixel Axis 1 [x]",
+      "Pixel Axis 0 [y]",
+      "_RAJ2000",
+      "_DEJ2000",
+      "Seq",
+      "Jmag",
+      "Hmag",
+      "Kmag",
+      "__3_6_",
+      "__4_5_",
+      "__5_8_",
+      "__8_0_",
+      "__24_",
+      "AKs",
+      "alpha",
+      "Cl",
+      "_2M",
+      "Simbad",
+      "Pixel Axis 0 [x]_0",
+      "World 0_0",
+      "Pixel Axis 1 [y]_0",
+      "Galactic Longitude",
+      "Pixel Axis 2 [x]_0",
+      "Galactic Latitude",
+      "Pixel Axis 0 [y]_0",
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [x]_0",
+      "Pixel Axis 1 [x]_1",
+      "Pixel Axis 2 [x]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1",
+      "Pixel Axis 1 [y]",
+      "Pixel Axis 2 [x]_2",
+      "Pixel Axis 1 [x]_2",
+      "Pixel Axis 1 [y]_2",
+      "Declination",
+      "Right Ascension",
+      "Pixel Axis 1 [x]",
+      "Pixel Axis 0 [y]",
+      "STOKES I",
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1",
+      "Vopt",
+      "Pixel Axis 0 [y]_0",
+      "Galactic Longitude",
+      "Pixel Axis 2 [x]_0",
+      "Galactic Latitude",
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [y]_0",
+      "Pixel Axis 1 [x]_0",
+      "Pixel Axis 1 [x]_1",
+      "Pixel Axis 2 [x]",
+      "Pixel Axis 1 [y]",
+      "Pixel Axis 2 [x]_2",
+      "Pixel Axis 1 [x]_2",
+      "Pixel Axis 1 [y]_2",
+      "Declination",
+      "Right Ascension",
+      "Pixel Axis 1 [x]",
+      "Pixel Axis 0 [y]",
+      "PRIMARY_0",
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2",
+      "Velocity",
+      "Pixel Axis 0 [y]_0",
+      "Galactic Longitude",
+      "Pixel Axis 2 [x]_0",
+      "Galactic Latitude",
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [y]_0",
+      "Pixel Axis 1 [x]_0",
+      "Pixel Axis 1 [x]_1",
+      "Pixel Axis 2 [x]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1",
+      "Pixel Axis 1 [x]_2",
+      "Pixel Axis 1 [y]",
+      "Declination",
+      "Right Ascension",
+      "Pixel Axis 1 [x]",
+      "Pixel Axis 0 [y]",
+      "PRIMARY_1",
+      "Pixel Axis 0 [y]_0",
+      "Pixel Axis 1 [x]_2",
+      "Galactic Longitude",
+      "Pixel Axis 2 [x]_0",
+      "Galactic Latitude",
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [y]_0",
+      "Pixel Axis 1 [x]_0",
+      "Pixel Axis 1 [x]_1",
+      "Pixel Axis 2 [x]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1",
+      "Pixel Axis 2 [x]_2",
+      "Pixel Axis 1 [y]",
+      "Pixel Axis 1 [y]_2",
+      "Declination",
+      "Right Ascension",
+      "Pixel Axis 1 [x]",
+      "Pixel Axis 0 [y]",
+      "PRIMARY_2",
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 1 [x]_0",
+      "Pixel Axis 0 [y]_0",
+      "Galactic Longitude",
+      "Pixel Axis 2 [x]_0",
+      "Galactic Latitude",
+      "Pixel Axis 2 [x]",
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [y]_0",
+      "Pixel Axis 1 [y]",
+      "Pixel Axis 1 [x]_1",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1",
+      "Pixel Axis 2 [x]_2",
+      "Pixel Axis 1 [x]_2",
+      "Pixel Axis 1 [y]_2",
+      "Declination",
+      "Right Ascension",
+      "Pixel Axis 1 [x]",
+      "Pixel Axis 0 [y]",
+      "PRIMARY_3",
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [x]_1",
+      "Pixel Axis 0 [y]_0",
+      "Galactic Longitude",
+      "Pixel Axis 2 [x]_0",
+      "Galactic Latitude",
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 1 [y]",
+      "Pixel Axis 1 [y]_0",
+      "Pixel Axis 1 [x]_0",
+      "Pixel Axis 2 [x]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1",
+      "Pixel Axis 2 [x]_2",
+      "Pixel Axis 1 [x]_2",
+      "Pixel Axis 1 [y]_2",
+      "Declination",
+      "Right Ascension",
+      "Pixel Axis 1 [x]",
+      "Pixel Axis 0 [y]",
+      "PRIMARY",
+      "Pixel Axis 0 [y]",
+      "Pixel Axis 1 [x]",
+      "Declination",
+      "Right Ascension",
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [x]_2",
+      "Pixel Axis 1 [y]_0",
+      "Galactic Latitude",
+      "Pixel Axis 1 [x]_1",
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 1 [x]_0",
+      "Pixel Axis 2 [x]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 1 [y]",
+      "Pixel Axis 2 [x]_2",
+      "Pixel Axis 0 [y]_0",
+      "Pixel Axis 1 [y]_2",
+      "Galactic Longitude",
+      "Pixel Axis 2 [x]_1",
+      "Pixel Axis 2 [x]_0"
+    ],
+    "components": [
+      "CategoricalComponent",
+      "Component",
+      "Component_0",
+      "Component_1",
+      "Component_2",
+      "Component_3",
+      "CategoricalComponent_0",
+      "CategoricalComponent_1",
+      "CategoricalComponent_2",
+      "CategoricalComponent_3",
+      "CategoricalComponent_4",
+      "CategoricalComponent_5",
+      "CategoricalComponent_6",
+      "CoordinateComponent",
+      "CoordinateComponent_0",
+      "DerivedComponent",
+      "DerivedComponent_0",
+      "DerivedComponent_1",
+      "DerivedComponent_2",
+      "DerivedComponent_3",
+      "DerivedComponent_4",
+      "DerivedComponent_5",
+      "DerivedComponent_6",
+      "DerivedComponent_7",
+      "DerivedComponent_8",
+      "DerivedComponent_9",
+      "DerivedComponent_10",
+      "DerivedComponent_11",
+      "DerivedComponent_12",
+      "DerivedComponent_13",
+      "DerivedComponent_14",
+      "Component_4",
+      "Component_5",
+      "DerivedComponent_15",
+      "DerivedComponent_16",
+      "Component_6",
+      "Component_7",
+      "Component_8",
+      "Component_9",
+      "Component_10",
+      "Component_11",
+      "Component_12",
+      "Component_13",
+      "Component_14",
+      "Component_15",
+      "Component_16",
+      "Component_17",
+      "Component_18",
+      "CategoricalComponent_7",
+      "CategoricalComponent_8",
+      "CategoricalComponent_9",
+      "CoordinateComponent_1",
+      "CoordinateComponent_2",
+      "DerivedComponent_17",
+      "DerivedComponent_18",
+      "DerivedComponent_19",
+      "DerivedComponent_20",
+      "DerivedComponent_21",
+      "DerivedComponent_22",
+      "DerivedComponent_23",
+      "DerivedComponent_24",
+      "DerivedComponent_25",
+      "DerivedComponent_26",
+      "DerivedComponent_27",
+      "DerivedComponent_28",
+      "DerivedComponent_29",
+      "DerivedComponent_30",
+      "DerivedComponent_31",
+      "DerivedComponent_32",
+      "Component_19",
+      "Component_20",
+      "DerivedComponent_33",
+      "DerivedComponent_34",
+      "Component_21",
+      "CoordinateComponent_3",
+      "CoordinateComponent_4",
+      "CoordinateComponent_5",
+      "CoordinateComponent_6",
+      "DerivedComponent_35",
+      "DerivedComponent_36",
+      "DerivedComponent_37",
+      "DerivedComponent_38",
+      "DerivedComponent_39",
+      "DerivedComponent_40",
+      "DerivedComponent_41",
+      "DerivedComponent_42",
+      "DerivedComponent_43",
+      "DerivedComponent_44",
+      "DerivedComponent_45",
+      "DerivedComponent_46",
+      "DerivedComponent_47",
+      "DerivedComponent_48",
+      "CoordinateComponent_7",
+      "CoordinateComponent_8",
+      "DerivedComponent_49",
+      "DerivedComponent_50",
+      "Component_22",
+      "CoordinateComponent_9",
+      "CoordinateComponent_10",
+      "CoordinateComponent_11",
+      "CoordinateComponent_12",
+      "DerivedComponent_51",
+      "DerivedComponent_52",
+      "DerivedComponent_53",
+      "DerivedComponent_54",
+      "DerivedComponent_55",
+      "DerivedComponent_56",
+      "DerivedComponent_57",
+      "DerivedComponent_58",
+      "DerivedComponent_59",
+      "DerivedComponent_60",
+      "DerivedComponent_61",
+      "DerivedComponent_62",
+      "DerivedComponent_63",
+      "DerivedComponent_64",
+      "CoordinateComponent_13",
+      "CoordinateComponent_14",
+      "DerivedComponent_65",
+      "DerivedComponent_66",
+      "Component_23",
+      "CoordinateComponent_15",
+      "CoordinateComponent_16",
+      "DerivedComponent_67",
+      "DerivedComponent_68",
+      "DerivedComponent_69",
+      "DerivedComponent_70",
+      "DerivedComponent_71",
+      "DerivedComponent_72",
+      "DerivedComponent_73",
+      "DerivedComponent_74",
+      "DerivedComponent_75",
+      "DerivedComponent_76",
+      "DerivedComponent_77",
+      "DerivedComponent_78",
+      "DerivedComponent_79",
+      "DerivedComponent_80",
+      "CoordinateComponent_17",
+      "CoordinateComponent_18",
+      "DerivedComponent_81",
+      "DerivedComponent_82",
+      "Component_24",
+      "CoordinateComponent_19",
+      "CoordinateComponent_20",
+      "DerivedComponent_83",
+      "DerivedComponent_84",
+      "DerivedComponent_85",
+      "DerivedComponent_86",
+      "DerivedComponent_87",
+      "DerivedComponent_88",
+      "DerivedComponent_89",
+      "DerivedComponent_90",
+      "DerivedComponent_91",
+      "DerivedComponent_92",
+      "DerivedComponent_93",
+      "DerivedComponent_94",
+      "DerivedComponent_95",
+      "DerivedComponent_96",
+      "CoordinateComponent_21",
+      "CoordinateComponent_22",
+      "DerivedComponent_97",
+      "DerivedComponent_98",
+      "Component_25",
+      "CoordinateComponent_23",
+      "CoordinateComponent_24",
+      "DerivedComponent_99",
+      "DerivedComponent_100",
+      "DerivedComponent_101",
+      "DerivedComponent_102",
+      "DerivedComponent_103",
+      "DerivedComponent_104",
+      "DerivedComponent_105",
+      "DerivedComponent_106",
+      "DerivedComponent_107",
+      "DerivedComponent_108",
+      "DerivedComponent_109",
+      "DerivedComponent_110",
+      "DerivedComponent_111",
+      "DerivedComponent_112",
+      "CoordinateComponent_25",
+      "CoordinateComponent_26",
+      "DerivedComponent_113",
+      "DerivedComponent_114",
+      "Component_26",
+      "CoordinateComponent_27",
+      "CoordinateComponent_28",
+      "CoordinateComponent_29",
+      "CoordinateComponent_30",
+      "DerivedComponent_115",
+      "DerivedComponent_116",
+      "DerivedComponent_117",
+      "DerivedComponent_118",
+      "DerivedComponent_119",
+      "DerivedComponent_120",
+      "DerivedComponent_121",
+      "DerivedComponent_122",
+      "DerivedComponent_123",
+      "DerivedComponent_124",
+      "DerivedComponent_125",
+      "DerivedComponent_126",
+      "DerivedComponent_127",
+      "DerivedComponent_128",
+      "DerivedComponent_129",
+      "DerivedComponent_130"
+    ],
+    "data": [
+      "stars_obaf",
+      "spitzer_orion",
+      "12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms",
+      "13CO_20161011_FOREST-BEARS_xyb_spheroidal_dV0.11kms_YS",
+      "MIPS_L1641a_24um",
+      "IRAC_L1641_ch4_merged_clean",
+      "IRAC_L1641_ch1_merged_clean",
+      "MIPS_ONC_24um"
+    ],
+    "groups": [
+      "5.0<=Kmag<6.0_0",
+      "6.0<=Kmag<7.0_0",
+      "7.0<=Kmag<8.0_0",
+      "8.0<=Kmag<9.0_0",
+      "9.0<=Kmag<=10.0_0",
+      "A Stars_1",
+      "B Stars_1",
+      "F Stars_0",
+      "O Stars_0"
+    ]
+  },
+  "_RAJ2000": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "_RAJ2000",
+    "hidden": false
+  },
+  "DerivedComponent_114": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_48"
+  },
+  "CoordinateComponentLink_53": {
+    "to": [
+      "World 0_0"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "Coordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Component_7": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 3
+  },
+  "B Stars_7": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#130fff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "B Stars_1"
+  },
+  "DerivedComponent_58": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_6"
+  },
+  "CoordinateComponent_1": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "9.0<=Kmag<=10.0_7": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#313695",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "9.0<=Kmag<=10.0_0"
+  },
+  "CoordinateComponentLink_14": {
+    "to": [
+      "Pixel Axis 2 [x]_0"
+    ],
+    "index": 2,
+    "frm": [
+      "World 0_1",
+      "Galactic Latitude",
+      "Galactic Longitude"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_4",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "InequalitySubsetState_5": {
+    "left": "SP_LETTER",
+    "op": ">=",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 3.5
+  },
+  "CoordinateComponentLink_45": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]",
+      "Pixel Axis 1 [x]"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_1",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "__main__": {
+    "session": "Session",
+    "viewers": [
+      [
+        "ImageWidget"
+      ],
+      [
+        "ImageWidget_0"
+      ],
+      [
+        "ImageWidget_1"
+      ],
+      [],
+      [],
+      [],
+      []
+    ],
+    "data": "DataCollection",
+    "plugins": [
+      "glue.viewers.histogram",
+      "glue_vispy_viewers.volume",
+      "glue.viewers.image",
+      "glue.plugins.data_factories.spectral_cube",
+      "glue.plugins.tools.spectrum_tool",
+      "glue.viewers.scatter",
+      "glue.plugins.coordinate_helpers",
+      "glue_vispy_viewers.scatter",
+      "glue.viewers.table",
+      "glue.plugins.exporters.plotly",
+      "glue.plugins.tools.pv_slicer",
+      "glue.plugins.export_d3po"
+    ],
+    "_type": "glue.app.qt.application.GlueApplication"
+  },
+  "DerivedComponent_3": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_14"
+  },
+  "DS9Normalize": {
+    "_type": "glue.viewers.image.ds9norm.DS9Normalize",
+    "bias": 0.044126786824114354,
+    "vmax": 22076.796875,
+    "clip_hi": 99,
+    "vmin": 0.0,
+    "stretch": "linear",
+    "clip_lo": 1,
+    "contrast": 7.303921568627452
+  },
+  "Pixel Axis 1 [x]_2": {
+    "label": "Pixel Axis 1 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 1,
+    "hidden": true
+  },
+  "O Stars_7": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ff08ff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "O Stars_0"
+  },
+  "6.0<=Kmag<7.0": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#f88e52",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "6.0<=Kmag<7.0_0"
+  },
+  "DerivedComponent_1": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_31"
+  },
+  "CoordinateComponentLink_80": {
+    "to": [
+      "Pixel Axis 0 [y]_0"
+    ],
+    "index": 0,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_89": {
+    "to": [
+      "Galactic Longitude_0"
+    ],
+    "index": 2,
+    "frm": [
+      "Pixel Axis 0 [z]_1",
+      "Pixel Axis 1 [y]_3",
+      "Pixel Axis 2 [x]_3"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_5",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "ComponentLink_8": {
+    "to": [
+      "Right Ascension"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Right Ascension"
+    ]
+  },
+  "7.0<=Kmag<8.0_4": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#fefec0",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "7.0<=Kmag<8.0_0"
+  },
+  "CoordinateComponentLink_128": {
+    "to": [
+      "Pixel Axis 0 [x]_0"
+    ],
+    "index": 0,
+    "frm": [
+      "World 0_0"
+    ],
+    "pix2world": false,
+    "coords": "Coordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_56": {
+    "to": [
+      "World 0_0"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "Coordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Component_4": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.Component",
+    "log_item": 4
+  },
+  "Component_10": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 8
+  },
+  "DerivedComponent_107": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_34"
+  },
+  "PRIMARY_1": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "PRIMARY",
+    "hidden": false
+  },
+  "DerivedComponent_51": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_31"
+  },
+  "Pixel Axis 0 [z]": {
+    "label": "Pixel Axis 0 [z]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "Component_2": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.Component",
+    "log_item": 8
+  },
+  "CoordinateComponentLink_17": {
+    "to": [
+      "Pixel Axis 2 [x]_3"
+    ],
+    "index": 2,
+    "frm": [
+      "World 0_2",
+      "Galactic Latitude_0",
+      "Galactic Longitude_0"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_5",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Component_18": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 16
+  },
+  "DerivedComponent_103": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_4"
+  },
+  "DerivedComponent_27": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_32"
+  },
+  "DerivedComponent_2": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_0"
+  },
+  "CoordinateComponentLink_65": {
+    "to": [
+      "World 0_0"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "Coordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_9": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_74"
+  },
+  "CoordinateComponentLink_97": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_0",
+      "Pixel Axis 1 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_23": {
+    "to": [
+      "Pixel Axis 0 [z]_2"
+    ],
+    "index": 0,
+    "frm": [
+      "World 0_1",
+      "Galactic Latitude",
+      "Galactic Longitude"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_4",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_7": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 1 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "IRAC_L1641_ch1_merged_clean": {
+    "_key_joins": [],
+    "_protocol": 4,
+    "_type": "glue.core.data.Data",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.81,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "0.35",
+      "linewidth": 1,
+      "markersize": 3
+    },
+    "coords": "WCSCoordinates",
+    "subsets": [
+      "5.0<=Kmag<6.0_1",
+      "6.0<=Kmag<7.0_1",
+      "7.0<=Kmag<8.0_1",
+      "8.0<=Kmag<9.0_1",
+      "9.0<=Kmag<=10.0_1",
+      "A Stars_2",
+      "B Stars_2",
+      "F Stars_1",
+      "O Stars_1"
+    ],
+    "label": "IRAC_L1641_ch1_merged_clean",
+    "components": [
+      [
+        "PRIMARY_3",
+        "Component_25"
+      ],
+      [
+        "Pixel Axis 0 [y]_2",
+        "CoordinateComponent_23"
+      ],
+      [
+        "Pixel Axis 1 [x]_1",
+        "CoordinateComponent_24"
+      ],
+      [
+        "Pixel Axis 0 [y]_0",
+        "DerivedComponent_99"
+      ],
+      [
+        "Galactic Longitude",
+        "DerivedComponent_100"
+      ],
+      [
+        "Pixel Axis 2 [x]_0",
+        "DerivedComponent_101"
+      ],
+      [
+        "Galactic Latitude",
+        "DerivedComponent_102"
+      ],
+      [
+        "Pixel Axis 0 [y]_1",
+        "DerivedComponent_103"
+      ],
+      [
+        "Pixel Axis 1 [y]",
+        "DerivedComponent_104"
+      ],
+      [
+        "Pixel Axis 1 [y]_0",
+        "DerivedComponent_105"
+      ],
+      [
+        "Pixel Axis 1 [x]_0",
+        "DerivedComponent_106"
+      ],
+      [
+        "Pixel Axis 2 [x]",
+        "DerivedComponent_107"
+      ],
+      [
+        "Pixel Axis 1 [y]_1",
+        "DerivedComponent_108"
+      ],
+      [
+        "Pixel Axis 2 [x]_1",
+        "DerivedComponent_109"
+      ],
+      [
+        "Pixel Axis 2 [x]_2",
+        "DerivedComponent_110"
+      ],
+      [
+        "Pixel Axis 1 [x]_2",
+        "DerivedComponent_111"
+      ],
+      [
+        "Pixel Axis 1 [y]_2",
+        "DerivedComponent_112"
+      ],
+      [
+        "Declination",
+        "CoordinateComponent_25"
+      ],
+      [
+        "Right Ascension",
+        "CoordinateComponent_26"
+      ],
+      [
+        "Pixel Axis 1 [x]",
+        "DerivedComponent_113"
+      ],
+      [
+        "Pixel Axis 0 [y]",
+        "DerivedComponent_114"
+      ]
+    ],
+    "uuid": "9124b753-fcea-490b-984e-f3911da0208f"
+  },
+  "CoordinateComponentLink_127": {
+    "to": [
+      "Declination"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_93": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_40"
+  },
+  "ImageWidget_0": {
+    "properties": {
+      "batt": null,
+      "attribute": "PRIMARY_0",
+      "ratt": null,
+      "gatt": null,
+      "rgb_mode": false,
+      "data": "13CO_20161011_FOREST-BEARS_xyb_spheroidal_dV0.11kms_YS",
+      "slice": [
+        130,
+        "y",
+        "x"
+      ],
+      "rgb_viz": [
+        true,
+        true,
+        true
+      ]
+    },
+    "layers": [
+      {
+        "layer": "13CO_20161011_FOREST-BEARS_xyb_spheroidal_dV0.11kms_YS",
+        "_type": "glue.viewers.image.layer_artist.ImageLayerArtist",
+        "norm": "DS9Normalize_1",
+        "zorder": 1,
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.scatter.layer_artist.ScatterLayerArtist",
+        "zorder": 11,
+        "yatt": "Pixel Axis 1 [y]_2",
+        "xatt": "Pixel Axis 2 [x]_2",
+        "layer": "B Stars_0",
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.scatter.layer_artist.ScatterLayerArtist",
+        "zorder": 12,
+        "yatt": "Pixel Axis 1 [y]_2",
+        "xatt": "Pixel Axis 2 [x]_2",
+        "layer": "A Stars_0",
+        "visible": true
+      }
+    ],
+    "pos": [
+      0,
+      0
+    ],
+    "size": [
+      1566,
+      1099
+    ],
+    "session": "Session",
+    "_type": "glue.viewers.image.qt.viewer_widget.ImageWidget"
+  },
+  "CategoricalComponent_2": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.CategoricalComponent",
+    "log_item": 12
+  },
+  "CoordinateComponentLink_77": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 2,
+    "frm": [
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_14": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_26"
+  },
+  "Component_5": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.Component",
+    "log_item": 3
+  },
+  "DerivedComponent_57": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_100"
+  },
+  "AndState_5": {
+    "_type": "glue.core.subset.AndState",
+    "state2": "InequalitySubsetState_2",
+    "state1": "InequalitySubsetState_1"
+  },
+  "B Stars_3": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#130fff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "B Stars_1"
+  },
+  "CoordinateComponentLink_49": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]",
+      "Pixel Axis 1 [x]"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_1",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "WCSCoordinates_7": {
+    "_type": "glue.core.coordinates.WCSCoordinates",
+    "header": "WCSAXES =                    3 / Number of coordinate axes                      CRPIX1  =         455.19235889 / Pixel coordinate of reference point            CRPIX2  =        775.958826667 / Pixel coordinate of reference point            CRPIX3  =                  1.0 / Pixel coordinate of reference point            CDELT1  =    -0.00208333333333 / [deg] Coordinate increment at reference point  CDELT2  =     0.00208333333333 / [deg] Coordinate increment at reference point  CDELT3  =                 99.0 / [m/s] Coordinate increment at reference point  CUNIT1  = 'deg'                / Units of coordinate increment and value        CUNIT2  = 'deg'                / Units of coordinate increment and value        CUNIT3  = 'm/s'                / Units of coordinate increment and value        CTYPE1  = 'RA---SFL'           / Right ascension, Sanson-Flamsteed projection   CTYPE2  = 'DEC--SFL'           / Declination, Sanson-Flamsteed projection       CTYPE3  = 'VOPT'               / Optical velocity (linear)                      CRVAL1  =            83.783333 / [deg] Coordinate value at reference point      CRVAL2  =            -5.583333 / [deg] Coordinate value at reference point      CRVAL3  =              -2950.5 / [m/s] Coordinate value at reference point      PV1_0   =                  1.0 / [m/s] Coordinate value at reference point      PV1_1   =                  0.0 / [deg] Native longitude of the reference point  PV1_2   =            -5.583333 / [deg] Native latitude  of the reference point  LONPOLE =                  0.0 / [deg] Native longitude of celestial pole       LATPOLE =                 90.0 / [deg] Native latitude of celestial pole        RESTFRQ =       115271202087.0 / [Hz] Line rest frequency                       RADESYS = 'FK5'                / Equatorial coordinate system                   EQUINOX =               2000.0 / [yr] Equinox of equatorial coordinates         SPECSYS = 'LSRK'               / Reference frame of spectral coordinates        MJD-OBS =              57171.0 / [d] MJD of observation matching DATE-OBS       DATE-OBS= '2015-05-29T00:00:00.0' / ISO-8601 observation date matching MJD-OBS  END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "
+  },
+  "Pixel Axis 1 [x]_0": {
+    "label": "Pixel Axis 1 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 1,
+    "hidden": true
+  },
+  "CategoricalComponent_7": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.CategoricalComponent",
+    "log_item": 17
+  },
+  "CoordinateComponentLink_19": {
+    "to": [
+      "World 0_0"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "Coordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Seq": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Seq",
+    "hidden": false
+  },
+  "CoordinateComponentLink_75": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 1 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_79": {
+    "to": [
+      "Pixel Axis 0 [y]_2"
+    ],
+    "index": 0,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "7.0<=Kmag<8.0_1": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#fefec0",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "7.0<=Kmag<8.0_0"
+  },
+  "DerivedComponent_108": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_32"
+  },
+  "Jmag": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Jmag",
+    "hidden": false
+  },
+  "Component_8": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 4
+  },
+  "CoordinateComponentLink_111": {
+    "to": [
+      "Galactic Longitude"
+    ],
+    "index": 2,
+    "frm": [
+      "Pixel Axis 0 [z]_2",
+      "Pixel Axis 1 [y]_0",
+      "Pixel Axis 2 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_4",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Pixel Axis 1 [y]_1": {
+    "label": "Pixel Axis 1 [y]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 1,
+    "hidden": true
+  },
+  "CoordinateComponentLink_71": {
+    "to": [
+      "Pixel Axis 1 [y]_2"
+    ],
+    "index": 1,
+    "frm": [
+      "Velocity",
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_13": {
+    "to": [
+      "Pixel Axis 0 [z]"
+    ],
+    "index": 0,
+    "frm": [
+      "Vopt",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Component_25": {
+    "log": "LoadLog_1",
+    "_type": "glue.core.component.Component",
+    "log_item": 0
+  },
+  "CoordinateComponentLink_42": {
+    "to": [
+      "Declination"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_136": {
+    "to": [
+      "Pixel Axis 1 [y]_1"
+    ],
+    "index": 1,
+    "frm": [
+      "Vopt",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "InequalitySubsetState": {
+    "left": "Kmag",
+    "op": ">=",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 5.0
+  },
+  "7.0<=Kmag<8.0_5": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#fefec0",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "7.0<=Kmag<8.0_0"
+  },
+  "Pixel Axis 0 [y]_1": {
+    "label": "Pixel Axis 0 [y]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "InequalitySubsetState_7": {
+    "left": "Kmag",
+    "op": ">=",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 8.0
+  },
+  "CoordinateComponentLink_78": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 1 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_32": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_26"
+  },
+  "DerivedComponent_28": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_40"
+  },
+  "DerivedComponent_75": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_34"
+  },
+  "Cl": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Cl",
+    "hidden": false
+  },
+  "DerivedComponent_73": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_6"
+  },
+  "DerivedComponent_25": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_74"
+  },
+  "__24_": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "__24_",
+    "hidden": false
+  },
+  "Pixel Axis 0 [z]_0": {
+    "label": "Pixel Axis 0 [z]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "CoordinateComponentLink": {
+    "to": [
+      "Vopt"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Pixel Axis 0 [y]_2": {
+    "label": "Pixel Axis 0 [y]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "CoordinateComponentLink_68": {
+    "to": [
+      "Pixel Axis 0 [z]_0"
+    ],
+    "index": 0,
+    "frm": [
+      "Velocity",
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_74": {
+    "to": [
+      "Pixel Axis 1 [x]_1"
+    ],
+    "index": 1,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "WCSCoordinates_1": {
+    "_type": "glue.core.coordinates.WCSCoordinates",
+    "header": "WCSAXES =                    2 / Number of coordinate axes                      CRPIX1  =               1716.5 / Pixel coordinate of reference point            CRPIX2  =               2822.5 / Pixel coordinate of reference point            PC1_1   = -0.00034583333465788 / Coordinate transformation matrix element       PC2_2   =  0.00034583333465788 / Coordinate transformation matrix element       CDELT1  =                  1.0 / [deg] Coordinate increment at reference point  CDELT2  =                  1.0 / [deg] Coordinate increment at reference point  CUNIT1  = 'deg'                / Units of coordinate increment and value        CUNIT2  = 'deg'                / Units of coordinate increment and value        CTYPE1  = 'RA---TAN'           / Right ascension, gnomonic projection           CTYPE2  = 'DEC--TAN'           / Declination, gnomonic projection               CRVAL1  =      83.812687568996 / [deg] Coordinate value at reference point      CRVAL2  =     -5.3508205709347 / [deg] Coordinate value at reference point      LONPOLE =                180.0 / [deg] Native longitude of celestial pole       LATPOLE =     -5.3508205709347 / [deg] Native latitude of celestial pole        RADESYS = 'ICRS'               / Equatorial coordinate system                   END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "
+  },
+  "InequalitySubsetState_4": {
+    "left": "Kmag",
+    "op": "<",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 8.0
+  },
+  "9.0<=Kmag<=10.0_6": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#313695",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "9.0<=Kmag<=10.0_0"
+  },
+  "CoordinateComponent_0": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "Pixel Axis 2 [x]_2": {
+    "label": "Pixel Axis 2 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 2,
+    "hidden": true
+  },
+  "CoordinateComponentLink_41": {
+    "to": [
+      "Pixel Axis 0 [z]"
+    ],
+    "index": 0,
+    "frm": [
+      "Vopt",
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "_2M": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "_2M",
+    "hidden": false
+  },
+  "CoordinateComponentLink_24": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 2,
+    "frm": [
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_101": {
+    "to": [
+      "World 0_2"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [z]_1",
+      "Pixel Axis 1 [y]_3",
+      "Pixel Axis 2 [x]_3"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_5",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "9.0<=Kmag<=10.0": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#313695",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "9.0<=Kmag<=10.0_0"
+  },
+  "CoordinateComponentLink_62": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 2,
+    "frm": [
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponent_3": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "DerivedComponent_70": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_4"
+  },
+  "B Stars_0": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#130fff",
+      "linewidth": 1,
+      "markersize": 12
+    },
+    "group": "B Stars_1"
+  },
+  "F Stars_3": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ffaf00",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "F Stars_0"
+  },
+  "CategoricalComponent_9": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.CategoricalComponent",
+    "log_item": 19
+  },
+  "CoordinateComponent_4": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 1
+  },
+  "DerivedComponent_12": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_36"
+  },
+  "ComponentLink_5": {
+    "to": [
+      "Right Ascension"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Right Ascension"
+    ]
+  },
+  "CoordinateComponentLink_131": {
+    "to": [
+      "World 0_3"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_3",
+      "Pixel Axis 1 [x]_3"
+    ],
+    "pix2world": true,
+    "coords": "Coordinates_1",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "5.0<=Kmag<6.0_6": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#a50026",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "5.0<=Kmag<6.0_0"
+  },
+  "F Stars_7": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ffaf00",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "F Stars_0"
+  },
+  "DerivedComponent_121": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_6"
+  },
+  "DerivedComponent_109": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_40"
+  },
+  "CategoricalComponent_6": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.CategoricalComponent",
+    "log_item": 16
+  },
+  "ComponentLink_14": {
+    "to": [
+      "Declination"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Declination"
+    ]
+  },
+  "ComponentLink_7": {
+    "to": [
+      "Right Ascension"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Right Ascension"
+    ]
+  },
+  "Pixel Axis 1 [x]_1": {
+    "label": "Pixel Axis 1 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 1,
+    "hidden": true
+  },
+  "Component_21": {
+    "log": "LoadLog_5",
+    "_type": "glue.core.component.Component",
+    "log_item": 0
+  },
+  "AndState_6": {
+    "_type": "glue.core.subset.AndState",
+    "state2": "InequalitySubsetState_4",
+    "state1": "InequalitySubsetState_3"
+  },
+  "CoordinateComponentLink_55": {
+    "to": [
+      "Pixel Axis 2 [x]_2"
+    ],
+    "index": 2,
+    "frm": [
+      "Velocity",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_5": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_4"
+  },
+  "DerivedComponent_101": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_14"
+  },
+  "Component_24": {
+    "log": "LoadLog_2",
+    "_type": "glue.core.component.Component",
+    "log_item": 0
+  },
+  "DerivedComponent_124": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_18"
+  },
+  "DerivedComponent_10": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_32"
+  },
+  "CoordinateComponentLink_121": {
+    "to": [
+      "Pixel Axis 0 [x]"
+    ],
+    "index": 0,
+    "frm": [
+      "World 0"
+    ],
+    "pix2world": false,
+    "coords": "Coordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_69": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_16"
+  },
+  "8.0<=Kmag<9.0_4": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#8dc1dc",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "8.0<=Kmag<9.0_0"
+  },
+  "CoordinateComponentLink_27": {
+    "to": [
+      "Pixel Axis 1 [x]_2"
+    ],
+    "index": 1,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "A Stars_0": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#07ff01",
+      "linewidth": 1,
+      "markersize": 10
+    },
+    "group": "A Stars_1"
+  },
+  "DerivedComponent_53": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_14"
+  },
+  "CoordinateComponentLink_60": {
+    "to": [
+      "Pixel Axis 0 [z]_0"
+    ],
+    "index": 0,
+    "frm": [
+      "Velocity",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponent": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "DerivedComponent_115": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_79"
+  },
+  "DerivedComponent_95": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_27"
+  },
+  "World 1": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "World 1",
+    "hidden": true
+  },
+  "__3_6_": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "__3_6_",
+    "hidden": false
+  },
+  "World 0_1": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "World 0",
+    "hidden": true
+  },
+  "InequalitySubsetState_12": {
+    "left": "SP_LETTER",
+    "op": "<",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 1.5
+  },
+  "CoordinateComponentLink_124": {
+    "to": [
+      "Velocity"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_47": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_27"
+  },
+  "SP_BIBCODE": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "SP_BIBCODE",
+    "hidden": false
+  },
+  "9.0<=Kmag<=10.0_1": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#313695",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "9.0<=Kmag<=10.0_0"
+  },
+  "__4_5_": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "__4_5_",
+    "hidden": false
+  },
+  "CoordinateComponentLink_82": {
+    "to": [
+      "Pixel Axis 0 [y]_1"
+    ],
+    "index": 0,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "PRIMARY_0": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "PRIMARY",
+    "hidden": false
+  },
+  "__5_8_": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "__5_8_",
+    "hidden": false
+  },
+  "Component_11": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 9
+  },
+  "DerivedComponent_81": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_51"
+  },
+  "Pixel Axis 0 [y]_4": {
+    "label": "Pixel Axis 0 [y]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "CoordinateComponent_2": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "A Stars_3": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#07ff01",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "A Stars_1"
+  },
+  "8.0<=Kmag<9.0_0": {
+    "subsets": [
+      "8.0<=Kmag<9.0_2",
+      "8.0<=Kmag<9.0_3",
+      "8.0<=Kmag<9.0_4",
+      "8.0<=Kmag<9.0_5",
+      "8.0<=Kmag<9.0_6",
+      "8.0<=Kmag<9.0_7",
+      "8.0<=Kmag<9.0_1",
+      "8.0<=Kmag<9.0"
+    ],
+    "state": "AndState",
+    "label": "8.0<=Kmag<9.0",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#8dc1dc",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "_type": "glue.core.subset_group.SubsetGroup"
+  },
+  "InequalitySubsetState_0": {
+    "left": "Kmag",
+    "op": "<",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 6.0
+  },
+  "CoordinateComponentLink_21": {
+    "to": [
+      "Pixel Axis 0 [z]_1"
+    ],
+    "index": 0,
+    "frm": [
+      "World 0_2",
+      "Galactic Latitude_0",
+      "Galactic Longitude_0"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_5",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Component_14": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 12
+  },
+  "DerivedComponent_33": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_51"
+  },
+  "CoordinateComponentLink_40": {
+    "to": [
+      "Pixel Axis 2 [x]_1"
+    ],
+    "index": 2,
+    "frm": [
+      "Vopt",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_25": {
+    "to": [
+      "Pixel Axis 0 [x]_0"
+    ],
+    "index": 0,
+    "frm": [
+      "World 0_0"
+    ],
+    "pix2world": false,
+    "coords": "Coordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "9.0<=Kmag<=10.0_0": {
+    "subsets": [
+      "9.0<=Kmag<=10.0_2",
+      "9.0<=Kmag<=10.0_3",
+      "9.0<=Kmag<=10.0_4",
+      "9.0<=Kmag<=10.0_5",
+      "9.0<=Kmag<=10.0_6",
+      "9.0<=Kmag<=10.0_7",
+      "9.0<=Kmag<=10.0_1",
+      "9.0<=Kmag<=10.0"
+    ],
+    "state": "AndState_0",
+    "label": "9.0<=Kmag<=10.0",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#313695",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "_type": "glue.core.subset_group.SubsetGroup"
+  },
+  "Galactic Longitude": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Galactic Longitude",
+    "hidden": true
+  },
+  "O Stars_6": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ff08ff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "O Stars_0"
+  },
+  "Pixel Axis 0 [y]_0": {
+    "label": "Pixel Axis 0 [y]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "Velocity_0": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Velocity",
+    "hidden": true
+  },
+  "Component_1": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.Component",
+    "log_item": 7
+  },
+  "Pixel Axis 1 [y]_0": {
+    "label": "Pixel Axis 1 [y]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 1,
+    "hidden": true
+  },
+  "DerivedComponent_41": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_100"
+  },
+  "STOKES I": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "STOKES I",
+    "hidden": false
+  },
+  "PRIMARY_2": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "PRIMARY",
+    "hidden": false
+  },
+  "CoordinateComponentLink_15": {
+    "to": [
+      "Declination"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [z]_3",
+      "Pixel Axis 1 [y]",
+      "Pixel Axis 2 [x]"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_7",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_74": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_74"
+  },
+  "CoordinateComponentLink_6": {
+    "to": [
+      "Pixel Axis 1 [x]_0"
+    ],
+    "index": 1,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_49": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_51"
+  },
+  "DerivedComponent_7": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_100"
+  },
+  "DerivedComponent_46": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_36"
+  },
+  "ComponentLink_12": {
+    "to": [
+      "Declination"
+    ],
+    "hidden": false,
+    "using": {
+      "_type": "glue.core.link_helpers.PartialResult",
+      "index": 1,
+      "func": {
+        "_type": "types.MethodType",
+        "method": "forward",
+        "instance": "Galactic_to_FK5"
+      }
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Galactic Longitude",
+      "Galactic Latitude"
+    ]
+  },
+  "DerivedComponent_72": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_100"
+  },
+  "Component_13": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 11
+  },
+  "CoordinateComponentLink_58": {
+    "to": [
+      "Declination"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_2": {
+    "to": [
+      "World 0"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [x]"
+    ],
+    "pix2world": true,
+    "coords": "Coordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_62": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_40"
+  },
+  "__8_0_": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "__8_0_",
+    "hidden": false
+  },
+  "O Stars_5": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ff08ff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "O Stars_0"
+  },
+  "CoordinateComponentLink_94": {
+    "to": [
+      "Pixel Axis 2 [x]_1"
+    ],
+    "index": 2,
+    "frm": [
+      "Vopt",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_126": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_78": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_36"
+  },
+  "InequalitySubsetState_10": {
+    "left": "SP_LETTER",
+    "op": "<",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 2.5
+  },
+  "Coordinates_1": {
+    "_type": "glue.core.coordinates.Coordinates"
+  },
+  "World 0_4": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "World 0",
+    "hidden": true
+  },
+  "CoordinateComponentLink_107": {
+    "to": [
+      "Declination"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "5.0<=Kmag<6.0": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#a50026",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "5.0<=Kmag<6.0_0"
+  },
+  "CoordinateComponentLink_93": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_0",
+      "Pixel Axis 1 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_54": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_16"
+  },
+  "CoordinateComponentLink_125": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "5.0<=Kmag<6.0_7": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#a50026",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "5.0<=Kmag<6.0_0"
+  },
+  "CoordinateComponentLink_59": {
+    "to": [
+      "Declination"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "B Stars_1": {
+    "subsets": [
+      "B Stars_0",
+      "B Stars_3",
+      "B Stars_4",
+      "B Stars_5",
+      "B Stars_6",
+      "B Stars_7",
+      "B Stars_2",
+      "B Stars"
+    ],
+    "state": "AndState_1",
+    "label": "B Stars",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#130fff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "_type": "glue.core.subset_group.SubsetGroup"
+  },
+  "O Stars": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#ff08ff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "O Stars_0"
+  },
+  "CoordinateComponentLink_129": {
+    "to": [
+      "Galactic Latitude"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [z]_2",
+      "Pixel Axis 1 [y]_0",
+      "Pixel Axis 2 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_4",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_26": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_34"
+  },
+  "DerivedComponent_24": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_6"
+  },
+  "DerivedComponent_122": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_34"
+  },
+  "CoordinateComponentLink_66": {
+    "to": [
+      "Declination"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "ComponentLink_15": {
+    "to": [
+      "Declination"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Declination"
+    ]
+  },
+  "CoordinateComponentLink_22": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 2,
+    "frm": [
+      "Pixel Axis 0 [z]_3",
+      "Pixel Axis 1 [y]",
+      "Pixel Axis 2 [x]"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_7",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "O Stars_2": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ff08ff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "O Stars_0"
+  },
+  "DerivedComponent_50": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_48"
+  },
+  "DerivedComponent_64": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_18"
+  },
+  "Component_22": {
+    "log": "LoadLog_3",
+    "_type": "glue.core.component.Component",
+    "log_item": 0
+  },
+  "Declination": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Declination",
+    "hidden": false
+  },
+  "CategoricalComponent_1": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.CategoricalComponent",
+    "log_item": 11
+  },
+  "CoordinateComponentLink_132": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CategoricalComponent_3": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.CategoricalComponent",
+    "log_item": 13
+  },
+  "Session": {
+    "_type": "glue.core.session.Session"
+  },
+  "Pixel Axis 1 [y]": {
+    "label": "Pixel Axis 1 [y]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 1,
+    "hidden": true
+  },
+  "COO_QUAL": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "COO_QUAL",
+    "hidden": false
+  },
+  "Pixel Axis 0 [x]": {
+    "label": "Pixel Axis 0 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "AKs": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "AKs",
+    "hidden": false
+  },
+  "ComponentLink_4": {
+    "to": [
+      "Right Ascension"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Right Ascension"
+    ]
+  },
+  "DerivedComponent_120": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_4"
+  },
+  "13CO_20161011_FOREST-BEARS_xyb_spheroidal_dV0.11kms_YS": {
+    "_key_joins": [],
+    "_protocol": 4,
+    "_type": "glue.core.data.Data",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.81,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "0.35",
+      "linewidth": 1,
+      "markersize": 3
+    },
+    "coords": "WCSCoordinates_2",
+    "subsets": [
+      "5.0<=Kmag<6.0_2",
+      "6.0<=Kmag<7.0_2",
+      "7.0<=Kmag<8.0_2",
+      "8.0<=Kmag<9.0_5",
+      "9.0<=Kmag<=10.0_5",
+      "A Stars_3",
+      "B Stars_5",
+      "F Stars_2",
+      "O Stars_2"
+    ],
+    "label": "13CO_20161011_FOREST-BEARS_xyb_spheroidal_dV0.11kms_YS",
+    "components": [
+      [
+        "PRIMARY_0",
+        "Component_22"
+      ],
+      [
+        "Pixel Axis 0 [z]_0",
+        "CoordinateComponent_9"
+      ],
+      [
+        "Pixel Axis 1 [y]_2",
+        "CoordinateComponent_10"
+      ],
+      [
+        "Pixel Axis 2 [x]_2",
+        "CoordinateComponent_11"
+      ],
+      [
+        "Velocity",
+        "CoordinateComponent_12"
+      ],
+      [
+        "Pixel Axis 0 [y]_0",
+        "DerivedComponent_51"
+      ],
+      [
+        "Galactic Longitude",
+        "DerivedComponent_52"
+      ],
+      [
+        "Pixel Axis 2 [x]_0",
+        "DerivedComponent_53"
+      ],
+      [
+        "Galactic Latitude",
+        "DerivedComponent_54"
+      ],
+      [
+        "Pixel Axis 0 [y]_1",
+        "DerivedComponent_55"
+      ],
+      [
+        "Pixel Axis 0 [y]_2",
+        "DerivedComponent_56"
+      ],
+      [
+        "Pixel Axis 1 [y]_0",
+        "DerivedComponent_57"
+      ],
+      [
+        "Pixel Axis 1 [x]_0",
+        "DerivedComponent_58"
+      ],
+      [
+        "Pixel Axis 1 [x]_1",
+        "DerivedComponent_59"
+      ],
+      [
+        "Pixel Axis 2 [x]",
+        "DerivedComponent_60"
+      ],
+      [
+        "Pixel Axis 1 [y]_1",
+        "DerivedComponent_61"
+      ],
+      [
+        "Pixel Axis 2 [x]_1",
+        "DerivedComponent_62"
+      ],
+      [
+        "Pixel Axis 1 [x]_2",
+        "DerivedComponent_63"
+      ],
+      [
+        "Pixel Axis 1 [y]",
+        "DerivedComponent_64"
+      ],
+      [
+        "Declination",
+        "CoordinateComponent_13"
+      ],
+      [
+        "Right Ascension",
+        "CoordinateComponent_14"
+      ],
+      [
+        "Pixel Axis 1 [x]",
+        "DerivedComponent_65"
+      ],
+      [
+        "Pixel Axis 0 [y]",
+        "DerivedComponent_66"
+      ]
+    ],
+    "uuid": "5558e52b-12d1-4c3e-9d60-5c1a7d6facb0"
+  },
+  "CoordinateComponentLink_16": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_0",
+      "Pixel Axis 1 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_37": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_14"
+  },
+  "DerivedComponent_98": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_48"
+  },
+  "CoordinateComponentLink_20": {
+    "to": [
+      "Pixel Axis 0 [x]_0"
+    ],
+    "index": 0,
+    "frm": [
+      "World 0_0"
+    ],
+    "pix2world": false,
+    "coords": "Coordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "7.0<=Kmag<8.0_2": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#fefec0",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "7.0<=Kmag<8.0_0"
+  },
+  "CoordinateComponentLink_85": {
+    "to": [
+      "Pixel Axis 1 [x]_0"
+    ],
+    "index": 1,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "ComponentLink_13": {
+    "to": [
+      "Declination"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Declination"
+    ]
+  },
+  "InequalitySubsetState_15": {
+    "left": "Kmag",
+    "op": ">=",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 9.0
+  },
+  "CoordinateComponent_14": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 2
+  },
+  "COO_ERR_MAJA": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "COO_ERR_MAJA",
+    "hidden": false
+  },
+  "Galactic Latitude_0": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Galactic Latitude",
+    "hidden": true
+  },
+  "CoordinateComponentLink_99": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_0",
+      "Pixel Axis 1 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "AndState_7": {
+    "_type": "glue.core.subset.AndState",
+    "state2": "InequalitySubsetState_6",
+    "state1": "InequalitySubsetState_5"
+  },
+  "CoordinateComponentLink_138": {
+    "to": [
+      "Pixel Axis 1 [x]_3"
+    ],
+    "index": 1,
+    "frm": [
+      "World 0_3",
+      "World 1"
+    ],
+    "pix2world": false,
+    "coords": "Coordinates_1",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Kmag": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Kmag",
+    "hidden": false
+  },
+  "DerivedComponent_96": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_26"
+  },
+  "SP_QUAL": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "SP_QUAL",
+    "hidden": false
+  },
+  "SP_TYPE": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "SP_TYPE",
+    "hidden": false
+  },
+  "Coordinates_2": {
+    "_type": "glue.core.coordinates.Coordinates"
+  },
+  "CoordinateComponentLink_28": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_0",
+      "Pixel Axis 1 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "A Stars_4": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#07ff01",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "A Stars_1"
+  },
+  "CoordinateComponentLink_113": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "RAJ2000": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "RAJ2000",
+    "hidden": false
+  },
+  "CoordinateComponentLink_3": {
+    "to": [
+      "Velocity"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_88": {
+    "to": [
+      "Pixel Axis 1 [y]_3"
+    ],
+    "index": 1,
+    "frm": [
+      "World 0_2",
+      "Galactic Latitude_0",
+      "Galactic Longitude_0"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_5",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "SP_LETTER": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "SP_LETTER",
+    "hidden": false
+  },
+  "DerivedComponent_82": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_48"
+  },
+  "Pixel Axis 0 [z]_1": {
+    "label": "Pixel Axis 0 [z]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "5.0<=Kmag<6.0_1": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#a50026",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "5.0<=Kmag<6.0_0"
+  },
+  "CoordinateComponent_5": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 2
+  },
+  "COO_ERR_MINA": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "COO_ERR_MINA",
+    "hidden": false
+  },
+  "9.0<=Kmag<=10.0_5": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#313695",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "9.0<=Kmag<=10.0_0"
+  },
+  "CoordinateComponent_12": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "DerivedComponent_110": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_36"
+  },
+  "DerivedComponent_42": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_6"
+  },
+  "Component_3": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.Component",
+    "log_item": 9
+  },
+  "Pixel Axis 2 [x]_0": {
+    "label": "Pixel Axis 2 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 2,
+    "hidden": true
+  },
+  "CategoricalComponent_4": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.CategoricalComponent",
+    "log_item": 14
+  },
+  "DerivedComponent_21": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_31"
+  },
+  "5.0<=Kmag<6.0_3": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.46,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#a50026",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "5.0<=Kmag<6.0_0"
+  },
+  "Galactic Longitude_0": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Galactic Longitude",
+    "hidden": true
+  },
+  "F Stars_2": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ffaf00",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "F Stars_0"
+  },
+  "Pixel Axis 0 [z]_2": {
+    "label": "Pixel Axis 0 [z]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "DerivedComponent_34": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_48"
+  },
+  "CoordinateComponent_19": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "CoordinateComponentLink_67": {
+    "to": [
+      "Velocity"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "A Stars_6": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#07ff01",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "A Stars_1"
+  },
+  "CoordinateComponentLink_112": {
+    "to": [
+      "World 1_0"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_4",
+      "Pixel Axis 1 [x]_4"
+    ],
+    "pix2world": true,
+    "coords": "Coordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Pixel Axis 2 [x]_3": {
+    "label": "Pixel Axis 2 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 2,
+    "hidden": true
+  },
+  "CoordinateComponentLink_8": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 1 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "RA_PREC": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "RA_PREC",
+    "hidden": false
+  },
+  "DerivedComponent_43": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_74"
+  },
+  "CoordinateComponentLink_50": {
+    "to": [
+      "World 0_1"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [z]_2",
+      "Pixel Axis 1 [y]_0",
+      "Pixel Axis 2 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_4",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "WCSCoordinates": {
+    "_type": "glue.core.coordinates.WCSCoordinates",
+    "header": "WCSAXES =                    2 / Number of coordinate axes                      CRPIX1  =               4064.0 / Pixel coordinate of reference point            CRPIX2  =                861.0 / Pixel coordinate of reference point            PC1_1   =   -0.000209808349415 / Coordinate transformation matrix element       PC1_2   =   -0.000267302647324 / Coordinate transformation matrix element       PC2_1   =   -0.000267302647324 / Coordinate transformation matrix element       PC2_2   =    0.000209808349415 / Coordinate transformation matrix element       CDELT1  =                  1.0 / [deg] Coordinate increment at reference point  CDELT2  =                  1.0 / [deg] Coordinate increment at reference point  CUNIT1  = 'deg'                / Units of coordinate increment and value        CUNIT2  = 'deg'                / Units of coordinate increment and value        CTYPE1  = 'RA---TAN'           / Right ascension, gnomonic projection           CTYPE2  = 'DEC--TAN'           / Declination, gnomonic projection               CRVAL1  =          85.55620072 / [deg] Coordinate value at reference point      CRVAL2  =          -8.82829012 / [deg] Coordinate value at reference point      LONPOLE =                180.0 / [deg] Native longitude of celestial pole       LATPOLE =          -8.82829012 / [deg] Native latitude of celestial pole        CRDER1  =  3.4580113995628E-05 / [deg] Random error in coordinate               CRDER2  =  3.4443014396837E-05 / [deg] Random error in coordinate               RADESYS = 'ICRS'               / Equatorial coordinate system                   END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "
+  },
+  "CoordinateComponent_17": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "DerivedComponent_60": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_34"
+  },
+  "ComponentLink_1": {
+    "to": [
+      "Declination"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Declination"
+    ]
+  },
+  "WCSCoordinates_4": {
+    "_type": "glue.core.coordinates.WCSCoordinates",
+    "header": "WCSAXES =                    3 / Number of coordinate axes                      CRPIX1  =               1735.0 / Pixel coordinate of reference point            CRPIX2  =                783.0 / Pixel coordinate of reference point            CRPIX3  =                  0.0 / Pixel coordinate of reference point            CDELT1  =    -0.00416666666667 / [deg] Coordinate increment at reference point  CDELT2  =     0.00416666666667 / [deg] Coordinate increment at reference point  CDELT3  =                  1.0 / Coordinate increment at reference point        CUNIT1  = 'deg'                / Units of coordinate increment and value        CUNIT2  = 'deg'                / Units of coordinate increment and value        CTYPE1  = 'GLON-TAN'           / galactic longitude, gnomonic projection        CTYPE2  = 'GLAT-TAN'           / galactic latitude, gnomonic projection         CRVAL1  =                210.0 / [deg] Coordinate value at reference point      CRVAL2  =                -19.0 / [deg] Coordinate value at reference point      CRVAL3  =                  0.0 / Coordinate value at reference point            LONPOLE =                180.0 / [deg] Native longitude of celestial pole       LATPOLE =                -19.0 / [deg] Native latitude of celestial pole        END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "
+  },
+  "DerivedComponent_105": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_100"
+  },
+  "CoordinateComponentLink_86": {
+    "to": [
+      "Pixel Axis 1 [x]_2"
+    ],
+    "index": 1,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_83": {
+    "to": [
+      "Pixel Axis 0 [z]_0"
+    ],
+    "index": 0,
+    "frm": [
+      "Velocity",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "5.0<=Kmag<6.0_4": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#a50026",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "5.0<=Kmag<6.0_0"
+  },
+  "CoordinateComponentLink_135": {
+    "to": [
+      "World 1"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_3",
+      "Pixel Axis 1 [x]_3"
+    ],
+    "pix2world": true,
+    "coords": "Coordinates_1",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Component_15": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 13
+  },
+  "CoordinateComponentLink_103": {
+    "to": [
+      "Vopt"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_72": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 2,
+    "frm": [
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "ComponentLink_11": {
+    "to": [
+      "Right Ascension"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Right Ascension"
+    ]
+  },
+  "Pixel Axis 0 [y]": {
+    "label": "Pixel Axis 0 [y]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "CoordinateComponent_8": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 2
+  },
+  "CoordinateComponentLink_37": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_0",
+      "Pixel Axis 1 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponent_21": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "CoordinateComponentLink_44": {
+    "to": [
+      "Pixel Axis 0 [y]_0"
+    ],
+    "index": 0,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_63": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_0",
+      "Pixel Axis 1 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_86": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_16"
+  },
+  "Pixel Axis 1 [x]": {
+    "label": "Pixel Axis 1 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 1,
+    "hidden": true
+  },
+  "8.0<=Kmag<9.0_2": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#8dc1dc",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "8.0<=Kmag<9.0_0"
+  },
+  "ComponentLink_3": {
+    "to": [
+      "Declination"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Declination"
+    ]
+  },
+  "CoordinateComponentLink_130": {
+    "to": [
+      "Pixel Axis 0 [x]_0"
+    ],
+    "index": 0,
+    "frm": [
+      "World 0_0"
+    ],
+    "pix2world": false,
+    "coords": "Coordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Component_23": {
+    "log": "LoadLog_4",
+    "_type": "glue.core.component.Component",
+    "log_item": 0
+  },
+  "DerivedComponent_11": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_40"
+  },
+  "Pixel Axis 0 [z]_3": {
+    "label": "Pixel Axis 0 [z]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "CoordinateComponentLink_54": {
+    "to": [
+      "Pixel Axis 2 [x]_1"
+    ],
+    "index": 2,
+    "frm": [
+      "Vopt",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "B Stars_5": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#130fff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "B Stars_1"
+  },
+  "DerivedComponent_90": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_18"
+  },
+  "DerivedComponent_76": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_32"
+  },
+  "CoordinateComponentLink_106": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 2,
+    "frm": [
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "LoadLog_6": {
+    "factory": {
+      "function": "glue.core.data_factories.helpers.auto_data",
+      "_type": "types.FunctionType"
+    },
+    "kwargs": [
+      []
+    ],
+    "_type": "glue.core.data_factories.helpers.LoadLog",
+    "path": "/Users/jesse/carma/catalogs/MIPS_ONC_24um.fits"
+  },
+  "6.0<=Kmag<7.0_2": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#f88e52",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "6.0<=Kmag<7.0_0"
+  },
+  "InequalitySubsetState_1": {
+    "left": "Kmag",
+    "op": ">=",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 6.0
+  },
+  "DerivedComponent_36": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_0"
+  },
+  "CoordinateComponentLink_46": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 2,
+    "frm": [
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Component": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.Component",
+    "log_item": 5
+  },
+  "CoordinateComponentLink_123": {
+    "to": [
+      "Pixel Axis 0 [y]_4"
+    ],
+    "index": 0,
+    "frm": [
+      "World 0_4",
+      "World 1_0"
+    ],
+    "pix2world": false,
+    "coords": "Coordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponent_6": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "F Stars_0": {
+    "subsets": [
+      "F Stars_3",
+      "F Stars_4",
+      "F Stars_5",
+      "F Stars_2",
+      "F Stars_6",
+      "F Stars_7",
+      "F Stars_1",
+      "F Stars"
+    ],
+    "state": "AndState_2",
+    "label": "F Stars",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ffaf00",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "_type": "glue.core.subset_group.SubsetGroup"
+  },
+  "A Stars_1": {
+    "subsets": [
+      "A Stars_0",
+      "A Stars_4",
+      "A Stars_5",
+      "A Stars_3",
+      "A Stars_6",
+      "A Stars_7",
+      "A Stars_2",
+      "A Stars"
+    ],
+    "state": "AndState_3",
+    "label": "A Stars",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#07ff01",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "_type": "glue.core.subset_group.SubsetGroup"
+  },
+  "CoordinateComponentLink_32": {
+    "to": [
+      "Pixel Axis 1 [y]_1"
+    ],
+    "index": 1,
+    "frm": [
+      "Vopt",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "O Stars_0": {
+    "subsets": [
+      "O Stars_3",
+      "O Stars_7",
+      "O Stars_5",
+      "O Stars_2",
+      "O Stars_4",
+      "O Stars_6",
+      "O Stars_1",
+      "O Stars"
+    ],
+    "state": "AndState_7",
+    "label": "O Stars",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ff08ff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "_type": "glue.core.subset_group.SubsetGroup"
+  },
+  "DerivedComponent_123": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_32"
+  },
+  "Hmag": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Hmag",
+    "hidden": false
+  },
+  "CategoricalComponent_8": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.CategoricalComponent",
+    "log_item": 18
+  },
+  "LoadLog_2": {
+    "factory": {
+      "function": "glue.core.data_factories.helpers.auto_data",
+      "_type": "types.FunctionType"
+    },
+    "kwargs": [
+      []
+    ],
+    "_type": "glue.core.data_factories.helpers.LoadLog",
+    "path": "/Users/jesse/carma/catalogs/IRAC_L1641_ch4_merged_clean.fits"
+  },
+  "LoadLog_4": {
+    "factory": {
+      "function": "glue.core.data_factories.helpers.auto_data",
+      "_type": "types.FunctionType"
+    },
+    "kwargs": [
+      []
+    ],
+    "_type": "glue.core.data_factories.helpers.LoadLog",
+    "path": "/Users/jesse/carma/catalogs/MIPS_L1641a_24um.fits"
+  },
+  "CoordinateComponentLink_29": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_0",
+      "Pixel Axis 1 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_66": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_48"
+  },
+  "CoordinateComponentLink_57": {
+    "to": [
+      "Pixel Axis 1 [y]_2"
+    ],
+    "index": 1,
+    "frm": [
+      "Velocity",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "B Stars": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#130fff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "B Stars_1"
+  },
+  "O Stars_4": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ff08ff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "O Stars_0"
+  },
+  "CoordinateComponent_30": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 1
+  },
+  "CoordinateComponentLink_43": {
+    "to": [
+      "Pixel Axis 1 [y]_1"
+    ],
+    "index": 1,
+    "frm": [
+      "Vopt",
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_113": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_51"
+  },
+  "DerivedComponent_91": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_74"
+  },
+  "DerivedComponent_106": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_6"
+  },
+  "Component_16": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 14
+  },
+  "O Stars_3": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ff08ff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "O Stars_0"
+  },
+  "CoordinateComponentLink_33": {
+    "to": [
+      "Velocity_0"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [z]_3",
+      "Pixel Axis 1 [y]",
+      "Pixel Axis 2 [x]"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_7",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Coordinates_0": {
+    "_type": "glue.core.coordinates.Coordinates"
+  },
+  "CoordinateComponentLink_92": {
+    "to": [
+      "Galactic Latitude_0"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [z]_1",
+      "Pixel Axis 1 [y]_3",
+      "Pixel Axis 2 [x]_3"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_5",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CategoricalComponent_0": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.CategoricalComponent",
+    "log_item": 10
+  },
+  "DerivedComponent_84": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_0"
+  },
+  "CoordinateComponentLink_96": {
+    "to": [
+      "Pixel Axis 0 [y]_0"
+    ],
+    "index": 0,
+    "frm": [
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "COO_WAVELENGTH": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "COO_WAVELENGTH",
+    "hidden": false
+  },
+  "WCSCoordinates_6": {
+    "_type": "glue.core.coordinates.WCSCoordinates",
+    "header": "WCSAXES =                    3 / Number of coordinate axes                      CRPIX1  =         455.19235889 / Pixel coordinate of reference point            CRPIX2  =        775.958826667 / Pixel coordinate of reference point            CRPIX3  =                  1.0 / Pixel coordinate of reference point            CDELT1  =    -0.00208333333333 / [deg] Coordinate increment at reference point  CDELT2  =     0.00208333333333 / [deg] Coordinate increment at reference point  CDELT3  =                 99.0 / [m/s] Coordinate increment at reference point  CUNIT1  = 'deg'                / Units of coordinate increment and value        CUNIT2  = 'deg'                / Units of coordinate increment and value        CUNIT3  = 'm/s'                / Units of coordinate increment and value        CTYPE1  = 'RA---SFL'           / Right ascension, Sanson-Flamsteed projection   CTYPE2  = 'DEC--SFL'           / Declination, Sanson-Flamsteed projection       CTYPE3  = 'VOPT'               / Optical velocity (linear)                      CRVAL1  =            83.783333 / [deg] Coordinate value at reference point      CRVAL2  =            -5.583333 / [deg] Coordinate value at reference point      CRVAL3  =              -2950.5 / [m/s] Coordinate value at reference point      PV1_0   =                  1.0 / [m/s] Coordinate value at reference point      PV1_1   =                  0.0 / [deg] Native longitude of the reference point  PV1_2   =            -5.583333 / [deg] Native latitude  of the reference point  LONPOLE =                  0.0 / [deg] Native longitude of celestial pole       LATPOLE =                 90.0 / [deg] Native latitude of celestial pole        RESTFRQ =       115271202087.0 / [Hz] Line rest frequency                       RADESYS = 'FK5'                / Equatorial coordinate system                   EQUINOX =               2000.0 / [yr] Equinox of equatorial coordinates         SPECSYS = 'LSRK'               / Reference frame of spectral coordinates        MJD-OBS =              57171.0 / [d] MJD of observation matching DATE-OBS       DATE-OBS= '2015-05-29T00:00:00.0' / ISO-8601 observation date matching MJD-OBS  END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "
+  },
+  "8.0<=Kmag<9.0_5": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#8dc1dc",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "8.0<=Kmag<9.0_0"
+  },
+  "World 0": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "World 0",
+    "hidden": true
+  },
+  "CoordinateComponentLink_102": {
+    "to": [
+      "Pixel Axis 1 [y]_2"
+    ],
+    "index": 1,
+    "frm": [
+      "Velocity",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_70": {
+    "to": [
+      "Declination"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "7.0<=Kmag<8.0_3": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#fefec0",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "7.0<=Kmag<8.0_0"
+  },
+  "DerivedComponent_13": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_27"
+  },
+  "CoordinateComponentLink_104": {
+    "to": [
+      "Pixel Axis 0 [y]_2"
+    ],
+    "index": 0,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_45": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_18"
+  },
+  "CoordinateComponentLink_69": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "InequalitySubsetState_6": {
+    "left": "SP_LETTER",
+    "op": "<=",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 4.5
+  },
+  "CoordinateComponentLink_76": {
+    "to": [
+      "Pixel Axis 0 [z]_3"
+    ],
+    "index": 0,
+    "frm": [
+      "Velocity_0",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_7",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "6.0<=Kmag<7.0_5": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#f88e52",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "6.0<=Kmag<7.0_0"
+  },
+  "MIPS_L1641a_24um": {
+    "_key_joins": [],
+    "_protocol": 4,
+    "_type": "glue.core.data.Data",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.81,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "0.35",
+      "linewidth": 1,
+      "markersize": 3
+    },
+    "coords": "WCSCoordinates_0",
+    "subsets": [
+      "5.0<=Kmag<6.0_4",
+      "6.0<=Kmag<7.0_4",
+      "7.0<=Kmag<8.0_4",
+      "8.0<=Kmag<9.0_6",
+      "9.0<=Kmag<=10.0_6",
+      "A Stars_6",
+      "B Stars_6",
+      "F Stars_6",
+      "O Stars_4"
+    ],
+    "label": "MIPS_L1641a_24um",
+    "components": [
+      [
+        "PRIMARY_1",
+        "Component_23"
+      ],
+      [
+        "Pixel Axis 0 [y]_0",
+        "CoordinateComponent_15"
+      ],
+      [
+        "Pixel Axis 1 [x]_2",
+        "CoordinateComponent_16"
+      ],
+      [
+        "Galactic Longitude",
+        "DerivedComponent_67"
+      ],
+      [
+        "Pixel Axis 2 [x]_0",
+        "DerivedComponent_68"
+      ],
+      [
+        "Galactic Latitude",
+        "DerivedComponent_69"
+      ],
+      [
+        "Pixel Axis 0 [y]_1",
+        "DerivedComponent_70"
+      ],
+      [
+        "Pixel Axis 0 [y]_2",
+        "DerivedComponent_71"
+      ],
+      [
+        "Pixel Axis 1 [y]_0",
+        "DerivedComponent_72"
+      ],
+      [
+        "Pixel Axis 1 [x]_0",
+        "DerivedComponent_73"
+      ],
+      [
+        "Pixel Axis 1 [x]_1",
+        "DerivedComponent_74"
+      ],
+      [
+        "Pixel Axis 2 [x]",
+        "DerivedComponent_75"
+      ],
+      [
+        "Pixel Axis 1 [y]_1",
+        "DerivedComponent_76"
+      ],
+      [
+        "Pixel Axis 2 [x]_1",
+        "DerivedComponent_77"
+      ],
+      [
+        "Pixel Axis 2 [x]_2",
+        "DerivedComponent_78"
+      ],
+      [
+        "Pixel Axis 1 [y]",
+        "DerivedComponent_79"
+      ],
+      [
+        "Pixel Axis 1 [y]_2",
+        "DerivedComponent_80"
+      ],
+      [
+        "Declination",
+        "CoordinateComponent_17"
+      ],
+      [
+        "Right Ascension",
+        "CoordinateComponent_18"
+      ],
+      [
+        "Pixel Axis 1 [x]",
+        "DerivedComponent_81"
+      ],
+      [
+        "Pixel Axis 0 [y]",
+        "DerivedComponent_82"
+      ]
+    ],
+    "uuid": "cf746a4a-58da-477f-af53-9c52060efdd5"
+  },
+  "CoordinateComponent_18": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 1
+  },
+  "DerivedComponent_130": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_14"
+  },
+  "DerivedComponent_8": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_6"
+  },
+  "DerivedComponent_92": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_32"
+  },
+  "DerivedComponent_63": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_27"
+  },
+  "WCSCoordinates_5": {
+    "_type": "glue.core.coordinates.WCSCoordinates",
+    "header": "WCSAXES =                    3 / Number of coordinate axes                      CRPIX1  =               1735.0 / Pixel coordinate of reference point            CRPIX2  =                783.0 / Pixel coordinate of reference point            CRPIX3  =                  0.0 / Pixel coordinate of reference point            CDELT1  =    -0.00416666666667 / [deg] Coordinate increment at reference point  CDELT2  =     0.00416666666667 / [deg] Coordinate increment at reference point  CDELT3  =                  1.0 / Coordinate increment at reference point        CUNIT1  = 'deg'                / Units of coordinate increment and value        CUNIT2  = 'deg'                / Units of coordinate increment and value        CTYPE1  = 'GLON-TAN'           / galactic longitude, gnomonic projection        CTYPE2  = 'GLAT-TAN'           / galactic latitude, gnomonic projection         CRVAL1  =                210.0 / [deg] Coordinate value at reference point      CRVAL2  =                -19.0 / [deg] Coordinate value at reference point      CRVAL3  =                  0.0 / Coordinate value at reference point            LONPOLE =                180.0 / [deg] Native longitude of celestial pole       LATPOLE =                -19.0 / [deg] Native latitude of celestial pole        END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "
+  },
+  "Galactic Latitude": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Galactic Latitude",
+    "hidden": true
+  },
+  "CoordinateComponent_26": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 1
+  },
+  "MAIN_ID": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "MAIN_ID",
+    "hidden": false
+  },
+  "B Stars_6": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#130fff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "B Stars_1"
+  },
+  "ComponentLink_6": {
+    "to": [
+      "Right Ascension"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Right Ascension"
+    ]
+  },
+  "WCSCoordinates_0": {
+    "_type": "glue.core.coordinates.WCSCoordinates",
+    "header": "WCSAXES =                    2 / Number of coordinate axes                      CRPIX1  =               1651.5 / Pixel coordinate of reference point            CRPIX2  =               2838.5 / Pixel coordinate of reference point            PC1_1   = -0.00034583333465788 / Coordinate transformation matrix element       PC2_2   =  0.00034583333465788 / Coordinate transformation matrix element       CDELT1  =                  1.0 / [deg] Coordinate increment at reference point  CDELT2  =                  1.0 / [deg] Coordinate increment at reference point  CUNIT1  = 'deg'                / Units of coordinate increment and value        CUNIT2  = 'deg'                / Units of coordinate increment and value        CTYPE1  = 'RA---TAN'           / Right ascension, gnomonic projection           CTYPE2  = 'DEC--TAN'           / Declination, gnomonic projection               CRVAL1  =      84.060552132166 / [deg] Coordinate value at reference point      CRVAL2  =     -6.5537292217977 / [deg] Coordinate value at reference point      LONPOLE =                180.0 / [deg] Native longitude of celestial pole       LATPOLE =     -6.5537292217977 / [deg] Native latitude of celestial pole        RADESYS = 'ICRS'               / Equatorial coordinate system                   END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "
+  },
+  "CoordinateComponentLink_140": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_99": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_31"
+  },
+  "CoordinateComponentLink_119": {
+    "to": [
+      "World 0"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [x]"
+    ],
+    "pix2world": true,
+    "coords": "Coordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Pixel Axis 1 [x]_4": {
+    "label": "Pixel Axis 1 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 1,
+    "hidden": true
+  },
+  "O Stars_1": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ff08ff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "O Stars_0"
+  },
+  "DerivedComponent_119": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_74"
+  },
+  "DerivedComponent_83": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_31"
+  },
+  "CoordinateComponent_9": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "DerivedComponent_127": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_26"
+  },
+  "DerivedComponent_94": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_36"
+  },
+  "DerivedComponent_19": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_14"
+  },
+  "DerivedComponent_18": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_0"
+  },
+  "6.0<=Kmag<7.0_1": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#f88e52",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "6.0<=Kmag<7.0_0"
+  },
+  "8.0<=Kmag<9.0_6": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#8dc1dc",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "8.0<=Kmag<9.0_0"
+  },
+  "DerivedComponent_30": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_36"
+  },
+  "Velocity": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Velocity",
+    "hidden": true
+  },
+  "DerivedComponent_125": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_36"
+  },
+  "CoordinateComponentLink_108": {
+    "to": [
+      "Pixel Axis 1 [x]_1"
+    ],
+    "index": 1,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "A Stars_2": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#07ff01",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "A Stars_1"
+  },
+  "WCSCoordinates_3": {
+    "_type": "glue.core.coordinates.WCSCoordinates",
+    "header": "WCSAXES =                    2 / Number of coordinate axes                      CRPIX1  =               4383.0 / Pixel coordinate of reference point            CRPIX2  =                636.0 / Pixel coordinate of reference point            PC1_1   =    -0.00020954523886 / Coordinate transformation matrix element       PC1_2   =   -0.000266967435936 / Coordinate transformation matrix element       PC2_1   =   -0.000266967435936 / Coordinate transformation matrix element       PC2_2   =     0.00020954523886 / Coordinate transformation matrix element       CDELT1  =                  1.0 / [deg] Coordinate increment at reference point  CDELT2  =                  1.0 / [deg] Coordinate increment at reference point  CUNIT1  = 'deg'                / Units of coordinate increment and value        CUNIT2  = 'deg'                / Units of coordinate increment and value        CTYPE1  = 'RA---TAN'           / Right ascension, gnomonic projection           CTYPE2  = 'DEC--TAN'           / Declination, gnomonic projection               CRVAL1  =          85.52368072 / [deg] Coordinate value at reference point      CRVAL2  =         -8.937081392 / [deg] Coordinate value at reference point      LONPOLE =                180.0 / [deg] Native longitude of celestial pole       LATPOLE =         -8.937081392 / [deg] Native latitude of celestial pole        CRDER1  =  3.4586386210634E-05 / [deg] Random error in coordinate               CRDER2  =  3.4431991386851E-05 / [deg] Random error in coordinate               RADESYS = 'ICRS'               / Equatorial coordinate system                   END                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             "
+  },
+  "DEC": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "DEC",
+    "hidden": false
+  },
+  "Pixel Axis 0 [x]_0": {
+    "label": "Pixel Axis 0 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "DerivedComponent_55": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_4"
+  },
+  "Component_9": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 7
+  },
+  "9.0<=Kmag<=10.0_2": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#313695",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "9.0<=Kmag<=10.0_0"
+  },
+  "LoadLog_1": {
+    "factory": {
+      "function": "glue.core.data_factories.helpers.auto_data",
+      "_type": "types.FunctionType"
+    },
+    "kwargs": [
+      []
+    ],
+    "_type": "glue.core.data_factories.helpers.LoadLog",
+    "path": "/Users/jesse/carma/catalogs/IRAC_L1641_ch1_merged_clean.fits"
+  },
+  "CoordinateComponent_10": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 1
+  },
+  "6.0<=Kmag<7.0_4": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#f88e52",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "6.0<=Kmag<7.0_0"
+  },
+  "Pixel Axis 2 [x]_1": {
+    "label": "Pixel Axis 2 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 2,
+    "hidden": true
+  },
+  "7.0<=Kmag<8.0_7": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#fefec0",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "7.0<=Kmag<8.0_0"
+  },
+  "CoordinateComponentLink_51": {
+    "to": [
+      "Pixel Axis 1 [x]"
+    ],
+    "index": 1,
+    "frm": [
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_1",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "LoadLog_0": {
+    "factory": {
+      "function": "glue.core.data_factories.helpers.auto_data",
+      "_type": "types.FunctionType"
+    },
+    "kwargs": [
+      []
+    ],
+    "_type": "glue.core.data_factories.helpers.LoadLog",
+    "path": "/Users/jesse/carma/code/stars_obaf.txt"
+  },
+  "RA": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "RA",
+    "hidden": false
+  },
+  "DerivedComponent_77": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_40"
+  },
+  "CoordinateComponentLink_115": {
+    "to": [
+      "Pixel Axis 0 [y]_1"
+    ],
+    "index": 0,
+    "frm": [
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "alpha": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "alpha",
+    "hidden": false
+  },
+  "CoordinateComponentLink_36": {
+    "to": [
+      "Pixel Axis 2 [x]_2"
+    ],
+    "index": 2,
+    "frm": [
+      "Velocity",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_137": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_87": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_34"
+  },
+  "CoordinateComponentLink_114": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 1 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "InequalitySubsetState_16": {
+    "left": "Kmag",
+    "op": "<=",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 10.0
+  },
+  "DerivedComponent": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_34"
+  },
+  "F Stars": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#ffaf00",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "F Stars_0"
+  },
+  "CoordinateComponentLink_105": {
+    "to": [
+      "World 0_4"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_4",
+      "Pixel Axis 1 [x]_4"
+    ],
+    "pix2world": true,
+    "coords": "Coordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_91": {
+    "to": [
+      "Pixel Axis 1 [x]_0"
+    ],
+    "index": 1,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_98": {
+    "to": [
+      "Pixel Axis 1 [x]_2"
+    ],
+    "index": 1,
+    "frm": [
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_4": {
+    "to": [
+      "Pixel Axis 0 [y]_1"
+    ],
+    "index": 0,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_6": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_79"
+  },
+  "ComponentLink_17": {
+    "to": [
+      "Declination"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Declination"
+    ]
+  },
+  "InequalitySubsetState_2": {
+    "left": "Kmag",
+    "op": "<",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 7.0
+  },
+  "ImageWidget_1": {
+    "properties": {
+      "batt": null,
+      "attribute": "PRIMARY",
+      "ratt": null,
+      "gatt": null,
+      "rgb_mode": false,
+      "data": "MIPS_ONC_24um",
+      "slice": [
+        "y",
+        "x"
+      ],
+      "rgb_viz": [
+        true,
+        true,
+        true
+      ]
+    },
+    "layers": [
+      {
+        "layer": "MIPS_ONC_24um",
+        "_type": "glue.viewers.image.layer_artist.ImageLayerArtist",
+        "norm": "DS9Normalize",
+        "zorder": 1,
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.image.layer_artist.SubsetImageLayerArtist",
+        "layer": "9.0<=Kmag<=10.0",
+        "zorder": 2,
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.image.layer_artist.SubsetImageLayerArtist",
+        "layer": "F Stars",
+        "zorder": 3,
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.image.layer_artist.SubsetImageLayerArtist",
+        "layer": "8.0<=Kmag<9.0",
+        "zorder": 4,
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.image.layer_artist.SubsetImageLayerArtist",
+        "layer": "6.0<=Kmag<7.0",
+        "zorder": 5,
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.image.layer_artist.SubsetImageLayerArtist",
+        "layer": "O Stars",
+        "zorder": 6,
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.image.layer_artist.SubsetImageLayerArtist",
+        "layer": "A Stars",
+        "zorder": 7,
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.image.layer_artist.SubsetImageLayerArtist",
+        "layer": "7.0<=Kmag<8.0",
+        "zorder": 8,
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.image.layer_artist.SubsetImageLayerArtist",
+        "layer": "B Stars",
+        "zorder": 9,
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.image.layer_artist.SubsetImageLayerArtist",
+        "layer": "5.0<=Kmag<6.0",
+        "zorder": 10,
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.scatter.layer_artist.ScatterLayerArtist",
+        "zorder": 11,
+        "yatt": "Pixel Axis 0 [y]",
+        "xatt": "Pixel Axis 1 [x]",
+        "layer": "B Stars_0",
+        "visible": true
+      },
+      {
+        "_type": "glue.viewers.scatter.layer_artist.ScatterLayerArtist",
+        "zorder": 12,
+        "yatt": "Pixel Axis 0 [y]",
+        "xatt": "Pixel Axis 1 [x]",
+        "layer": "A Stars_0",
+        "visible": true
+      }
+    ],
+    "pos": [
+      0,
+      0
+    ],
+    "size": [
+      1615,
+      1099
+    ],
+    "session": "Session",
+    "_type": "glue.viewers.image.qt.viewer_widget.ImageWidget"
+  },
+  "Pixel Axis 1 [y]_3": {
+    "label": "Pixel Axis 1 [y]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 1,
+    "hidden": true
+  },
+  "8.0<=Kmag<9.0_7": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#8dc1dc",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "8.0<=Kmag<9.0_0"
+  },
+  "5.0<=Kmag<6.0_0": {
+    "subsets": [
+      "5.0<=Kmag<6.0_3",
+      "5.0<=Kmag<6.0_5",
+      "5.0<=Kmag<6.0_6",
+      "5.0<=Kmag<6.0_2",
+      "5.0<=Kmag<6.0_4",
+      "5.0<=Kmag<6.0_7",
+      "5.0<=Kmag<6.0_1",
+      "5.0<=Kmag<6.0"
+    ],
+    "state": "AndState_4",
+    "label": "5.0<=Kmag<6.0",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#a50026",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "_type": "glue.core.subset_group.SubsetGroup"
+  },
+  "9.0<=Kmag<=10.0_3": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#313695",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "9.0<=Kmag<=10.0_0"
+  },
+  "DEC_PREC": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "DEC_PREC",
+    "hidden": false
+  },
+  "DerivedComponent_100": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_0"
+  },
+  "9.0<=Kmag<=10.0_4": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#313695",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "9.0<=Kmag<=10.0_0"
+  },
+  "F Stars_1": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ffaf00",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "F Stars_0"
+  },
+  "DerivedComponent_126": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_31"
+  },
+  "DerivedComponent_85": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_14"
+  },
+  "COO_ERR_ANGLE": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "COO_ERR_ANGLE",
+    "hidden": false
+  },
+  "8.0<=Kmag<9.0_3": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#8dc1dc",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "8.0<=Kmag<9.0_0"
+  },
+  "IRAC_L1641_ch4_merged_clean": {
+    "_key_joins": [],
+    "_protocol": 4,
+    "_type": "glue.core.data.Data",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.81,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "0.35",
+      "linewidth": 1,
+      "markersize": 3
+    },
+    "coords": "WCSCoordinates_3",
+    "subsets": [
+      "5.0<=Kmag<6.0_7",
+      "6.0<=Kmag<7.0_7",
+      "7.0<=Kmag<8.0_6",
+      "8.0<=Kmag<9.0_7",
+      "9.0<=Kmag<=10.0_7",
+      "A Stars_7",
+      "B Stars_7",
+      "F Stars_7",
+      "O Stars_6"
+    ],
+    "label": "IRAC_L1641_ch4_merged_clean",
+    "components": [
+      [
+        "PRIMARY_2",
+        "Component_24"
+      ],
+      [
+        "Pixel Axis 0 [y]_1",
+        "CoordinateComponent_19"
+      ],
+      [
+        "Pixel Axis 1 [x]_0",
+        "CoordinateComponent_20"
+      ],
+      [
+        "Pixel Axis 0 [y]_0",
+        "DerivedComponent_83"
+      ],
+      [
+        "Galactic Longitude",
+        "DerivedComponent_84"
+      ],
+      [
+        "Pixel Axis 2 [x]_0",
+        "DerivedComponent_85"
+      ],
+      [
+        "Galactic Latitude",
+        "DerivedComponent_86"
+      ],
+      [
+        "Pixel Axis 2 [x]",
+        "DerivedComponent_87"
+      ],
+      [
+        "Pixel Axis 0 [y]_2",
+        "DerivedComponent_88"
+      ],
+      [
+        "Pixel Axis 1 [y]_0",
+        "DerivedComponent_89"
+      ],
+      [
+        "Pixel Axis 1 [y]",
+        "DerivedComponent_90"
+      ],
+      [
+        "Pixel Axis 1 [x]_1",
+        "DerivedComponent_91"
+      ],
+      [
+        "Pixel Axis 1 [y]_1",
+        "DerivedComponent_92"
+      ],
+      [
+        "Pixel Axis 2 [x]_1",
+        "DerivedComponent_93"
+      ],
+      [
+        "Pixel Axis 2 [x]_2",
+        "DerivedComponent_94"
+      ],
+      [
+        "Pixel Axis 1 [x]_2",
+        "DerivedComponent_95"
+      ],
+      [
+        "Pixel Axis 1 [y]_2",
+        "DerivedComponent_96"
+      ],
+      [
+        "Declination",
+        "CoordinateComponent_21"
+      ],
+      [
+        "Right Ascension",
+        "CoordinateComponent_22"
+      ],
+      [
+        "Pixel Axis 1 [x]",
+        "DerivedComponent_97"
+      ],
+      [
+        "Pixel Axis 0 [y]",
+        "DerivedComponent_98"
+      ]
+    ],
+    "uuid": "c3ee2489-514b-4375-9eb5-928793997a95"
+  },
+  "6.0<=Kmag<7.0_0": {
+    "subsets": [
+      "6.0<=Kmag<7.0_3",
+      "6.0<=Kmag<7.0_5",
+      "6.0<=Kmag<7.0_6",
+      "6.0<=Kmag<7.0_2",
+      "6.0<=Kmag<7.0_4",
+      "6.0<=Kmag<7.0_7",
+      "6.0<=Kmag<7.0_1",
+      "6.0<=Kmag<7.0"
+    ],
+    "state": "AndState_5",
+    "label": "6.0<=Kmag<7.0",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#f88e52",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "_type": "glue.core.subset_group.SubsetGroup"
+  },
+  "DerivedComponent_23": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_79"
+  },
+  "AndState_1": {
+    "_type": "glue.core.subset.AndState",
+    "state2": "InequalitySubsetState_10",
+    "state1": "InequalitySubsetState_9"
+  },
+  "World 0_2": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "World 0",
+    "hidden": true
+  },
+  "DerivedComponent_39": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_4"
+  },
+  "CoordinateComponentLink_34": {
+    "to": [
+      "Pixel Axis 2 [x]"
+    ],
+    "index": 2,
+    "frm": [
+      "Velocity_0",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_7",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "6.0<=Kmag<7.0_7": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#f88e52",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "6.0<=Kmag<7.0_0"
+  },
+  "CoordinateComponent_20": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 1
+  },
+  "Simbad": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Simbad",
+    "hidden": false
+  },
+  "InequalitySubsetState_14": {
+    "left": "SP_LETTER",
+    "op": "<",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 3.5
+  },
+  "CoordinateComponentLink_134": {
+    "to": [
+      "Pixel Axis 0 [y]_2"
+    ],
+    "index": 0,
+    "frm": [
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_20": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_16"
+  },
+  "12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms": {
+    "_key_joins": [],
+    "_protocol": 4,
+    "_type": "glue.core.data.Data",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.81,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "0.35",
+      "linewidth": 1,
+      "markersize": 3
+    },
+    "coords": "WCSCoordinates_6",
+    "subsets": [
+      "5.0<=Kmag<6.0_6",
+      "6.0<=Kmag<7.0_6",
+      "7.0<=Kmag<8.0_5",
+      "8.0<=Kmag<9.0_4",
+      "9.0<=Kmag<=10.0_4",
+      "A Stars_5",
+      "B Stars_4",
+      "F Stars_5",
+      "O Stars_5"
+    ],
+    "label": "12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms",
+    "components": [
+      [
+        "STOKES I",
+        "Component_21"
+      ],
+      [
+        "Pixel Axis 0 [z]",
+        "CoordinateComponent_3"
+      ],
+      [
+        "Pixel Axis 1 [y]_1",
+        "CoordinateComponent_4"
+      ],
+      [
+        "Pixel Axis 2 [x]_1",
+        "CoordinateComponent_5"
+      ],
+      [
+        "Vopt",
+        "CoordinateComponent_6"
+      ],
+      [
+        "Pixel Axis 0 [y]_0",
+        "DerivedComponent_35"
+      ],
+      [
+        "Galactic Longitude",
+        "DerivedComponent_36"
+      ],
+      [
+        "Pixel Axis 2 [x]_0",
+        "DerivedComponent_37"
+      ],
+      [
+        "Galactic Latitude",
+        "DerivedComponent_38"
+      ],
+      [
+        "Pixel Axis 0 [y]_1",
+        "DerivedComponent_39"
+      ],
+      [
+        "Pixel Axis 0 [y]_2",
+        "DerivedComponent_40"
+      ],
+      [
+        "Pixel Axis 1 [y]_0",
+        "DerivedComponent_41"
+      ],
+      [
+        "Pixel Axis 1 [x]_0",
+        "DerivedComponent_42"
+      ],
+      [
+        "Pixel Axis 1 [x]_1",
+        "DerivedComponent_43"
+      ],
+      [
+        "Pixel Axis 2 [x]",
+        "DerivedComponent_44"
+      ],
+      [
+        "Pixel Axis 1 [y]",
+        "DerivedComponent_45"
+      ],
+      [
+        "Pixel Axis 2 [x]_2",
+        "DerivedComponent_46"
+      ],
+      [
+        "Pixel Axis 1 [x]_2",
+        "DerivedComponent_47"
+      ],
+      [
+        "Pixel Axis 1 [y]_2",
+        "DerivedComponent_48"
+      ],
+      [
+        "Declination",
+        "CoordinateComponent_7"
+      ],
+      [
+        "Right Ascension",
+        "CoordinateComponent_8"
+      ],
+      [
+        "Pixel Axis 1 [x]",
+        "DerivedComponent_49"
+      ],
+      [
+        "Pixel Axis 0 [y]",
+        "DerivedComponent_50"
+      ]
+    ],
+    "uuid": "ff3d509f-4bc6-4baa-82d2-988f23401bba"
+  },
+  "InequalitySubsetState_3": {
+    "left": "Kmag",
+    "op": ">=",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 7.0
+  },
+  "DerivedComponent_29": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_18"
+  },
+  "5.0<=Kmag<6.0_2": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#a50026",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "5.0<=Kmag<6.0_0"
+  },
+  "DEJ2000": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "DEJ2000",
+    "hidden": false
+  },
+  "PRIMARY_3": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "PRIMARY",
+    "hidden": false
+  },
+  "CoordinateComponentLink_39": {
+    "to": [
+      "Vopt"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_118": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_16"
+  },
+  "CoordinateComponentLink_110": {
+    "to": [
+      "Vopt"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_56": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_79"
+  },
+  "DerivedComponent_16": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_48"
+  },
+  "AndState_3": {
+    "_type": "glue.core.subset.AndState",
+    "state2": "InequalitySubsetState_12",
+    "state1": "InequalitySubsetState_11"
+  },
+  "CoordinateComponentLink_95": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 2,
+    "frm": [
+      "Pixel Axis 0 [z]",
+      "Pixel Axis 1 [y]_1",
+      "Pixel Axis 2 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "LoadLog": {
+    "factory": {
+      "function": "glue.core.data_factories.helpers.auto_data",
+      "_type": "types.FunctionType"
+    },
+    "kwargs": [
+      []
+    ],
+    "_type": "glue.core.data_factories.helpers.LoadLog",
+    "path": "/Users/jesse/carma/catalogs/spitzer_orion.fit"
+  },
+  "DerivedComponent_38": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_16"
+  },
+  "CoordinateComponent_25": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "LoadLog_5": {
+    "factory": {
+      "function": "glue.plugins.data_factories.spectral_cube.spectral_cube.read_spectral_cube",
+      "_type": "types.FunctionType"
+    },
+    "kwargs": [
+      []
+    ],
+    "_type": "glue.core.data_factories.helpers.LoadLog",
+    "path": "/Users/jesse/carma/nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits"
+  },
+  "B Stars_4": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#130fff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "B Stars_1"
+  },
+  "CoordinateComponent_13": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 1
+  },
+  "CoordinateComponent_7": {
+    "world": true,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 1
+  },
+  "7.0<=Kmag<8.0_0": {
+    "subsets": [
+      "7.0<=Kmag<8.0_3",
+      "7.0<=Kmag<8.0_7",
+      "7.0<=Kmag<8.0_5",
+      "7.0<=Kmag<8.0_2",
+      "7.0<=Kmag<8.0_4",
+      "7.0<=Kmag<8.0_6",
+      "7.0<=Kmag<8.0_1",
+      "7.0<=Kmag<8.0"
+    ],
+    "state": "AndState_6",
+    "label": "7.0<=Kmag<8.0",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#fefec0",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "_type": "glue.core.subset_group.SubsetGroup"
+  },
+  "Pixel Axis 1 [x]_3": {
+    "label": "Pixel Axis 1 [x]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 1,
+    "hidden": true
+  },
+  "CoordinateComponentLink_122": {
+    "to": [
+      "World 0"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [x]"
+    ],
+    "pix2world": true,
+    "coords": "Coordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_88": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_79"
+  },
+  "CoordinateComponentLink_11": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 2,
+    "frm": [
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "InequalitySubsetState_9": {
+    "left": "SP_LETTER",
+    "op": ">=",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 1.5
+  },
+  "Component_26": {
+    "log": "LoadLog_6",
+    "_type": "glue.core.component.Component",
+    "log_item": 0
+  },
+  "CoordinateComponentLink_100": {
+    "to": [
+      "Pixel Axis 1 [y]_0"
+    ],
+    "index": 1,
+    "frm": [
+      "World 0_1",
+      "Galactic Latitude",
+      "Galactic Longitude"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_4",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_133": {
+    "to": [
+      "Pixel Axis 0 [y]_3"
+    ],
+    "index": 0,
+    "frm": [
+      "World 0_3",
+      "World 1"
+    ],
+    "pix2world": false,
+    "coords": "Coordinates_1",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "A Stars": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#07ff01",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "A Stars_1"
+  },
+  "DerivedComponent_4": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_16"
+  },
+  "DerivedComponent_111": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_27"
+  },
+  "Component_6": {
+    "log": "LoadLog",
+    "_type": "glue.core.component.Component",
+    "log_item": 0
+  },
+  "DerivedComponent_71": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_79"
+  },
+  "ComponentLink_9": {
+    "to": [
+      "Right Ascension"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Right Ascension"
+    ]
+  },
+  "CoordinateComponent_23": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "DerivedComponent_31": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_27"
+  },
+  "DerivedComponent_80": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_26"
+  },
+  "CoordinateComponent_15": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "CategoricalComponent_5": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.CategoricalComponent",
+    "log_item": 15
+  },
+  "CoordinateComponentLink_35": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_2",
+      "Pixel Axis 1 [x]_1"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_22": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_4"
+  },
+  "6.0<=Kmag<7.0_6": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#f88e52",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "6.0<=Kmag<7.0_0"
+  },
+  "DerivedComponent_65": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_51"
+  },
+  "ComponentLink_10": {
+    "to": [
+      "Right Ascension"
+    ],
+    "hidden": false,
+    "using": {
+      "_type": "glue.core.link_helpers.PartialResult",
+      "index": 0,
+      "func": {
+        "_type": "types.MethodType",
+        "method": "forward",
+        "instance": "Galactic_to_FK5"
+      }
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Galactic Longitude",
+      "Galactic Latitude"
+    ]
+  },
+  "stars_obaf": {
+    "_key_joins": [],
+    "_protocol": 4,
+    "_type": "glue.core.data.Data",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#000000",
+      "linewidth": 1,
+      "markersize": 3
+    },
+    "coords": "Coordinates",
+    "subsets": [
+      "5.0<=Kmag<6.0_3",
+      "6.0<=Kmag<7.0_3",
+      "7.0<=Kmag<8.0_3",
+      "8.0<=Kmag<9.0_2",
+      "9.0<=Kmag<=10.0_2",
+      "A Stars_0",
+      "B Stars_0",
+      "F Stars_3",
+      "O Stars_3"
+    ],
+    "label": "stars_obaf",
+    "components": [
+      [
+        "MAIN_ID",
+        "CategoricalComponent"
+      ],
+      [
+        "RA_PREC",
+        "Component"
+      ],
+      [
+        "DEC_PREC",
+        "Component_0"
+      ],
+      [
+        "COO_ERR_MAJA",
+        "Component_1"
+      ],
+      [
+        "COO_ERR_MINA",
+        "Component_2"
+      ],
+      [
+        "COO_ERR_ANGLE",
+        "Component_3"
+      ],
+      [
+        "COO_QUAL",
+        "CategoricalComponent_0"
+      ],
+      [
+        "COO_WAVELENGTH",
+        "CategoricalComponent_1"
+      ],
+      [
+        "COO_BIBCODE",
+        "CategoricalComponent_2"
+      ],
+      [
+        "SP_TYPE",
+        "CategoricalComponent_3"
+      ],
+      [
+        "SP_QUAL",
+        "CategoricalComponent_4"
+      ],
+      [
+        "SP_BIBCODE",
+        "CategoricalComponent_5"
+      ],
+      [
+        "SP_LETTER",
+        "CategoricalComponent_6"
+      ],
+      [
+        "Pixel Axis 0 [x]",
+        "CoordinateComponent"
+      ],
+      [
+        "World 0",
+        "CoordinateComponent_0"
+      ],
+      [
+        "Pixel Axis 2 [x]",
+        "DerivedComponent"
+      ],
+      [
+        "Pixel Axis 1 [y]",
+        "DerivedComponent_0"
+      ],
+      [
+        "Pixel Axis 0 [y]_0",
+        "DerivedComponent_1"
+      ],
+      [
+        "Galactic Longitude",
+        "DerivedComponent_2"
+      ],
+      [
+        "Pixel Axis 2 [x]_0",
+        "DerivedComponent_3"
+      ],
+      [
+        "Galactic Latitude",
+        "DerivedComponent_4"
+      ],
+      [
+        "Pixel Axis 0 [y]_1",
+        "DerivedComponent_5"
+      ],
+      [
+        "Pixel Axis 0 [y]_2",
+        "DerivedComponent_6"
+      ],
+      [
+        "Pixel Axis 1 [y]_0",
+        "DerivedComponent_7"
+      ],
+      [
+        "Pixel Axis 1 [x]_0",
+        "DerivedComponent_8"
+      ],
+      [
+        "Pixel Axis 1 [x]_1",
+        "DerivedComponent_9"
+      ],
+      [
+        "Pixel Axis 1 [y]_1",
+        "DerivedComponent_10"
+      ],
+      [
+        "Pixel Axis 2 [x]_1",
+        "DerivedComponent_11"
+      ],
+      [
+        "Pixel Axis 2 [x]_2",
+        "DerivedComponent_12"
+      ],
+      [
+        "Pixel Axis 1 [x]_2",
+        "DerivedComponent_13"
+      ],
+      [
+        "Pixel Axis 1 [y]_2",
+        "DerivedComponent_14"
+      ],
+      [
+        "Declination",
+        "Component_4"
+      ],
+      [
+        "Right Ascension",
+        "Component_5"
+      ],
+      [
+        "Pixel Axis 1 [x]",
+        "DerivedComponent_15"
+      ],
+      [
+        "Pixel Axis 0 [y]",
+        "DerivedComponent_16"
+      ]
+    ],
+    "uuid": "2827d014-bbe0-40a2-9976-2a8db592d2a6"
+  },
+  "ComponentLink_16": {
+    "to": [
+      "Galactic Latitude"
+    ],
+    "hidden": false,
+    "using": {
+      "_type": "glue.core.link_helpers.PartialResult",
+      "index": 1,
+      "func": {
+        "_type": "types.MethodType",
+        "method": "backward",
+        "instance": "Galactic_to_FK5"
+      }
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Right Ascension",
+      "Declination"
+    ]
+  },
+  "CoordinateComponentLink_73": {
+    "to": [
+      "Pixel Axis 2 [x]_2"
+    ],
+    "index": 2,
+    "frm": [
+      "Velocity",
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DS9Normalize_1": {
+    "_type": "glue.viewers.image.ds9norm.DS9Normalize",
+    "bias": 0.44551282051282054,
+    "vmax": 50.021453857421875,
+    "clip_hi": 100,
+    "vmin": -30.39742088317871,
+    "stretch": "linear",
+    "clip_lo": 0,
+    "contrast": 1.7941176470588238
+  },
+  "spitzer_orion": {
+    "_key_joins": [],
+    "_protocol": 4,
+    "_type": "glue.core.data.Data",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.807843137254902,
+      "linestyle": "solid",
+      "marker": "+",
+      "color": "#595959",
+      "linewidth": 1,
+      "markersize": 3
+    },
+    "coords": "Coordinates_0",
+    "subsets": [
+      "5.0<=Kmag<6.0_5",
+      "6.0<=Kmag<7.0_5",
+      "7.0<=Kmag<8.0_7",
+      "8.0<=Kmag<9.0_3",
+      "9.0<=Kmag<=10.0_3",
+      "A Stars_4",
+      "B Stars_3",
+      "F Stars_4",
+      "O Stars_7"
+    ],
+    "label": "spitzer_orion",
+    "components": [
+      [
+        "_RAJ2000",
+        "Component_6"
+      ],
+      [
+        "_DEJ2000",
+        "Component_7"
+      ],
+      [
+        "Seq",
+        "Component_8"
+      ],
+      [
+        "Jmag",
+        "Component_9"
+      ],
+      [
+        "Hmag",
+        "Component_10"
+      ],
+      [
+        "Kmag",
+        "Component_11"
+      ],
+      [
+        "__3_6_",
+        "Component_12"
+      ],
+      [
+        "__4_5_",
+        "Component_13"
+      ],
+      [
+        "__5_8_",
+        "Component_14"
+      ],
+      [
+        "__8_0_",
+        "Component_15"
+      ],
+      [
+        "__24_",
+        "Component_16"
+      ],
+      [
+        "AKs",
+        "Component_17"
+      ],
+      [
+        "alpha",
+        "Component_18"
+      ],
+      [
+        "Cl",
+        "CategoricalComponent_7"
+      ],
+      [
+        "_2M",
+        "CategoricalComponent_8"
+      ],
+      [
+        "Simbad",
+        "CategoricalComponent_9"
+      ],
+      [
+        "Pixel Axis 0 [x]_0",
+        "CoordinateComponent_1"
+      ],
+      [
+        "World 0_0",
+        "CoordinateComponent_2"
+      ],
+      [
+        "Pixel Axis 1 [y]_0",
+        "DerivedComponent_17"
+      ],
+      [
+        "Galactic Longitude",
+        "DerivedComponent_18"
+      ],
+      [
+        "Pixel Axis 2 [x]_0",
+        "DerivedComponent_19"
+      ],
+      [
+        "Galactic Latitude",
+        "DerivedComponent_20"
+      ],
+      [
+        "Pixel Axis 0 [y]_0",
+        "DerivedComponent_21"
+      ],
+      [
+        "Pixel Axis 0 [y]_1",
+        "DerivedComponent_22"
+      ],
+      [
+        "Pixel Axis 0 [y]_2",
+        "DerivedComponent_23"
+      ],
+      [
+        "Pixel Axis 1 [x]_0",
+        "DerivedComponent_24"
+      ],
+      [
+        "Pixel Axis 1 [x]_1",
+        "DerivedComponent_25"
+      ],
+      [
+        "Pixel Axis 2 [x]",
+        "DerivedComponent_26"
+      ],
+      [
+        "Pixel Axis 1 [y]_1",
+        "DerivedComponent_27"
+      ],
+      [
+        "Pixel Axis 2 [x]_1",
+        "DerivedComponent_28"
+      ],
+      [
+        "Pixel Axis 1 [y]",
+        "DerivedComponent_29"
+      ],
+      [
+        "Pixel Axis 2 [x]_2",
+        "DerivedComponent_30"
+      ],
+      [
+        "Pixel Axis 1 [x]_2",
+        "DerivedComponent_31"
+      ],
+      [
+        "Pixel Axis 1 [y]_2",
+        "DerivedComponent_32"
+      ],
+      [
+        "Declination",
+        "Component_19"
+      ],
+      [
+        "Right Ascension",
+        "Component_20"
+      ],
+      [
+        "Pixel Axis 1 [x]",
+        "DerivedComponent_33"
+      ],
+      [
+        "Pixel Axis 0 [y]",
+        "DerivedComponent_34"
+      ]
+    ],
+    "uuid": "d0a9b52d-cd2d-4198-b544-f17a4a4569d1"
+  },
+  "DerivedComponent_40": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_79"
+  },
+  "CategoricalComponent": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.CategoricalComponent",
+    "log_item": 0
+  },
+  "CoordinateComponentLink_87": {
+    "to": [
+      "Pixel Axis 1 [y]_1"
+    ],
+    "index": 1,
+    "frm": [
+      "Vopt",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "AndState_4": {
+    "_type": "glue.core.subset.AndState",
+    "state2": "InequalitySubsetState_0",
+    "state1": "InequalitySubsetState"
+  },
+  "DerivedComponent_104": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_18"
+  },
+  "DerivedComponent_89": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_100"
+  },
+  "CoordinateComponentLink_47": {
+    "to": [
+      "Pixel Axis 2 [x]_1"
+    ],
+    "index": 2,
+    "frm": [
+      "Vopt",
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "ComponentLink": {
+    "to": [
+      "Right Ascension"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Right Ascension"
+    ]
+  },
+  "DerivedComponent_35": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_31"
+  },
+  "7.0<=Kmag<8.0": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#fefec0",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "7.0<=Kmag<8.0_0"
+  },
+  "5.0<=Kmag<6.0_5": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#a50026",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "5.0<=Kmag<6.0_0"
+  },
+  "PRIMARY": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "PRIMARY",
+    "hidden": false
+  },
+  "CoordinateComponent_27": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 0
+  },
+  "Galactic_to_FK5": {
+    "cids": [
+      "Galactic Longitude",
+      "Galactic Latitude",
+      "RAJ2000",
+      "DEJ2000"
+    ],
+    "_type": "glue.plugins.coordinate_helpers.link_helpers.Galactic_to_FK5"
+  },
+  "LoadLog_3": {
+    "factory": {
+      "function": "glue.core.data_factories.helpers.auto_data",
+      "_type": "types.FunctionType"
+    },
+    "kwargs": [
+      []
+    ],
+    "_type": "glue.core.data_factories.helpers.LoadLog",
+    "path": "/Users/jesse/carma/nro_maps/13CO_20161011_FOREST-BEARS_xyb_spheroidal_dV0.11kms_YS.fits"
+  },
+  "B Stars_2": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#130fff",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "B Stars_1"
+  },
+  "CoordinateComponentLink_109": {
+    "to": [
+      "Pixel Axis 0 [z]"
+    ],
+    "index": 0,
+    "frm": [
+      "Vopt",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_0": {
+    "to": [
+      "Pixel Axis 0 [x]"
+    ],
+    "index": 0,
+    "frm": [
+      "World 0"
+    ],
+    "pix2world": false,
+    "coords": "Coordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "ComponentLink_0": {
+    "to": [
+      "Galactic Longitude"
+    ],
+    "hidden": false,
+    "using": {
+      "_type": "glue.core.link_helpers.PartialResult",
+      "index": 0,
+      "func": {
+        "_type": "types.MethodType",
+        "method": "backward",
+        "instance": "Galactic_to_FK5"
+      }
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Right Ascension",
+      "Declination"
+    ]
+  },
+  "Component_0": {
+    "log": "LoadLog_0",
+    "_type": "glue.core.component.Component",
+    "log_item": 6
+  },
+  "F Stars_5": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ffaf00",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "F Stars_0"
+  },
+  "AndState": {
+    "_type": "glue.core.subset.AndState",
+    "state2": "InequalitySubsetState_8",
+    "state1": "InequalitySubsetState_7"
+  },
+  "CoordinateComponentLink_52": {
+    "to": [
+      "Pixel Axis 0 [z]"
+    ],
+    "index": 0,
+    "frm": [
+      "Vopt",
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_6",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_10": {
+    "to": [
+      "Declination"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [z]_0",
+      "Pixel Axis 1 [y]_2",
+      "Pixel Axis 2 [x]_2"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_128": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_0"
+  },
+  "CoordinateComponentLink_84": {
+    "to": [
+      "Right Ascension"
+    ],
+    "index": 1,
+    "frm": [
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 1 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponent_28": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 1
+  },
+  "DerivedComponent_116": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_27"
+  },
+  "8.0<=Kmag<9.0": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#8dc1dc",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "8.0<=Kmag<9.0_0"
+  },
+  "CoordinateComponentLink_120": {
+    "to": [
+      "Pixel Axis 1 [x]_4"
+    ],
+    "index": 1,
+    "frm": [
+      "World 0_4",
+      "World 1_0"
+    ],
+    "pix2world": false,
+    "coords": "Coordinates_2",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "World 0_0": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "World 0",
+    "hidden": true
+  },
+  "ComponentLink_18": {
+    "to": [
+      "Declination"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Declination"
+    ]
+  },
+  "InequalitySubsetState_8": {
+    "left": "Kmag",
+    "op": "<",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 9.0
+  },
+  "CoordinateComponent_16": {
+    "world": false,
+    "_type": "glue.core.component.CoordinateComponent",
+    "axis": 1
+  },
+  "ComponentLink_2": {
+    "to": [
+      "Declination"
+    ],
+    "hidden": false,
+    "using": {
+      "function": "glue.core.component_link.identity",
+      "_type": "types.FunctionType"
+    },
+    "_type": "glue.core.component_link.ComponentLink",
+    "inverse": null,
+    "frm": [
+      "Declination"
+    ]
+  },
+  "F Stars_4": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#ffaf00",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "F Stars_0"
+  },
+  "Coordinates": {
+    "_type": "glue.core.coordinates.Coordinates"
+  },
+  "AndState_2": {
+    "_type": "glue.core.subset.AndState",
+    "state2": "InequalitySubsetState_14",
+    "state1": "InequalitySubsetState_13"
+  },
+  "7.0<=Kmag<8.0_6": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 0.4980392156862745,
+      "linestyle": "solid",
+      "marker": "o",
+      "color": "#fefec0",
+      "linewidth": 1,
+      "markersize": 4
+    },
+    "group": "7.0<=Kmag<8.0_0"
+  },
+  "CoordinateComponentLink_118": {
+    "to": [
+      "Pixel Axis 0 [y]_2"
+    ],
+    "index": 0,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_31": {
+    "to": [
+      "Pixel Axis 0 [y]_0"
+    ],
+    "index": 0,
+    "frm": [
+      "DEC",
+      "RA"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_0",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "CoordinateComponentLink_139": {
+    "to": [
+      "Pixel Axis 1 [x]_1"
+    ],
+    "index": 1,
+    "frm": [
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "Pixel Axis 0 [y]_3": {
+    "label": "Pixel Axis 0 [y]",
+    "_type": "glue.core.component_id.PixelComponentID",
+    "axis": 0,
+    "hidden": true
+  },
+  "DerivedComponent_102": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_16"
+  },
+  "CoordinateComponentLink_5": {
+    "to": [
+      "Declination"
+    ],
+    "index": 0,
+    "frm": [
+      "Pixel Axis 0 [y]_1",
+      "Pixel Axis 1 [x]_0"
+    ],
+    "pix2world": true,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_59": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "CoordinateComponentLink_74"
+  },
+  "Right Ascension": {
+    "_type": "glue.core.component_id.ComponentID",
+    "label": "Right Ascension",
+    "hidden": false
+  },
+  "InequalitySubsetState_11": {
+    "left": "SP_LETTER",
+    "op": ">=",
+    "_type": "glue.core.subset.InequalitySubsetState",
+    "right": 0.5
+  },
+  "AndState_0": {
+    "_type": "glue.core.subset.AndState",
+    "state2": "InequalitySubsetState_16",
+    "state1": "InequalitySubsetState_15"
+  },
+  "A Stars_5": {
+    "_type": "glue.core.subset_group.GroupedSubset",
+    "style": {
+      "_type": "glue.core.visual.VisualAttributes",
+      "alpha": 1.0,
+      "linestyle": "solid",
+      "marker": "*",
+      "color": "#07ff01",
+      "linewidth": 1,
+      "markersize": 7
+    },
+    "group": "A Stars_1"
+  },
+  "CoordinateComponentLink_117": {
+    "to": [
+      "Pixel Axis 1 [x]_0"
+    ],
+    "index": 1,
+    "frm": [
+      "Declination",
+      "Right Ascension"
+    ],
+    "pix2world": false,
+    "coords": "WCSCoordinates_3",
+    "_type": "glue.core.component_link.CoordinateComponentLink"
+  },
+  "DerivedComponent_52": {
+    "_type": "glue.core.component.DerivedComponent",
+    "link": "ComponentLink_0"
+  }
+}
