@@ -16,6 +16,7 @@ import aplpy
 from aplpy import FITSFigure
 import numpy as np
 from astroquery.simbad import Simbad
+from matplotlib.widgets import Slider, Button, RadioButtons
 
 
 orion_dist = 414*u.pc #pc
@@ -28,7 +29,14 @@ def main():
     TYPE
         Description
     """
-    simbad_brightstars(output='stars_obaf.txt', output_format='ascii', replace_ra='deg')
+    cube_file = '../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits'
+    shell_list = get_shells(region_file=region_file)
+    for n in range(12,43):
+
+    channel_slicer()
+
+    #simbad_brightstars(output='stars_obaf.txt', output_format='ascii', replace_ra='deg')
+
 
     #movie(test=False, labels=False) 
 
@@ -876,6 +884,81 @@ def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, ci
     fig.savefig(plotname, dpi=300, bbox_inches='tight')
     #fig.close()
 
+def channel_slicer(cube=None, ra=None, dec=None, radius=None,
+                   title=None, pad_factor=2., chan_init=0,
+                   stretch='linear', circle_color='blue',
+                   circle_style='-'):
+    spec_cube = SpectralCube.read(cube)
+    vel_list = spec_cube.spectral_axis
+
+    #For the auto color scaling to the min and max intensities in the zoomed region.
+    ra_grid = spec_cube.spatial_coordinate_map[1].to(u.deg).value
+    dec_grid = spec_cube.spatial_coordinate_map[0].to(u.deg).value
+    #shell_mask = (ra_grid - ra) ** 2. + (dec_grid - dec) ** 2. < (radius) ** 2.
+    subcube_mask = (abs(ra_grid - ra) < radius * pad_factor) &\
+               (abs(dec_grid - dec) < radius * pad_factor)
+    sub_cube = spec_cube.with_mask(subcube_mask).minimal_subcube()
+
+    #auto color scaling
+    subcube_pixels = sub_cube[chan].value
+    vmin, vmax = np.nanmin(subcube_pixels), np.nanmax(subcube_pixels)
+    print(vmin, vmax)
+
+
+    #center plot on the shell
+    fig = plt.figure()
+    subplot = FITSFigure(sub_cube.hdu, figure=fig, slices=[chan], auto_refresh=True)
+    subplot.set_title("{} @ {}".format(title, vel_list[chan]))
+    #subplot.recenter(ra, dec, radius*pad_factor)
+
+    #Make aplpy grayscale plot with nice color scaling/stretch
+    subplot.show_grayscale(stretch=stretch, vmin=vmin, vmax=vmax)     
+
+    subplot.tick_labels.set_yformat("dd:mm")
+    subplot.tick_labels.set_xformat("hh:mm")
+    subplot.tick_labels.set_style('plain')
+
+#Set up slider to change spectral channels.
+    axcolor = 'lightgoldenrodyellow'
+    ax = fig.add_axes([0.25, 0.95, 0.65, 0.03], axisbg=axcolor)
+    slider = Slider(ax, 'Channel', 0, hdu.data.shape[0] - 1,
+                    valinit=chan, valfmt='%i')
+
+    vel_label = subplot.add_label(0.9,0.9,"{}".format(vel_list[chan]), relative=True, layer='vel_label')
+
+    #Show the shell as circle.
+    subplot.show_circles(ra, dec, radius, edgecolor=circle_color)
+
+    def update(val):
+        ind = int(slider.val)
+        
+        #subplot = FITSFigure(hdu, figure=fig, slices=[chan], auto_refresh=True)
+        #subplot.recenter(ra, dec, radius*pad_factor)
+        #subplot.
+        subplot.set_title("{} @ {}".format(title, vel_list[ind])) 
+        subcube_pixels = sub_cube[ind].value
+        vmin, vmax = np.nanmin(subcube_pixels), np.nanmax(subcube_pixels)
+        subplot.image.set_clim(vmin, vmax)
+        subplot.image.set_data(sub_cube[ind].hdu.data)
+        
+        #fig.canvas.draw()
+        
+        #subplot.show_grayscale(stretch=stretch, vmin=vmin, vmax=vmax)
+        #subplot.set_data()
+        #fig.canvas.draw()
+
+#def write_velmin():
+#    current_chan = int(slider.val)
+#def write_velmax():
+#    current_chan = inte(slider.val)
+    
+        
+    slider.on_changed(update)
+
+#button_velmin.on_click(write_velmin)
+#button_velmax.on_click(write_velmax)
+
+    plt.show()
 def pv_slice(cube=None, ra_center=None, dec_center=None,
     width=1*u.arcsec, angle=0*u.deg, length=1*u.arcmin, return_path=False):
     """Summary
