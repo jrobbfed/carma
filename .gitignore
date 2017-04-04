@@ -1,12 +1,15 @@
 *.key
 *.zip
 *.mp4
+*.mpeg
+*.gif
 *.ajs
 13co/
 *.aj
 #*.pdf
 *.fit*
 *.png
+*.svg
 *.exe
 #*.jpg
 #This is an independent repo. Look into merging with CARMA.
