@@ -17,7 +17,7 @@ from aplpy import FITSFigure
 import numpy as np
 from astroquery.simbad import Simbad
 from matplotlib.widgets import Slider, Button, RadioButtons
-
+import matplotlib
 
 orion_dist = 414*u.pc #pc
 
@@ -29,11 +29,141 @@ def main():
     TYPE
         Description
     """
-    cube_file = '../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits'
-    shell_list = get_shells(region_file=region_file)
-    for n in range(12,43):
+    font = {'family' : 'normal',
+        'weight' : 'normal',
+        'size'   : 18}
 
-    channel_slicer()
+    matplotlib.rc('font', **font)
+
+    mips_l1641_file = '../catalogs/MIPS_L1641a_24um.fits'
+    mips_onc_file = '../catalogs/MIPS_ONC_24um.fits'
+
+    irac1_l1641_file = '../catalogs/IRAC_L1641_ch1_merged_clean.fits'
+    irac1_onc_file = '../catalogs/IRAC_ONC_ch1_merged_clean.fits'
+
+    irac2_l1641_file = '../catalogs/IRAC_L1641_ch2_merged_clean.fits'
+    irac2_onc_file = '../catalogs/IRAC_ONC_ch2_merged_clean.fits'
+
+    irac4_l1641_file = '../catalogs/IRAC_L1641_ch4_merged_clean_northup.fits'
+    irac4_onc_file = '../catalogs/IRAC_ONC_ch4_merged_clean_northup.fits'
+
+    region_file = '../shell_candidates/AllShells.reg'
+    vrange_file = '../shell_candidates/AllShells_vrange.txt'
+    shell_list = get_shells(region_file=region_file, velocity_file=vrange_file)
+
+    obaf_file = 'stars_obaf.txt'
+    yso_file = "../catalogs/spitzer_orion.fit"
+
+    obaf = ascii.read(obaf_file)
+    obaf_ra, obaf_dec, obaf_label = np.array(obaf['RA']), np.array(obaf['DEC']), np.array([sp.strip("b'") for sp in obaf['SP_TYPE']])
+    yso = fits.open(yso_file)[1].data
+    yso_ra, yso_dec, yso_label = yso['RAJ2000'], yso['DEJ2000'], yso['Cl']
+    # for nshell in range(19,43):
+    #     shell = shell_list[nshell-1]
+    #     ra, dec, radius = shell.ra.value, shell.dec.value, shell.radius.value
+
+    #     #Check whether shell is in each mips image coverage.
+    #     l1641_xy = WCS(mips_l1641_hdu).all_world2pix(ra, dec, 0)
+    
+    #     if  (l1641_xy[0] >= 0) & (l1641_xy[0] <= mips_l1641_hdu.shape[1]) & \
+    #         (l1641_xy[1] >= 0) & (l1641_xy[1] <= mips_l1641_hdu.shape[0]):
+    #         hdu = mips_l1641_hdu
+    #     else:
+    #         hdu = mips_onc_hdu
+
+    #     plot_stamp(map=hdu, ra=ra, dec=dec, radius=radius, circle_color='red',
+    #         pad_factor=1.5, contour_map=None, contour_levels=5., source_ra=None, source_dec=None, source_lists=None, 
+    #         source_colors='cyan', plotname='{}shell{}_stamp.png'.format('MIPS',nshell), return_fig=False,
+    #         stretch='linear', plot_simbad_sources=False, dist=orion_dist, cbar_label=r'counts',
+    #         auto_scale=True, auto_scale_mode='min/max', auto_scale_pad_factor=1., vmin=0, vmax=3000)
+
+
+    #cube_file = '../nro_maps/13CO_20161011_FOREST-BEARS_xyb_spheroidal_dV0.11kms_YS.fits'
+    cube_file = '../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits'
+    ir_l1641_hdu = fits.open(irac4_l1641_file)[0]
+    ir_onc_hdu = fits.open(irac4_onc_file)[0]
+
+    spec_cube = SpectralCube.read(cube_file)
+    ra_grid = spec_cube.spatial_coordinate_map[1].to(u.deg).value
+    dec_grid = spec_cube.spatial_coordinate_map[0].to(u.deg).value
+    vel_grid = spec_cube.spectral_axis
+    pad_factor = 1.5
+
+    #plot_overview(show_shells=True)
+    #plot_overview(plotname="12co_nro_peak.png", show_shells=False)
+    #plot_overview(cube="/Volumes/Untitled/13co_pix_2.cm.fits", plotname="13co_combined_peak.png", show_shells=False)
+    #return
+    channel_vmax = [12.9, 14]
+    for nshell in [17,]:
+        shell = shell_list[nshell-1]
+        ra, dec, radius = shell.ra.value, shell.dec.value, shell.radius.value
+
+        l1641_xy = WCS(ir_l1641_hdu).wcs_world2pix(ra, dec, 0)
+        #print(l1641_xy)
+        if  (l1641_xy[0] >= 0) & (l1641_xy[0] <= ir_l1641_hdu.shape[1]) & \
+           (l1641_xy[1] >= 0) & (l1641_xy[1] <= ir_l1641_hdu.shape[0]):
+            ir_hdu = ir_l1641_hdu
+        else:
+            ir_hdu = ir_onc_hdu
+
+        #Extract sub_cube around shell.
+        subcube_mask = (abs(ra_grid - ra) < radius * pad_factor) &\
+               (abs(dec_grid - dec) < radius * pad_factor)
+        sub_cube = spec_cube.with_mask(subcube_mask).minimal_subcube().spectral_slab(shell.vmin, shell.vmax)
+
+        #Integrate between vmin and vmax.
+        mom0_hdu = sub_cube.moment0().hdu
+
+        # mask_inshell = (abs(ra_grid - ra) < radius) &\
+        #        (abs(dec_grid - dec) < radius)
+        # subcube_inshell = spec_cube.with_mask(mask_inshell).minimal_subcube().spectral_slab(shell.vmin, shell.vmax)
+        # mom0_hdu_inshell = subcube_inshell.moment0().hdu
+
+        #Calculate contour levels.
+        empty_channel = spec_cube.closest_spectral_channel(500*u.Unit('m/s'))
+        sigma = np.nanstd(spec_cube[empty_channel][subcube_mask]).value
+        #print("sigma: {}".format(sigma))
+        delta_vel = (sub_cube.spectral_extrema[1] - sub_cube.spectral_extrema[0]).value
+        #print("delta_vel: {}".format(delta_vel))
+        mom0_sigma = sigma * delta_vel
+        #print(mom0_sigma)     
+        #contour_levels = np.linspace(5.*mom0_sigma, np.nanmax(mom0_hdu_inshell.data), 12)
+        contour_levels = np.linspace(28.*mom0_sigma, 45.*mom0_sigma, 6)
+
+        #Get source coordinates.
+
+
+        plot_stamp(map=ir_hdu, ra=ra, dec=dec, radius=radius, circle_color='red',
+            pad_factor=pad_factor, contour_map=mom0_hdu, contour_levels=contour_levels, contour_color='white',
+            plotname='{}shell{}_{}{}to{}_stamp.png'.format('8µm', nshell, "12CO", shell.vmin.value, shell.vmax.value),
+            return_fig=False,
+            stretch='linear', plot_simbad_sources=False, dist=orion_dist,
+            auto_scale=True, auto_scale_mode='median', auto_scale_pad_factor=0.8, auto_scale_nsigma=4.,
+            cbar_label="Counts", cmap='inferno',
+            source_ra=[obaf_ra, yso_ra], source_dec=[obaf_dec, yso_dec],
+            source_colors=['white', 'red'], source_markers=['*', 'None'], source_sizes=[300,50],
+            source_labels=[obaf_label, yso_label], dpi=300
+            )
+
+        #cube_file = "../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits"
+        
+        
+        # plot_channels(cube=cube_file, ra=ra, dec=dec, radius=radius,
+        #     source_lists=None, stretch='linear', pad_factor=1.5, vel_min=shell.vmin.value, vel_max=14.,
+        #     plotname='12co_channels_shell'+str(nshell)+'.png', chan_step=2, plot_simbad_sources=False,
+        #     vmin=None, vmax=None, max_chans=12,
+        #     #cbar_label="Counts",
+        #     source_ra=[obaf_ra, yso_ra], source_dec=[obaf_dec, yso_dec],
+        #     source_colors=['white', 'red'], source_markers=['*', 'None'], source_sizes=[200,15], dpi=300)
+
+        # angle = 90*u.deg
+        # pv = plot_pv(cube=cube_file, ra_center=shell.ra, dec_center=shell.dec,
+        #      vel=[shell.vmin - 1*u.km/u.s, shell.vmax + 1*u.km/u.s], length=shell.radius*4.,
+        #      width=7.5*u.arcsec, angle=angle,
+        #      pad_factor=1., plotname='12co_pv_shell'+str(nshell)+'_angle'+str(angle.value)+'.png',
+        #      stretch='linear', auto_scale=True, dpi=900.)
+    
+
 
     #simbad_brightstars(output='stars_obaf.txt', output_format='ascii', replace_ra='deg')
 
@@ -205,34 +335,62 @@ class Shell(object):
         self.vmin = vmin * u.Unit(vunit)
         self.vmax = vmax * u.Unit(vunit)
 
-# def glue_search(cube12co='../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits',
-#     cube13co='../nro_maps/13CO_20161011_FOREST-BEARS_xyb_spheroidal_dV0.11kms_YS.fits', 
-#     region_file='../nro_maps/SouthShells.reg', yso_file='../catalogs/spitzer_orion.fit',
-#     mode='glue', plotname=None, show_shells=True, yso_col='Kmag', yso_bins=[5,6,7,8],):
+def worldgrid(hdu, wcs=None, origin=0, returnorder='radec', returnunit=None):
+    """
+    Returns an array of world coordinates corresponding to pixels in an image.
+    Adapted for the 2D case from spectral_cube.SpectralCube.world()
     
-#     spectral_cube = SpectralCube.read()
-#     shells = get_shells(region_file=region_file)
-#     yso_table = Table(fits.open(yso_file)[1].data)
+    Parameters
+    ----------
+    hdu : astropy.io.fits.PrimaryHDU
+        astropy.io.fits.ImageHDU pyfits.PrimaryHDU
+        pyfits.ImageHDU or numpy.ndarray
+    
+        If an HDU, then the wcs will be found, or data ndarray
+        and corresponding wcs object can be passed explicitly.
+    
+    wcs : None or astropy.wcs.WCS, optional
+        If hdu is a ndarray, then wcs should be the corresponding WCS object.WCS 
+    origin : int, optional
+        0 for numpy-type indexing, 1 for fits-type indexing
+    returnorder : str, optional
+        'radec' or 'decra' for the order in which the coordinates are returned
+    returnunit : str, optional
+        The name of the astropy.unit to use for returning the world coordinates.
+        If not specified, then use the units in wcs.
+    
+    """
+    try:
+        wcs = WCS(hdu)
+    except AttributeError:
+        #It's ok, if hdu is a data ndarray.
+        pass
 
-#     if mode == 'glue':
-#         from glue.app.qt.application import GlueApplication
-#         from glue.qglue import parse_data
-#         from glue.core import DataCollection
-#         from glue.viewers.scatter.qt import ScatterWidget
-#         from glue.viewers.image.qt import ImageWidget
+    inds = np.ogrid[[slice(0,s) for s in hdu.shape]]
+    inds = np.broadcast_arrays(*inds)
+    inds = inds[::-1] # numpy -> wcs axis order (RA/DEC)
+    shp = inds[0].shape
+    inds = np.column_stack([i.ravel() for i in inds])
+    print(inds)
+    try:
+        world = wcs.wcs_pix2world(inds, 0).T
+        print(world)
+    except AttributeError:
+        raise("Needs a valid wcs.")
 
-#         #Make yso data collections.
-#         for i in range(len(yso_bins) - 1):
-#             yso = yso_table[(yso_table[yso_col] >= yso_bins[i]) & (yso_table[yso_col] < yso_bins[i+1])]
-#             #print(yso)
+    world = [w.reshape(shp) for w in world] #1D -> ND
 
-#         #Make Simbad star data collections.
+    if returnunit:
+        world = [w * u.Unit(returnunit) 
+                for i, w in enumerate(world)]
+    else:
+        world = [w * u.Unit(wcs.wcs.cunit[i]) 
+                for i, w in enumerate(world)]
 
-
-
-
-
-
+    if returnorder == 'radec':
+        return world
+    elif returnorder == 'decra':
+        return world[::-1]
 
 
 def movie(file='../combined_maps/12co_01_90_noboundary.fits', test=False, labels=True):
@@ -428,7 +586,8 @@ def data_cutout(data=None, wcs=None, ra=None, dec=None, radius=None, unit='deg',
     pix_reg = sky_reg.to_pix(wcs)
 
     mask.cutout(da)
-def get_shells(velocity_file='SouthShells_vrange.txt', region_file='../nro_maps/SouthShells.reg',
+def get_shells(velocity_file='../shell_candidates/AllShells_vrange.txt',
+    region_file='../shell_candidates/SouthShells.reg',
     ra_col="ra", dec_col="dec", radius_col="radius", vmin_col='vmin', vmax_col='vmax',
     ra_unit='deg', dec_unit='deg', radius_unit='deg', v_unit='km/s'):
     """
@@ -476,8 +635,9 @@ def get_shells(velocity_file='SouthShells_vrange.txt', region_file='../nro_maps/
     return shell_list
 
 def plot_overview(cube='../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits',
- region_file='../nro_maps/SouthShells.reg', mode='peak', plotname='12co_peak_shells.png',
- interactive=False, show_shells=True, circle_color='blue', circle_linewidth=5, circle_style="dashed", return_fig=False, show=True):
+ region_file='../nro_maps/AllShells.reg', mode='peak', plotname='12co_peak_shells.png',
+ interactive=False, show_shells=True, dist=orion_dist,
+ circle_color='white', circle_linewidth=1, circle_style="solid", return_fig=False, show=True):
     """
     Show full image with all shells.
     
@@ -503,15 +663,19 @@ def plot_overview(cube='../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_gr
         pass
 
     if mode == "peak":
-        image = cube.max(axis=0)
+        image = cube.max(axis=0).hdu
+        
 
     if mode == "mom0":
         image = cube.moment0().hdu
 
     fig = FITSFigure(image)
     if show:
-        fig.show_grayscale()
-
+        fig.show_colorscale(cmap='viridis')
+    fig.tick_labels.set_yformat("dd:mm")
+    fig.tick_labels.set_xformat("hh:mm")
+    fig.hide_yaxis_label()
+    fig.hide_ytick_labels()
     #plt.title(r"$^{12}$CO Peak T$_{MB}$")
     #plt.xlabel("RA (J2000)")
     #plt.ylabel("DEC (J2000)")
@@ -522,29 +686,40 @@ def plot_overview(cube='../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_gr
             fig.show_circles(shell.ra.value, shell.dec.value, shell.radius.value, linestyle=circle_style, edgecolor=circle_color,
         facecolor='none', linewidth=circle_linewidth)
 
+    #SCALEBAR
+    fig.add_scalebar(206265 * 1 / (dist.to(u.pc).value * 3600), color='white')
+    fig.scalebar.set_label("1 pc")
+
+    fig.add_colorbar()
+    cb = fig.colorbar
+    cb.set_axis_label_text(r'T$_{MB}$ [K]')
 
     if return_fig:
         return fig
     else:
-        fig.save()
+        fig.save(plotname, dpi=600)
 def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, circle_color='red',
-    pad_factor=1., contour_map=None, source_ra=None, source_dec=None, source_lists=None, source_ra_colnames='RAJ2000',
-    source_dec_colnames='DEJ2000', source_colors='cyan', plotname='shell_stamp.png', return_fig=False,
-    stretch='linear', vmin=20, vmax=50, plot_simbad_sources=True, simbad_type='star', simbad_color='cyan',
-    dist=orion_dist, cbar_label=r'T$_{MB}v$ [K m/s]'):
+    pad_factor=1.5, contour_map=None, contour_levels=5, contour_color='white',
+    source_ra=None, source_dec=None, source_lists=None, source_ra_colnames='RAJ2000',
+    source_dec_colnames='DEJ2000', source_colors='cyan', source_markers=None, source_sizes=None,
+    source_labels=None,
+    plotname='shell_stamp.png', return_fig=False,
+    stretch='linear', vmin=0, vmax=3000, plot_simbad_sources=True, simbad_type='star', simbad_color='cyan',
+    dist=orion_dist, cbar_label=r'T$_{MB}v$ [K m/s]',
+    auto_scale=True, auto_scale_mode='min/max', auto_scale_nsigma=1.,
+    auto_scale_pad_factor=None, dpi=300, cmap='viridis'):
     """
     Parameters
     ----------
     map : str, see below
         If str, denotes a fits image.
-        Can also pass in any HDU or WCS objects that can
+        Can also pass in any HDU  objects that can
         be used with aplpy.FITSFigure:
     
         astropy.io.fits.PrimaryHDU
         astropy.io.fits.ImageHDU pyfits.PrimaryHDU
-        pyfits.ImageHDU astropy.wcs.WCS
-        np.ndarray RGB image with AVM meta-data
-    
+        pyfits.ImageHDU 
+
     fig : None, optional
         Description
     shell : None, optional
@@ -561,6 +736,8 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, c
         Size of stamp to plot, where size = radius * pad_factor
     contour_map : same as map, optional
         Optionally plot contours on top of the primary map.
+    contour_levels : float, optional
+        Description
     source_ra : list or ndarray, optional
         Source ra in degrees
     source_dec : list or ndarray, optional
@@ -576,8 +753,8 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, c
         Description
     plotname : str, optional
         Plot to write out.
-    return_subplot : bool, optional
-        Return a subplot that can be used in multipanel plots.
+    return_fig : bool, optional
+        Description
     stretch : str, optional
         Description
     vmin : int, optional
@@ -590,6 +767,18 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, c
         Description
     simbad_color : str, optional
         Description
+    dist : TYPE, optional
+        Description
+    cbar_label : str, optional
+        Description
+    auto_scale : bool, optional
+        If True, run the auto_scale_mode to determine the pixel value scale.
+    auto_scale_mode : str, optional
+        If 'min/max', use vmin and vmax as absolute ceilin and floor display values,
+        and use the local min/max inside the plot area if more restrictive than vmin/vmax.
+    auto_scale_pad_factor : None, optional
+        If float, use this to pad the area around the shell
+        for the auto scaling instead of the full display area.
     
     Raises
     ------
@@ -600,22 +789,82 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, c
     ------------------
     shellShape : pyregion.Shape, optional
         Shape object denoting the shell's center and radius.
+    return_subplot : bool, optional
+        Return a subplot that can be used in multipanel plots.
     """
-    if map and not fig:
-        #IF a FITSFigure is not passed into function as fig, but a map is specified.
-        fig = aplpy.FITSFigure(map)
+    #map_list = list(map)
 
     try:
         ra, dec, radius = shell.ra.value, shell.dec.value, shell.radius.value
     except:
         pass
 
+        try:
+            #If map is a str fits filename.
+            hdu = fits.open(map)[0]
+        except OSError:
+            hdu = map
+
+        wcs = WCS(hdu)
+
+    # for map in map_list:
+    #     try:
+    #         #If map is a str fits filename.
+    #         hdu = fits.open(map)[0]
+    #     except OSError:
+    #         hdu = map
+
+    #     wcs = WCS(hdu)
+    #     pix_xy = wcs.all_world2pix(ra, dec, 0)
+    #     #Check if the center of the shell is contained within this map, if not, move onto
+    #     #the next map in the list.
+    #     if (pix_xy[0] >= 0) & (pix_xy[0] <= hdu.shape[1]) \
+    #     & (pix_xy[1] >= 0) & (pix_xy[1] <= hdu.shape[0]):
+    #         break
+
+
+    try:
+        #IF a FITSFigure is not passed into function as fig, but a map is specified.
+        fig = aplpy.FITSFigure(map)
+        fig.recenter(ra, dec, radius*pad_factor) #Pan/zoom to shell
+    except:
+        raise
+
     fig.recenter(ra, dec, radius*pad_factor) #Pan/zoom to shell 
+    
     fig.tick_labels.set_yformat("dd:mm")
     fig.tick_labels.set_xformat("hh:mm:ss")
 
-    fig.show_grayscale(stretch=stretch, vmin=vmin, vmax=vmax)
+    #Auto Scaling
 
+    if auto_scale:
+        ra_grid, dec_grid = worldgrid(hdu, returnorder='radec', returnunit='deg')
+        #print(ra_grid, dec_grid)
+        if auto_scale_pad_factor:
+            mask = (abs(ra_grid.value - ra) < radius * auto_scale_pad_factor) &\
+               (abs(dec_grid.value - dec) < radius * auto_scale_pad_factor)
+        else:
+            mask = (abs(ra_grid.value - ra) < radius * pad_factor) &\
+               (abs(dec_grid.value - dec) < radius * pad_factor)
+        mask_pixels = hdu.data[mask]
+        #print(mask_pixels)
+
+        if auto_scale_mode == 'min/max':
+            if (vmin is not None) & (vmax is not None):
+                vmin, vmax = np.nanmax([np.nanmin(mask_pixels), vmin]), np.nanmin([np.nanmax(mask_pixels), vmax])
+            else:
+                vmin, vmax = np.nanmin(mask_pixels), np.nanmax(mask_pixels)
+
+        if auto_scale_mode == 'median':
+            vmin, vmax = np.nanmin(mask_pixels), np.nanmedian(mask_pixels) + auto_scale_nsigma*np.nanstd(mask_pixels)
+
+    #print(vmin, vmax)      
+    fig.show_colorscale(stretch=stretch, vmin=vmin, vmax=vmax, cmap=cmap, interpolation='none')
+
+    #CONTOURS
+    if contour_map:
+        contour = fig.show_contour(contour_map, levels=contour_levels, colors=contour_color)
+        #print("Contour levels: {}".format(contour_levels))
     #COLORBAR
     fig.add_colorbar()
     cb = fig.colorbar
@@ -626,20 +875,24 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, c
         facecolor='none', linewidth=5)
 
     #SCALEBAR
-    fig.add_scalebar(206265 * 0.2 / (dist.to(u.pc).value * 3600))
+    fig.add_scalebar(206265 * 0.2 / (dist.to(u.pc).value * 3600), color='white')
     fig.scalebar.set_label("0.2 pc")
 
     #POINT SOURCES
     if source_ra and source_dec:
         #Use source_ra/dec if these parameters are set.
         try:
-            fig.show_markers(source_ra, source_dec, edgecolor=source_colors)
-        except ValueError:
+            fig.show_markers(source_ra, source_dec,
+             c=source_colors, marker=source_markers, s=source_sizes)
+        except TypeError:
             #If more than one source list to be plotted with different markers
             #source_ra, source_dec, source_colors must be nested lists or ndarrays 
             #with same shape.
-            for ra_list, dec_list, color in source_ra, source_dec, source_colors:
-                fig.show_markers(ra_list, dec_list, edgecolor=color)
+            #print(source_ra, source_dec, source_colors, source_markers, source_sizes)
+            for i in range(len(source_colors)):
+                fig.show_markers(source_ra[i], source_dec[i], c=source_colors[i],
+                 marker=source_markers[i], s=source_sizes[i])
+
 
     elif source_lists and type(source_lists) is not list:
         try:
@@ -651,7 +904,7 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, c
 
         source_ra = source_hdu.data[source_ra_colnames]
         source_dec = source_hdu.data[source_dec_colnames]
-        fig.show_markers(source_ra, source_dec, edgecolor=source_colors)
+        fig.show_markers(source_ra, source_dec, edgecolor=source_colors, label=source_labels)
 
     elif source_lists and type(source_lists) is list:
         raise Exception("source_lists of type(list) not implemented.")
@@ -672,14 +925,17 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, c
     if return_fig:
         return fig
     else:
-        fig.save(plotname)
+        fig.save(plotname, dpi=dpi)
     fig.close()
 
-def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, circle_color='red',
-    pad_factor=1., contour_map=None, source_ra=None, source_dec=None, source_lists=None, source_ra_colnames='RAJ2000',
+def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, circle_color='white',
+    pad_factor=1., contour_map=None, source_ra=None, source_dec=None, source_lists=None, source_sizes=None,
+    source_markers=None,
+    source_ra_colnames='RAJ2000',
     source_dec_colnames='DEJ2000', source_colors='blue', plotname='shell_stamp.png', return_subplot=True,
     stretch='linear', vmin=20, vmax=50, plot_simbad_sources=True, simbad_type='star', simbad_color='green',
-    vel_min=0, vel_max=10, vel_unit=u.km/u.s, n_cols=3, chan_step=1, auto_scale=True):
+    vel_min=0, vel_max=10, vel_unit=u.km/u.s, n_cols=3, max_chans=16,
+    chan_step=1, auto_scale=True, dpi=300):
     """
     Parameters
     ----------
@@ -775,7 +1031,7 @@ def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, ci
     #n_chan = chan_max - chan_min + 1
     n_chan = len(np.arange(chan_min, chan_max + 1, chan_step))
     
-    while n_chan > 16:
+    while n_chan > max_chans:
         chan_step += 1
         n_chan = len(np.arange(chan_min, chan_max + 1, chan_step))
 
@@ -805,22 +1061,32 @@ def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, ci
         subplot.recenter(ra, dec, radius*pad_factor) #Pan/zoom to shell 
         subplot.tick_labels.set_yformat("dd:mm")
         #subplot.ticks.set_xspacing(0.0001)
-        subplot.tick_labels.set_xformat("hh:mm:ss")
+        subplot.tick_labels.set_xformat("hh:mm")
         subplot.tick_labels.set_style('plain')
-        if not left_edge:
+
+        if ith_subplot != 0:
+            #Hide all Y-labels except for first, left edge.
             subplot.hide_ytick_labels()
             subplot.hide_yaxis_label()
-        if not bottom_edge:
+
+        # if not left_edge:
+        #     subplot.hide_ytick_labels()
+        #     subplot.hide_yaxis_label()
+        if ith_subplot != n_cols * (n_rows - 1):
+            #Hide all X-labels except for bottom left corner.
             subplot.hide_xtick_labels()
             subplot.hide_xaxis_label()
+
+        # if not bottom_edge:
+        #     subplot.hide_xtick_labels()
+        #     subplot.hide_xaxis_label()
 
 
         #AUTO SCALING
         if auto_scale:
             shell_pixels = spec_cube[chan][shell_mask].value
             vmin, vmax = np.nanmin(shell_pixels), np.nanmax(shell_pixels)
-        subplot.show_grayscale(stretch=stretch, vmin=vmin, vmax=vmax)     
-
+        subplot.show_colorscale(stretch=stretch, vmin=vmin, vmax=vmax, cmap='viridis')     
 
         #COLORBAR
         #subplot.add_colorbar()
@@ -828,20 +1094,23 @@ def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, ci
         #cb.set_axis_label_text(r'T$_{MB}$ [K]')
 
         #SHELL OUTLINE
-        subplot.show_circles(ra, dec, radius, linestyle='dashed', edgecolor='green',
+        subplot.show_circles(ra, dec, radius, linestyle='dashed', edgecolor=circle_color,
             facecolor='none')
 
-        #POINT SOURCES
+            #POINT SOURCES
         if source_ra and source_dec:
             #Use source_ra/dec if these parameters are set.
             try:
-                subplot.show_markers(source_ra, source_dec, edgecolor=source_colors)
-            except ValueError:
+                subplot.show_markers(source_ra, source_dec,
+                 c=source_colors, marker=source_markers, s=source_sizes)
+            except TypeError:
                 #If more than one source list to be plotted with different markers
                 #source_ra, source_dec, source_colors must be nested lists or ndarrays 
                 #with same shape.
-                for ra_list, dec_list, color in source_ra, source_dec, source_colors:
-                    subplot.show_markers(ra_list, dec_list, edgecolor=color)
+                #print(source_ra, source_dec, source_colors, source_markers, source_sizes)
+                for i in range(len(source_colors)):
+                    subplot.show_markers(source_ra[i], source_dec[i], c=source_colors[i],
+                     marker=source_markers[i], s=source_sizes[i])
 
         elif source_lists and type(source_lists) is not list:
             try:
@@ -865,12 +1134,16 @@ def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, ci
                 raise Exception("Souce_lists is a list of hdu objects not implemented.")
 
         if plot_simbad_sources:
+            simbad_table = simbad_sources(ra, dec, radius, unit='deg')
+            simbad_coords = coord.SkyCoord(simbad_table['RA'], simbad_table['DEC'],
+                unit=(u.hourangle, u.deg))
+
             subplot.show_markers(simbad_coords.ra, simbad_coords.dec, edgecolor=simbad_color)
 
             ### LABEL THE VELOCITY OF EACH CHANNEL MAP
-        subplot.add_label(0.7, 0.9,
-            str(np.round(spec_cube.spectral_axis[chan].to('km/s'), 1)),
-            color='red', relative=True)
+        subplot.add_label(0.6, 0.9,
+            str(np.round(spec_cube.spectral_axis[chan].to('km/s'), 1).value)+' km/s',
+            color='white', relative=True)
         #subplot.close()
     #Make the figure prettier.
     #fig.tight_layout(h_pad=0, w_pad=0)
@@ -881,7 +1154,7 @@ def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, ci
         wspace=0., hspace=0.)
     #fig.subplots_adjust(wspace=None, hspace=None)
     fig.canvas.draw()
-    fig.savefig(plotname, dpi=300, bbox_inches='tight')
+    fig.savefig(plotname, dpi=dpi, bbox_inches='tight')
     #fig.close()
 
 def channel_slicer(cube=None, ra=None, dec=None, radius=None,
@@ -900,15 +1173,15 @@ def channel_slicer(cube=None, ra=None, dec=None, radius=None,
     sub_cube = spec_cube.with_mask(subcube_mask).minimal_subcube()
 
     #auto color scaling
-    subcube_pixels = sub_cube[chan].value
+    subcube_pixels = sub_cube[chan_init].value
     vmin, vmax = np.nanmin(subcube_pixels), np.nanmax(subcube_pixels)
     print(vmin, vmax)
 
 
     #center plot on the shell
     fig = plt.figure()
-    subplot = FITSFigure(sub_cube.hdu, figure=fig, slices=[chan], auto_refresh=True)
-    subplot.set_title("{} @ {}".format(title, vel_list[chan]))
+    subplot = FITSFigure(sub_cube.hdu, figure=fig, slices=[chan_init], auto_refresh=True)
+    subplot.set_title("{} @ {}".format(title, vel_list[chan_init]))
     #subplot.recenter(ra, dec, radius*pad_factor)
 
     #Make aplpy grayscale plot with nice color scaling/stretch
@@ -921,10 +1194,8 @@ def channel_slicer(cube=None, ra=None, dec=None, radius=None,
 #Set up slider to change spectral channels.
     axcolor = 'lightgoldenrodyellow'
     ax = fig.add_axes([0.25, 0.95, 0.65, 0.03], axisbg=axcolor)
-    slider = Slider(ax, 'Channel', 0, hdu.data.shape[0] - 1,
-                    valinit=chan, valfmt='%i')
-
-    vel_label = subplot.add_label(0.9,0.9,"{}".format(vel_list[chan]), relative=True, layer='vel_label')
+    slider = Slider(ax, 'Channel', 0, vel_list.shape[0] - 1,
+                    valinit=chan_init, valfmt='%i')
 
     #Show the shell as circle.
     subplot.show_circles(ra, dec, radius, edgecolor=circle_color)
@@ -1000,7 +1271,7 @@ def plot_pv(cube=None, ra_center=None, dec_center=None, vel=[None, None],
     #ra_unit='deg', dec_unit='deg',  vel_unit=u.km/u.s,
     width=1*u.arcsec, angle=0*u.deg, length=1*u.arcmin,
     pad_factor=1., plotname='shell_pv.png', return_subplot=True,
-    stretch='linear', auto_scale=True):
+    stretch='linear', auto_scale=True, dpi=300.):
     """<FRESHLY_INSERTED>"""
     try:
        # if cube is not already a SpectralCube, but is a fits file.
@@ -1017,7 +1288,8 @@ def plot_pv(cube=None, ra_center=None, dec_center=None, vel=[None, None],
 
 
     fig = FITSFigure(pv)
-
+    #fig.tick_labels.set_yformat()
+    
     if vel[0] is not None:
         #Only show the velocities of the shell.
         p_lim, v_lim = fig.pixel2world(list(fig._ax1.get_xlim()), list(fig._ax1.get_ylim()))
@@ -1033,8 +1305,12 @@ def plot_pv(cube=None, ra_center=None, dec_center=None, vel=[None, None],
         fig.recenter(p_center, v_center, width=p_range, height=v_range)
 
     #fig.tick_labels.set_xformat('%4.2f')
-    fig.show_grayscale(aspect='auto')
-    fig.save(plotname)
+    fig.show_colorscale(aspect='auto', cmap='viridis')
+    fig.add_colorbar()
+    cb = fig.colorbar
+    cb.set_axis_label_text(r'T$_{MB}$ [K]')
+
+    fig.save(plotname, dpi=dpi)
     
 
 def subcubes_from_ds9(cube, region_file='../nro_maps/SouthShells.reg', pad_factor=1., shape='exact'):
