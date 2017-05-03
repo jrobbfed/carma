@@ -20,6 +20,10 @@ from matplotlib.widgets import Slider, Button, RadioButtons
 import matplotlib
 
 orion_dist = 414*u.pc #pc
+shells_score3 = [3, 6, 9, 11, 17, 18, 21, 24, 25, 30, 37]
+
+def paper_figures(dir='~/carma/paper/figs/'):
+    pass
 
 def main():
     """Summary
@@ -35,6 +39,36 @@ def main():
 
     matplotlib.rc('font', **font)
 
+    ###Plot overviews
+
+#     plot_overview(cube='../combined_maps/12co_pix_2.cm.fits', plotname="12co_combined_peak_full.png",
+#      show_shells=False,title=r"Combined $^{12}$CO Peak T$_{MB}$",
+#      dist=orion_dist, vmin=None, vmax=None, scalebar_color='white',
+#      scalebar_pc=1.,recenter=False, ra=83.99191, dec=-5.6611303, radius=0.117325)
+
+#     plot_overview(plotname="12co_nroonly_peak_full.png", show_shells=False,
+#      dist=orion_dist, vmin=None, vmax=None, scalebar_color='black', scale_factor =
+#      1.,title=r"NRO $^{12}$CO Peak T$_{MB}$",
+#      scalebar_pc=1,recenter=False, ra=83.99191, dec=-5.6611303, radius=0.117325)
+
+    # plot_overview(cube='../combined_maps/12co_pix_2.cm.fits', plotname="12co_combined_mom0_cometary.png",
+    #  show_shells=False, title=r"Combined Integrated $^{12}$CO",
+    #  dist=orion_dist, scalebar_color='white', pmax=93., mode='mom0',
+    #  scale_factor=1./1000,
+    #  scalebar_pc=0.2,recenter=True, ra=83.99191, dec=-5.6611303, radius=0.117325)
+
+    # plot_overview(plotname="12co_nroonly_mom0_cometary.png", show_shells=False,
+    #  dist=orion_dist, scalebar_color='white', pmax=93., mode='mom0',
+    #  scale_factor=1./1000, title=r"NRO Integrated $^{12}$CO",
+    #  scalebar_pc=0.2,recenter=True, ra=83.99191, dec=-5.6611303, radius=0.117325)
+
+    plot_overview(cube='../combined_maps/12co_pix_2.cm.fits', plotname="12co_combined_peak_full_shells.png",
+     show_shells=True, shells_highlight=shells_score3, title=r"Combined $^{12}$CO Peak T$_{MB}$",
+     dist=orion_dist, vmin=None, vmax=None, scalebar_color='white', circle_style='dotted',
+     scalebar_pc=1.,recenter=False, ra=83.99191, dec=-5.6611303, radius=0.117325)
+
+    return
+
     mips_l1641_file = '../catalogs/MIPS_L1641a_24um.fits'
     mips_onc_file = '../catalogs/MIPS_ONC_24um.fits'
 
@@ -47,6 +81,8 @@ def main():
     irac4_l1641_file = '../catalogs/IRAC_L1641_ch4_merged_clean_northup.fits'
     irac4_onc_file = '../catalogs/IRAC_ONC_ch4_merged_clean_northup.fits'
 
+    planck_herschel_file = '../catalogs/planck_herschel.fits'
+
     region_file = '../shell_candidates/AllShells.reg'
     vrange_file = '../shell_candidates/AllShells_vrange.txt'
     shell_list = get_shells(region_file=region_file, velocity_file=vrange_file)
@@ -58,6 +94,7 @@ def main():
     obaf_ra, obaf_dec, obaf_label = np.array(obaf['RA']), np.array(obaf['DEC']), np.array([sp.strip("b'") for sp in obaf['SP_TYPE']])
     yso = fits.open(yso_file)[1].data
     yso_ra, yso_dec, yso_label = yso['RAJ2000'], yso['DEJ2000'], yso['Cl']
+
     # for nshell in range(19,43):
     #     shell = shell_list[nshell-1]
     #     ra, dec, radius = shell.ra.value, shell.dec.value, shell.radius.value
@@ -94,7 +131,7 @@ def main():
     #plot_overview(cube="/Volumes/Untitled/13co_pix_2.cm.fits", plotname="13co_combined_peak.png", show_shells=False)
     #return
     channel_vmax = [12.9, 14]
-    for nshell in [17,]:
+    for nshell in [30,]:
         shell = shell_list[nshell-1]
         ra, dec, radius = shell.ra.value, shell.dec.value, shell.radius.value
 
@@ -128,33 +165,33 @@ def main():
         mom0_sigma = sigma * delta_vel
         #print(mom0_sigma)     
         #contour_levels = np.linspace(5.*mom0_sigma, np.nanmax(mom0_hdu_inshell.data), 12)
-        contour_levels = np.linspace(28.*mom0_sigma, 45.*mom0_sigma, 6)
+        contour_levels = np.linspace(28.*mom0_sigma, 45.*mom0_sigma, 6  )
 
         #Get source coordinates.
 
 
-        plot_stamp(map=ir_hdu, ra=ra, dec=dec, radius=radius, circle_color='red',
-            pad_factor=pad_factor, contour_map=mom0_hdu, contour_levels=contour_levels, contour_color='white',
-            plotname='{}shell{}_{}{}to{}_stamp.png'.format('8µm', nshell, "12CO", shell.vmin.value, shell.vmax.value),
-            return_fig=False,
-            stretch='linear', plot_simbad_sources=False, dist=orion_dist,
-            auto_scale=True, auto_scale_mode='median', auto_scale_pad_factor=0.8, auto_scale_nsigma=4.,
-            cbar_label="Counts", cmap='inferno',
-            source_ra=[obaf_ra, yso_ra], source_dec=[obaf_dec, yso_dec],
-            source_colors=['white', 'red'], source_markers=['*', 'None'], source_sizes=[300,50],
-            source_labels=[obaf_label, yso_label], dpi=300
-            )
+        # plot_stamp(map=ir_hdu, ra=ra, dec=dec, radius=radius, circle_color='red',
+        #     pad_factor=pad_factor, contour_map=mom0_hdu, contour_levels=contour_levels, contour_color='white',
+        #     plotname='{}shell{}_{}{}to{}_stamp.png'.format('8µm', nshell, "12CO", shell.vmin.value, shell.vmax.value),
+        #     return_fig=False,
+        #     stretch='linear', plot_simbad_sources=False, dist=orion_dist,
+        #     auto_scale=True, auto_scale_mode='median', auto_scale_pad_factor=0.8, auto_scale_nsigma=4.,
+        #     cbar_label="Counts", cmap='inferno',
+        #     source_ra=[obaf_ra, yso_ra], source_dec=[obaf_dec, yso_dec],
+        #     source_colors=['white', 'red'], source_markers=['*', 'None'], source_sizes=[300,50],
+        #     source_labels=[obaf_label, yso_label], dpi=300
+        #     )
 
         #cube_file = "../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits"
         
         
-        # plot_channels(cube=cube_file, ra=ra, dec=dec, radius=radius,
-        #     source_lists=None, stretch='linear', pad_factor=1.5, vel_min=shell.vmin.value, vel_max=14.,
-        #     plotname='12co_channels_shell'+str(nshell)+'.png', chan_step=2, plot_simbad_sources=False,
-        #     vmin=None, vmax=None, max_chans=12,
-        #     #cbar_label="Counts",
-        #     source_ra=[obaf_ra, yso_ra], source_dec=[obaf_dec, yso_dec],
-        #     source_colors=['white', 'red'], source_markers=['*', 'None'], source_sizes=[200,15], dpi=300)
+        plot_channels(cube=cube_file, ra=ra, dec=dec, radius=radius,
+            source_lists=None, stretch='linear', pad_factor=1.5, vel_min=shell.vmin.value, vel_max=14.,
+            plotname='12co_channels_shell'+str(nshell)+'.png', chan_step=2, plot_simbad_sources=False,
+            vmin=None, vmax=None, max_chans=12,
+            #cbar_label="Counts",
+            source_ra=[obaf_ra, yso_ra], source_dec=[obaf_dec, yso_dec],
+            source_colors=['white', 'red'], source_markers=['*', 'None'], source_sizes=[200,15], dpi=300)
 
         # angle = 90*u.deg
         # pv = plot_pv(cube=cube_file, ra_center=shell.ra, dec_center=shell.dec,
@@ -636,8 +673,11 @@ def get_shells(velocity_file='../shell_candidates/AllShells_vrange.txt',
 
 def plot_overview(cube='../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits',
  region_file='../nro_maps/AllShells.reg', mode='peak', plotname='12co_peak_shells.png',
- interactive=False, show_shells=True, dist=orion_dist,
- circle_color='white', circle_linewidth=1, circle_style="solid", return_fig=False, show=True):
+ interactive=False, show_shells=True, shells_highlight=None, dist=orion_dist, vmin=None, vmax=None,
+ scalebar_color="white", scalebar_pc = 1., scale_factor=1., pmin=0.25,
+ pmax=99.75, cbar_label=r"T$_{MB}$ v [K km/s]",
+ circle_color='white', circle_linewidth=1, circle_style="solid", return_fig=False, show=True,
+ title=r"$^{12}$CO Peak T$_{MB}$", recenter=False, ra=None, dec=None, radius=None):
     """
     Show full image with all shells.
     
@@ -663,36 +703,52 @@ def plot_overview(cube='../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_gr
         pass
 
     if mode == "peak":
-        image = cube.max(axis=0).hdu
+        image = (cube.max(axis=0) * scale_factor).hdu
         
 
     if mode == "mom0":
-        image = cube.moment0().hdu
+        image = (cube.moment0() * scale_factor).hdu
+
+
 
     fig = FITSFigure(image)
     if show:
-        fig.show_colorscale(cmap='viridis')
+        fig.show_colorscale(cmap='viridis', vmin=vmin, vmax=vmax, pmin=pmin,
+                pmax=pmax, interpolation='none')
     fig.tick_labels.set_yformat("dd:mm")
     fig.tick_labels.set_xformat("hh:mm")
-    fig.hide_yaxis_label()
-    fig.hide_ytick_labels()
-    #plt.title(r"$^{12}$CO Peak T$_{MB}$")
-    #plt.xlabel("RA (J2000)")
-    #plt.ylabel("DEC (J2000)")
+    #fig.hide_yaxis_label()
+    #fig.hide_ytick_labels()
+    plt.title(title)
+    plt.xlabel("RA (J2000)")
+    plt.ylabel("DEC (J2000)")
 
     if show_shells:
         shell_list = get_shells(region_file=region_file)
-        for shell in shell_list:
-            fig.show_circles(shell.ra.value, shell.dec.value, shell.radius.value, linestyle=circle_style, edgecolor=circle_color,
-        facecolor='none', linewidth=circle_linewidth)
+        for i, shell in enumerate(shell_list):
+            if shells_highlight:
+                if i+1 in shells_highlight:
+                    fig.show_circles(shell.ra.value, shell.dec.value, shell.radius.value, linestyle='solid', edgecolor=circle_color,
+                        facecolor='none', linewidth=3)
+                else:
+                    fig.show_circles(shell.ra.value, shell.dec.value, shell.radius.value, linestyle=circle_style, edgecolor=circle_color,
+                        facecolor='none', linewidth=circle_linewidth)
+            else:
+                fig.show_circles(shell.ra.value, shell.dec.value, shell.radius.value, linestyle=circle_style, edgecolor=circle_color,
+                    facecolor='none', linewidth=circle_linewidth)
+
+    #RECENTER
+    if recenter:
+    	fig.recenter(ra, dec, radius)
+
 
     #SCALEBAR
-    fig.add_scalebar(206265 * 1 / (dist.to(u.pc).value * 3600), color='white')
-    fig.scalebar.set_label("1 pc")
+    fig.add_scalebar(206265 * scalebar_pc / (dist.to(u.pc).value * 3600), color=scalebar_color)
+    fig.scalebar.set_label("{} pc".format(scalebar_pc))
 
     fig.add_colorbar()
     cb = fig.colorbar
-    cb.set_axis_label_text(r'T$_{MB}$ [K]')
+    cb.set_axis_label_text(cbar_label)
 
     if return_fig:
         return fig
