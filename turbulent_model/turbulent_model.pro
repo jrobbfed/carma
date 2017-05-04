@@ -9,11 +9,11 @@ pro turbulent_model, outfile = outfile
 
   thickness = 1.2               ;- cloud thickness, pc
   fwhm = 1.6                    ;- cloud velocity fwhm, km/s
-  beta = 2.0                    ;- spectral index of velocity field
+  beta = 3.0                    ;- spectral index of velocity field
   
   r = 0.6                       ;- radius of bubble, pc
   dr = 0.25                     ;- thickness of bubble, pc
-  vexp = 3.                     ;- km/s -- cap-to-midplane
+  vexp = 2.                     ;- km/s -- cap-to-midplane
   depth_offset = 0.0            ;- offset of bubble from cloud center, in pc
   vel_offset = 0.0              ;- difference between cloud and bubble velocity, km/s
 
