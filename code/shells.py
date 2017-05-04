@@ -22,6 +22,9 @@ import matplotlib
 orion_dist = 414*u.pc #pc
 shells_score3 = [3, 6, 9, 11, 17, 18, 21, 24, 25, 30, 37]
 
+#fwhm_to_
+
+
 def paper_figures(dir='~/carma/paper/figs/'):
     pass
 
