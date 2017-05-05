@@ -1,15 +1,15 @@
-pro turbulent_model, outfile = outfile
+pro turbulent_model, outfile=outfile
 
   ;- EDIT THESE NUMBERS
   d = 300                       ;- distance to cloud, pc
   pix_size = 23                 ;- nyquist pixel scale, arcsec
-  vstep = 0.1                   ;- velocity resolution, km/s
+  vstep = 0.5                   ;- velocity resolution, km/s
   acen = 52.125                 ;- RA at bubble center
   dcen = 31.3                   ;- Dec at bubble center
 
   thickness = 1.2               ;- cloud thickness, pc
   fwhm = 1.6                    ;- cloud velocity fwhm, km/s
-  beta = 3.0                    ;- spectral index of velocity field
+  beta = 2.0                    ;- spectral index of velocity field
   
   r = 0.6                       ;- radius of bubble, pc
   dr = 0.25                     ;- thickness of bubble, pc
@@ -108,31 +108,31 @@ pro turbulent_model, outfile = outfile
 
 
   ;- write out ppv, den, vel as a multi-extension cube
-  file = 'all_'+outfile
-  mwrfits, ppv, file, hdr, /create
-
-  ;- write out density, velocity cubes
-  mkhdr, hdr, den
-  sz = size(den)
-  sxaddpar, hdr, 'CTYPE1', 'X----CAR'
-  sxaddpar, hdr, 'CRPIX1', sz[1]/2.
-  sxaddpar, hdr, 'CRVAL1', 0, 'PC'
-  sxaddpar, hdr, 'CDELT1', scale, 'PC'
-
-  sxaddpar, hdr, 'CTYPE2', 'Y----CAR'
-  sxaddpar, hdr, 'CRPIX2', sz[2]/2.
-  sxaddpar, hdr, 'CRVAL2', 0, 'PC'
-  sxaddpar, hdr, 'CDELT2', scale, 'PC'
-
-  sxaddpar, hdr, 'CTYPE3', 'Z----CAR'
-  sxaddpar, hdr, 'CRPIX3', sz[3]/2.
-  sxaddpar, hdr, 'CRVAL3', 0, 'PC'
-  sxaddpar, hdr, 'CDELT3', scale, 'PC'
-
-  sxaddpar, hdr, 'BUNIT', 'cm^-3', 'DENSITY'
-
-  mwrfits, den, file, hdr ;- a higher-res 3D density cube
-
-  sxaddpar, hdr, 'BUNIT', 'km/s', 'RADIAL VELOCITY'
-  mwrfits, vel, file, hdr ;- higher-res 3D radial velocity cube
+;  file = 'all_'+outfile
+;  mwrfits, ppv, file, hdr, /create
+;
+;  ;- write out density, velocity cubes
+;  mkhdr, hdr, den
+;  sz = size(den)
+;  sxaddpar, hdr, 'CTYPE1', 'X----CAR'
+;  sxaddpar, hdr, 'CRPIX1', sz[1]/2.
+;  sxaddpar, hdr, 'CRVAL1', 0, 'PC'
+;  sxaddpar, hdr, 'CDELT1', scale, 'PC'
+;
+;  sxaddpar, hdr, 'CTYPE2', 'Y----CAR'
+;  sxaddpar, hdr, 'CRPIX2', sz[2]/2.
+;  sxaddpar, hdr, 'CRVAL2', 0, 'PC'
+;  sxaddpar, hdr, 'CDELT2', scale, 'PC'
+;
+;  sxaddpar, hdr, 'CTYPE3', 'Z----CAR'
+;  sxaddpar, hdr, 'CRPIX3', sz[3]/2.
+;  sxaddpar, hdr, 'CRVAL3', 0, 'PC'
+;  sxaddpar, hdr, 'CDELT3', scale, 'PC'
+;
+;  sxaddpar, hdr, 'BUNIT', 'cm^-3', 'DENSITY'
+;
+;  mwrfits, den, file, hdr ;- a higher-res 3D density cube
+;
+;  sxaddpar, hdr, 'BUNIT', 'km/s', 'RADIAL VELOCITY'
+;  mwrfits, vel, file, hdr ;- higher-res 3D radial velocity cube
 end
