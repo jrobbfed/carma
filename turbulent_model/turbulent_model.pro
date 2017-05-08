@@ -1,11 +1,11 @@
 pro turbulent_model, outfile=outfile
 
   ;- EDIT THESE NUMBERS
-  d = 300                       ;- distance to cloud, pc
-  pix_size = 23                 ;- nyquist pixel scale, arcsec
-  vstep = 0.5                   ;- velocity resolution, km/s
-  acen = 52.125                 ;- RA at bubble center
-  dcen = 31.3                   ;- Dec at bubble center
+  d = 414                       ;- distance to Orion A, pc -  Menten + 2007
+  pix_size = 7.5                ;- nyquist pixel scale, arcsec - NRO maps
+  vstep = 0.099                 ;- velocity resolution, km/s - 12CO NRO 
+  acen = 83.72707               ;- RA at bubble center, shell 18
+  dcen = -5.07792               ;- Dec at bubble center, shell 18
 
   thickness = 1.2               ;- cloud thickness, pc
   fwhm = 1.6                    ;- cloud velocity fwhm, km/s
@@ -36,8 +36,8 @@ pro turbulent_model, outfile=outfile
   out = rr ge (r + dr/2.) and in_slab
 
   print, total(in), total(rr lt r - dr/2.)
-  print, minmax(rr)
-  print, minmax(z), depth_offset / scale
+  ;print, minmax(rr)
+  ;print, minmax(z), depth_offset / scale
 
   ;- density field: shell expanding into uniform exterior
   ;- evacuated material uniformly redistributed over shell boundary
@@ -107,7 +107,7 @@ pro turbulent_model, outfile=outfile
   writefits, outfile, ppv, hdr ;- the ppv cube
 
 
-  ;- write out ppv, den, vel as a multi-extension cube
+;- write out ppv, den, vel as a multi-extension cube
 ;  file = 'all_'+outfile
 ;  mwrfits, ppv, file, hdr, /create
 ;
