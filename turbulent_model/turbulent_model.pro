@@ -7,9 +7,9 @@ pro turbulent_model, outfile=outfile
   acen = 83.72707               ;- RA at bubble center, shell 18
   dcen = -5.07792               ;- Dec at bubble center, shell 18
 
-  thickness = 1.2               ;- cloud thickness, pc
+  thickness = 5               ;- cloud thickness, pc
   fwhm = 1.6                    ;- cloud velocity fwhm, km/s
-  beta = 2.0                    ;- spectral index of velocity field
+  beta = 2                    ;- spectral index of velocity field
   
   r = 0.6                       ;- radius of bubble, pc
   dr = 0.25                     ;- thickness of bubble, pc
@@ -105,7 +105,8 @@ pro turbulent_model, outfile=outfile
 
   ;- write out result
   writefits, outfile, ppv, hdr ;- the ppv cube
-
+  writefits, "den.fits", den
+  writefits, "vel.fits", vel
 
 ;- write out ppv, den, vel as a multi-extension cube
 ;  file = 'all_'+outfile
