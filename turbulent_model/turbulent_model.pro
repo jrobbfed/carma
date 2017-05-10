@@ -8,7 +8,7 @@ pro turbulent_model, outfile=outfile
   dcen = -5.07792               ;- Dec at bubble center, shell 18
 
   thickness = 1                 ;- cloud thickness, pc, from ~size of largest shell.
-  fwhm = 4                    ;- cloud velocity fwhm, km/s
+  fwhm = 4                   ;- cloud velocity fwhm, km/s
   beta = 2                    ;- spectral index of velocity field
   
   r = 0.31                       ;- radius of bubble, pc
