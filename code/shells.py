@@ -627,7 +627,11 @@ def data_cutout(data=None, wcs=None, ra=None, dec=None, radius=None, unit='deg',
 
     mask.cutout(da)
 def get_shells(velocity_file='../shell_candidates/AllShells_vrange.txt',
+<<<<<<< HEAD
+    region_file='../shell_candidates/AllShells.reg',
+=======
     region_file='../shell_candidates/SouthShells.reg',
+>>>>>>> e604d1952303030a5d070108bfd382af1ffe382c
     ra_col="ra", dec_col="dec", radius_col="radius", vmin_col='vmin', vmax_col='vmax',
     ra_unit='deg', dec_unit='deg', radius_unit='deg', v_unit='km/s'):
     """
@@ -1372,7 +1376,7 @@ def plot_pv(cube=None, ra_center=None, dec_center=None, vel=[None, None],
     fig.save(plotname, dpi=dpi)
     
 
-def subcubes_from_ds9(cube, region_file='../nro_maps/SouthShells.reg', pad_factor=1., shape='exact'):
+def subcubes_from_ds9(cube, region_file='../nro_maps/AllShells.reg', pad_factor=1., shape='exact'):
     """
     Extracts subcubes using the ds9 region file.
     

@@ -1,28 +1,52 @@
-pro turbulent_model, outfile=outfile
+pro turbulent_model, outfile=outfile, dist=dist,$
+                     pix_size=pix_size, vstep=vstep,$
+                     acen=acen, dcen=dcen, thickness=thickness,$
+                     fwhm=fwhm, beta=beta, r=r, dr=dr,$
+                     vexp=vexp, depth_offset=depth_offset,$
+                     vel_offset=vel_offset, v0=v0
 
   ;- EDIT THESE NUMBERS
-  d = 414                       ;- distance to Orion A, pc -  Menten + 2007
-  pix_size = 7.5                ;- nyquist pixel scale, arcsec - NRO maps
-  vstep = 0.099                 ;- velocity resolution, km/s - 12CO NRO 
-  acen = 83.72707               ;- RA at bubble center, shell 18
-  dcen = -5.07792               ;- Dec at bubble center, shell 18
+;   dist = 414.                       ;- distance to Orion A, pc -  Menten + 2007
+;   pix_size = 7.5                ;- nyquist pixel scale, arcsec - NRO maps
+;   vstep = 0.099                 ;- velocity resolution, km/s - 12CO NRO 
+;   acen = 83.72707               ;- RA at bubble center, shell 18
+;   dcen = -5.07792               ;- Dec at bubble center, shell 18
 
-  thickness = 1                 ;- cloud thickness, pc, from ~size of largest shell.
-  fwhm = 4                   ;- cloud velocity fwhm, km/s
-  beta = 2                    ;- spectral index of velocity field
+;   thickness = 1.0                 ;- cloud thickness, pc, from ~size of largest shell.
+;   fwhm = 1.0                  ;- cloud velocity fwhm, km/s
+;   beta = 2.0                    ;- spectral index of velocity field
   
-  r = 0.31                       ;- radius of bubble, pc
-  dr = 0.2                     ;- thickness of bubble, pc
-  vexp = 1.6                     ;- km/s -- cap-to-midplane
-  depth_offset = 0.0            ;- offset of bubble from cloud center, in pc
-  vel_offset = 0.0              ;- difference between cloud and bubble velocity, km/s
+; ;  r = 0.31                       ;- radius of bubble, pc
+;   r = 0.31                       ;- radius of bubble, pc
+;   dr = 0.2                     ;- thickness of bubble, pc
+;   vexp = 1.6                     ;- km/s -- cap-to-midplane
+; ;  vexp = 3.                     ;- km/s -- cap-to-midplane
+;   depth_offset = 0.0            ;- offset of bubble from cloud center, in pc
+;   vel_offset = 0.0              ;- difference between cloud and bubble velocity, km/s
+;   v0 = 13.6;- systematic velocity (mid-channel of output cube)
 
-  ;- STOP EDITING
+;  if ~keyword_set(outdir) then outdir = './'
   if ~keyword_set(outfile) then outfile = 'turb_ppv.fits'
-
+  if ~keyword_set(dist) then dist = 414.
+  if ~keyword_set(pix_size) then pix_size = 7.5
+  if ~keyword_set(vstep) then vstep = 0.099
+  if ~keyword_set(acen) then acen = 83.72707
+  if ~keyword_set(dcen) then dcen = -5.07792
+  if ~keyword_set(thickness) then thickness = 1.0
+  if ~keyword_set(fwhm) then fwhm = 1.0  
+  if ~keyword_set(beta) then beta = 2.0
+  if ~keyword_set(r) then r = 0.31
+  if ~keyword_set(dr) then dr = 0.2
+  if ~keyword_set(vexp) then vexp = 1.6
+  if ~keyword_set(depth_offset) then depth_offset = 0.0 
+  if ~keyword_set(vel_offset) then vel_offset = 0.0
+  if ~keyword_set(v0) then v0 = 13.6
+ 
 
   ;- do computation at pixel scale 2x finer than end result
-  scale = pix_size / 206265. * d / 2 ;- pc per pixel
+  scale = pix_size / 206265. * dist / 2 ;- pc per pixel
+  print, scale, " pc/pixel"
+
   ;- dimensions of working ppp cubes
   sz = floor([4 * r / scale, 4. * r / scale, 1.1 * thickness / scale])
 
@@ -30,7 +54,8 @@ pro turbulent_model, outfile=outfile
   indices, den, x, y, z, center = fltarr(3)
 
   rr = sqrt(x^2 + y^2 + (z - depth_offset / scale)^2) * scale
-  in_slab = abs(z) * scale lt (thickness / 2)
+  in_slab = abs(z) * scale lt (thickness / 2.)
+
   in = rr lt (r - dr/2.) and in_slab
   on = rr ge (r - dr/2.) and rr lt (r + dr/2.) and in_slab
   out = rr ge (r + dr/2.) and in_slab
@@ -42,11 +67,16 @@ pro turbulent_model, outfile=outfile
   ;- density field: shell expanding into uniform exterior
   ;- evacuated material uniformly redistributed over shell boundary
   ;- units are arbitrary
+  print, "Computing Density of Shell"
+  
+
   ratio = total(in) / total(on)
   den = out + on * (1 + ratio)
 
   ;- turbulent velocity field of cloud. Units are km/s
-  seed = 100
+  seed = 101
+  print, "Generating turbulent cloud velocity field"
+
   vel = cloud(sz, beta = beta, seed = seed) * fwhm / 2.35
   ;- superpose velocity field of bubble
   vel_bubble = on * (vexp * (z * scale - depth_offset) / rr + vel_offset)
@@ -61,6 +91,8 @@ pro turbulent_model, outfile=outfile
   vcen = arrgen(vlo, vhi, vstep)
 
   ;- ppv cube
+  print, "Gridding PPV cube."
+
   ppv = ppp2ppv(den, vel, vcen)
 
   ;- downsample by 2x to requested pixel scale
@@ -90,11 +122,11 @@ pro turbulent_model, outfile=outfile
 
   sxaddpar, hdr, 'CTYPE3', 'VELO-LSR'
   sxaddpar, hdr, 'CRPIX3', sz[3]/2.
-  sxaddpar, hdr, 'CRVAL3', 0.0, 'KM/S'
+  sxaddpar, hdr, 'CRVAL3', v0, 'KM/S'
   sxaddpar, hdr, 'CDELT3', vstep, 'KM/S'
 
   sxaddpar, hdr, 'THICK', thickness, 'Cloud Thickness (pc)'
-  sxaddpar, hdr, 'DIST', d, 'Distance to cloud (pc)'
+  sxaddpar, hdr, 'DIST', dist, 'Distance to cloud (pc)'
   sxaddpar, hdr, 'V_FWHM', fwhm, 'Cloud velocity spread (km/s)'
   sxaddpar, hdr, 'BETA', beta, 'Cloud velocity power spectrum index'
   sxaddpar, hdr, 'VEXP', vexp, 'Expansion vel (km/s - cap to midplane)'
@@ -105,8 +137,8 @@ pro turbulent_model, outfile=outfile
 
   ;- write out result
   writefits, outfile, ppv, hdr ;- the ppv cube
-  writefits, "den.fits", den
-  writefits, "vel.fits", vel
+;  writefits, "den.fits", den
+;  writefits, "vel.fits", vel
 
 ;- write out ppv, den, vel as a multi-extension cube
 ;  file = 'all_'+outfile
