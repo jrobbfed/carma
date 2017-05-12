@@ -46,13 +46,16 @@ pro turbulent_model, outfile=outfile, dist=dist,$
   ;- do computation at pixel scale 2x finer than end result
   scale = pix_size / 206265. * dist / 2 ;- pc per pixel
   print, scale, " pc/pixel"
+
   ;- dimensions of working ppp cubes
   sz = floor([4 * r / scale, 4. * r / scale, 1.1 * thickness / scale])
 
   den = fltarr(sz[0], sz[1], sz[2])
   indices, den, x, y, z, center = fltarr(3)
+
   rr = sqrt(x^2 + y^2 + (z - depth_offset / scale)^2) * scale
   in_slab = abs(z) * scale lt (thickness / 2.)
+
   in = rr lt (r - dr/2.) and in_slab
   on = rr ge (r - dr/2.) and rr lt (r + dr/2.) and in_slab
   out = rr ge (r + dr/2.) and in_slab
@@ -66,12 +69,14 @@ pro turbulent_model, outfile=outfile, dist=dist,$
   ;- units are arbitrary
   print, "Computing Density of Shell"
   
+
   ratio = total(in) / total(on)
   den = out + on * (1 + ratio)
 
   ;- turbulent velocity field of cloud. Units are km/s
   seed = 101
   print, "Generating turbulent cloud velocity field"
+
   vel = cloud(sz, beta = beta, seed = seed) * fwhm / 2.35
   ;- superpose velocity field of bubble
   vel_bubble = on * (vexp * (z * scale - depth_offset) / rr + vel_offset)
@@ -87,6 +92,7 @@ pro turbulent_model, outfile=outfile, dist=dist,$
 
   ;- ppv cube
   print, "Gridding PPV cube."
+
   ppv = ppp2ppv(den, vel, vcen)
 
   ;- downsample by 2x to requested pixel scale
@@ -163,5 +169,3 @@ pro turbulent_model, outfile=outfile, dist=dist,$
 ;  sxaddpar, hdr, 'BUNIT', 'km/s', 'RADIAL VELOCITY'
 ;  mwrfits, vel, file, hdr ;- higher-res 3D radial velocity cube
 end
-
- 
