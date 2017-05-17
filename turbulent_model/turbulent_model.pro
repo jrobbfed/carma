@@ -33,8 +33,8 @@ pro turbulent_model, outfile=outfile, dist=dist,$
   if ~keyword_set(acen) then acen = 83.72707
   if ~keyword_set(dcen) then dcen = -5.07792
   if ~keyword_set(thickness) then thickness = 1.0
-  if ~keyword_set(fwhm) then fwhm = 1.0  
-  if ~keyword_set(beta) then beta = 2.0
+  if ~keyword_set(fwhm) then fwhm = 4.0 
+  if ~keyword_set(beta) then beta = 0.0
   if ~keyword_set(r) then r = 0.31
   if ~keyword_set(dr) then dr = 0.2
   if ~keyword_set(vexp) then vexp = 1.6
