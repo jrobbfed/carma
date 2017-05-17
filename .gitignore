@@ -17,6 +17,7 @@ js9/
 *.svg
 *.exe
 *.dmg
+*.nfs*
 notebooks/.ipynb_checkpoints/
 #*.jpg
 #This is an independent repo. Look into merging with CARMA.
