@@ -3,7 +3,8 @@ pro turbulent_model, outfile=outfile, dist=dist,$
                      acen=acen, dcen=dcen, thickness=thickness,$
                      fwhm=fwhm, beta=beta, r=r, dr=dr,$
                      vexp=vexp, depth_offset=depth_offset,$
-                     vel_offset=vel_offset, v0=v0
+                     vel_offset=vel_offset, v0=v0,$
+                     ignore_cloud=ignore_cloud
 
   ;- EDIT THESE NUMBERS
 ;   dist = 414.                       ;- distance to Orion A, pc -  Menten + 2007
@@ -25,36 +26,45 @@ pro turbulent_model, outfile=outfile, dist=dist,$
 ;   vel_offset = 0.0              ;- difference between cloud and bubble velocity, km/s
 ;   v0 = 13.6;- systematic velocity (mid-channel of output cube)
 
-;  if ~keyword_set(outdir) then outdir = './'
-  if ~keyword_set(outfile) then outfile = 'turb_ppv.fits'
-  if ~keyword_set(dist) then dist = 414.
-  if ~keyword_set(pix_size) then pix_size = 7.5
-  if ~keyword_set(vstep) then vstep = 0.099
-  if ~keyword_set(acen) then acen = 83.72707
-  if ~keyword_set(dcen) then dcen = -5.07792
-  if ~keyword_set(thickness) then thickness = 1.0
-  if ~keyword_set(fwhm) then fwhm = 4.0 
-  if ~keyword_set(beta) then beta = 0.0
-  if ~keyword_set(r) then r = 0.31
-  if ~keyword_set(dr) then dr = 0.2
-  if ~keyword_set(vexp) then vexp = 1.6
-  if ~keyword_set(depth_offset) then depth_offset = 0.0 
-  if ~keyword_set(vel_offset) then vel_offset = 0.0
-  if ~keyword_set(v0) then v0 = 13.6
- 
+;  if N_elements(outdir) then outdir = './'
+  if N_elements(outfile) eq 0 then outfile = 'turb_ppv.fits'
+  if N_elements(dist) eq 0 then dist = 414.
+  if N_elements(pix_size) eq 0 then pix_size = 7.5
+  if N_elements(vstep) eq 0 then vstep = 0.099
+  if N_elements(acen) eq 0 then acen = 83.72707
+  if N_elements(dcen) eq 0 then dcen = -5.07792
+  if N_elements(thickness) eq 0 then thickness = 1.0
+  if N_elements(fwhm) eq 0 then fwhm = 4.0 
+  if N_elements(beta) eq 0 then beta = 0.0
+  if N_elements(r) eq 0 then r = 0.31
+  if N_elements(dr) eq 0 then dr = 0.2
+  if N_elements(vexp) eq 0 then vexp = 1.6
+  if N_elements(depth_offset) eq 0 then depth_offset = 0.0 
+  if N_elements(vel_offset) eq 0 then vel_offset = 0.0
+  if N_elements(v0) eq 0 then v0 = 13.6
+  if N_elements(ignore_cloud) eq 0 then ignore_cloud = 0
 
   ;- do computation at pixel scale 2x finer than end result
   scale = pix_size / 206265. * dist / 2 ;- pc per pixel
   print, scale, " pc/pixel"
 
   ;- dimensions of working ppp cubes
-  sz = floor([4 * r / scale, 4. * r / scale, 1.1 * thickness / scale])
+  if ignore_cloud then begin
+    sz = floor([4 * r / scale, 4. * r / scale, 4. * r / scale])
+  endif else begin
+    sz = floor([4 * r / scale, 4. * r / scale, 1.1 * thickness / scale])
+  endelse
 
   den = fltarr(sz[0], sz[1], sz[2])
   indices, den, x, y, z, center = fltarr(3)
 
   rr = sqrt(x^2 + y^2 + (z - depth_offset / scale)^2) * scale
-  in_slab = abs(z) * scale lt (thickness / 2.)
+
+  if ignore_cloud then begin
+    in_slab = intarr(sz[0], sz[1], sz[2]) + 1 ; All ones.
+  endif else begin 
+    in_slab = abs(z) * scale lt (thickness / 2.)
+  endelse
 
   in = rr lt (r - dr/2.) and in_slab
   on = rr ge (r - dr/2.) and rr lt (r + dr/2.) and in_slab
@@ -71,19 +81,24 @@ pro turbulent_model, outfile=outfile, dist=dist,$
   
 
   ratio = total(in) / total(on)
-  den = out + on * (1 + ratio)
 
-  ;- turbulent velocity field of cloud. Units are km/s
-  seed = 101
+  if ignore_cloud then begin
+    den = on
+  endif else begin
+    den = out + on * (1 + ratio)
+  endelse
   print, "Generating turbulent cloud velocity field"
 
-  vel = cloud(sz, beta = beta, seed = seed) * fwhm / 2.35
-  ;- superpose velocity field of bubble
-  vel_bubble = on * (vexp * (z * scale - depth_offset) / rr + vel_offset)
+  ;velocity field of bubble
+  vel = on * (vexp * (z * scale - depth_offset) / rr + vel_offset)
   bad = where(rr eq 0, bad_ct)
-  if bad_ct ne 0 then vel_bubble[bad] = 0.
-  vel += vel_bubble
+  if bad_ct ne 0 then vel[bad] = 0.
 
+  if ~ignore_cloud then begin
+    ;- superpose turbulent velocity field of cloud. Units are km/s
+    seed = 101
+    vel = vel + cloud(sz, beta = beta, seed = seed) * fwhm / 2.35
+  endif
 
   ;- velocity spacing of output cube
   vlo = -3 * fwhm < vel_offset - 1.2 * vexp
@@ -124,6 +139,7 @@ pro turbulent_model, outfile=outfile, dist=dist,$
   sxaddpar, hdr, 'CRPIX3', sz[3]/2.
   sxaddpar, hdr, 'CRVAL3', v0, 'KM/S'
   sxaddpar, hdr, 'CDELT3', vstep, 'KM/S'
+  sxaddpar, hdr, 'CUNIT3', 'km/s'
 
   sxaddpar, hdr, 'THICK', thickness, 'Cloud Thickness (pc)'
   sxaddpar, hdr, 'DIST', dist, 'Distance to cloud (pc)'
