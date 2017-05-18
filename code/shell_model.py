@@ -1,3 +1,30 @@
+def analytic_profile(r, R, dR, radius_type="middle"):
+    #From Beaumont & Williams (2010), assumes bare optically thin shell without cloud.
+    #r: impact parameter from center of shell
+    #R: radius of shell (measured at R_type of rim)
+    #dR: thickness of shell
+    #R_type: Where in the rim R is measured at. 
+    if R_type == "middle":
+        pass
+    elif R_type == "inner":
+        R = R + dR / 2.
+    elif R_type == "outer":
+        R = R - dR / 2.
+    else:
+        raise Exception('radius_type must be one of "inner", "middle", or "outer".')
+
+    if r < R - dR/2.:
+        profile = 2*R * ((1 + dR/R)**2. - (r/R)**2.)**0.5 -\
+                2*R * (1 - (r/R)**2.)**0.5
+
+    elif r >= R and r < R + dR/2.:
+        profile = 2*R * ((1 + dR/R)**2. - (r/R)**2.)**0.5
+
+    elif r >= R + dR/2.:
+        profile = 0
+
+    return profile
+
 def radial_profile(array, center=None, mode='average',
                    nbins=10, returnSEM=True, removeNaN=True):
     from scipy.stats import binned_statistic, sem

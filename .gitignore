@@ -1,4 +1,5 @@
 catalogs
+__pycache__/
 combined_maps
 *.key
 *.zip
