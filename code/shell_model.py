@@ -1,27 +1,37 @@
+import numpy as np
+
 def analytic_profile(r, R, dR, radius_type="middle"):
     #From Beaumont & Williams (2010), assumes bare optically thin shell without cloud.
     #r: impact parameter from center of shell
     #R: radius of shell (measured at R_type of rim)
     #dR: thickness of shell
     #R_type: Where in the rim R is measured at. 
-    if R_type == "middle":
-        pass
-    elif R_type == "inner":
-        R = R + dR / 2.
-    elif R_type == "outer":
+    
+    if radius_type == "middle":
         R = R - dR / 2.
+    elif radius_type == "inner":
+        pass
+    elif radius_type == "outer":
+        R = R - dR
     else:
         raise Exception('radius_type must be one of "inner", "middle", or "outer".')
 
-    if r < R - dR/2.:
-        profile = 2*R * ((1 + dR/R)**2. - (r/R)**2.)**0.5 -\
-                2*R * (1 - (r/R)**2.)**0.5
+    r = np.asarray(r)
+    profile = np.zeros_like(r)
+    inside = (r < R)
+    #print(inside)
+    profile[inside] = \
+                2*R * ((1 + dR/R)**2. - (r[inside]/R)**2.)**0.5 -\
+                2*R * (1 - (r[inside]/R)**2.)**0.5
 
-    elif r >= R and r < R + dR/2.:
-        profile = 2*R * ((1 + dR/R)**2. - (r/R)**2.)**0.5
+    on = (r >= R) & (r < R + dR)
+    #print(on)
+    profile[on] = \
+                2*R * ((1 + dR/R)**2. - (r[on]/R)**2.)**0.5
 
-    elif r >= R + dR/2.:
-        profile = 0
+    outside = (r >= R + dR)
+    #print(outside)
+    profile[outside] = 0
 
     return profile
 
@@ -43,9 +53,16 @@ def radial_profile(array, center=None, mode='average',
         # profile = profile / np.histogram(r, bins=nbins)[0]
         profile, rbins, binnumber = binned_statistic(
             r, array, 'mean', bins=nbins)
+        rbin_centers = (rbins[1:] + rbins[:-1]) / 2.
+    elif mode == 'along x':
+        print(np.shape(array), np.shape(x), np.shape(y))
+        print(y, np.floor(center[1])) 
+        profile = array[(y == np.floor(center[1])) & (x - np.floor(center[0]) >= 0)]
+        rbin_centers = r[(y == np.floor(center[1])) & (x - np.floor(center[0]) >= 0)]
+        returnSEM = False #wouldn't make sense in this context.
     else:
         raise Exception("mode {} not implemented".format(mode))
-    rbin_centers = (rbins[1:] + rbins[:-1]) / 2.
+
     if returnSEM:
         "Return the standard error on the mean of each bin."
         SEM = binned_statistic(
