@@ -1,4 +1,31 @@
+"""Summary
+"""
+from shells import pv_slice
+
 def analytic_profile(r, R, dR, radius_type="middle"):
+    """Summary
+    
+    Parameters
+    ----------
+    r : TYPE
+        Description
+    R : TYPE
+        Description
+    dR : TYPE
+        Description
+    radius_type : str, optional
+        Description
+    
+    Returns
+    -------
+    TYPE
+        Description
+    
+    Raises
+    ------
+    Exception
+        Description
+    """
     #From Beaumont & Williams (2010), assumes bare optically thin shell without cloud.
     #r: impact parameter from center of shell
     #R: radius of shell (measured at R_type of rim)
@@ -27,6 +54,37 @@ def analytic_profile(r, R, dR, radius_type="middle"):
 
 def radial_profile(array, center=None, mode='average',
                    nbins=10, returnSEM=True, removeNaN=True):
+    """Return a radial profile of `array`. The radial profile can
+    be binned in `nbins` radial bins and then return a statistic given
+    by `mode` such as the average in each radial bin. Or, if `mode` = 'alongx',
+    returns the unbinned profile through the `center` of the array along the
+    x-direction.
+    
+    Parameters
+    ----------
+    array : TYPE
+        Description
+    center : None, optional
+        Description
+    mode : str, optional
+        Description
+    nbins : int, optional
+        Description
+    returnSEM : bool, optional
+        Description
+    removeNaN : bool, optional
+        Description
+    
+    Returns
+    -------
+    TYPE
+        Description
+    
+    Raises
+    ------
+    Exception
+        Description
+    """
     from scipy.stats import binned_statistic, sem
     import numpy as np
     y, x = np.indices(array.shape)
