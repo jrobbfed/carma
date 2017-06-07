@@ -7,6 +7,8 @@ from astropy.convolution import Gaussian2DKernel, convolve, convolve_fft
 from astropy.io import fits
 
 def main():
+    """Summary
+    """
     pass    
 
 
@@ -66,6 +68,14 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
     write_fits : bool, optional
         Description
     return_hdu : bool, optional
+        Description
+    return_ppp : bool, optional
+        Description
+    downsample : bool, optional
+        Description
+    smooth : bool, optional
+        Description
+    working_grid_factor : float, optional
         Description
     
     Returns
@@ -179,26 +189,29 @@ def congrid(a, newdims, method='nearest'):
     x, y, z = np.array(index_list).round().astype(int)
     newa = a[x, y, z]
     return newa
-def ppp2ppv(den, vel, vcen):
-    """Summary
+def ppp2ppv(den, vel, vcen, interpolate=False):
+    """Convert density and velocity cubes into a
+     Position-Position-Velocity cube. 
     
     Parameters
     ----------
-    den : TYPE
-        Description
-    vel : TYPE
-        Description
+    den : 3D array-like
+        Density cube in xyz space.
+    vel : 3D array-like
+        Velocity cube in xyz space.
     vcen : array-like
         Array of velocity channel centers. Must be equally spaced.
+    interpolate : bool, optional
+        If True, implement an interpolation along the velocity axis
+        cloning the implementation in the IDL program ppp2ppv.pro
     
     Returns
     -------
-    TYPE
-        Description
+    3D array-like
+        Position-Position-Velocity cube.
     """
     dv = vcen[1] - vcen[0]
     nchan = len(vcen)
-    result = np.empty((den.shape[0], den.shape[1], nchan))
 
     vstart = vcen[0] - dv/2.
     voxel_channel = np.floor((vel - vstart) / dv).astype(int) #Which channel is each ppp voxel (3d pixel) in?
@@ -207,13 +220,43 @@ def ppp2ppv(den, vel, vcen):
 
     den *= voxel_valid #Remove voxels that fall outside of velocity range.
 
-    #vbins = np.append(vcen - dv /2, vcen[-1] + dv/2) #Left edges + rightmost edge velocity channels.
-    #The channel numbers in each xy pixel are scaled by a unique ID.
-    voxel_channel_2d_scaled = nchan * np.arange(voxel_channel_2d.shape[0])[:,None] + voxel_channel_2d
-    limit = nchan * voxel_channel_2d.shape[0]
-    
-    ppv = np.bincount(voxel_channel_2d_scaled.ravel(), weights=den.ravel(), minlength=limit+1)[:-1]
-    ppv.shape = den.shape[:-1] + (nchan,) #Reshape into a PPV cube.
+    if interpolate:
+        # x = np.arange(den.shape[0] * den.shape[1]) % den.shape[0]
+        # y = np.arange(den.shape[0] * den.shape[1]) // den.shape[0]
+         
+        # for i in range(den.shape[2]):
+        #     z = x * 0 + i
+        #     if i == den.shape[2] - 1:                
+        #         z_next = z
+        #     else:
+        #         z_next = z + 1 
+        #     chan = voxel_channel[x, y, z]
+        #     chan_next = voxel_channel[x, y, z_next]
+        ppv = np.empty((den.shape[0], den.shape[1], nchan))
+        nz = den.shape[2]
+        for z in range(nz):
+            z_next = min(z + 1, nz - 1)
+            chan = voxel_channel_2d[:, :, z]
+            chan_next = voxel_channel_2d[:, :, z_next]
+            den_z = den[:, :, z]
+
+            # Use maximum absolute difference between channels in z-adjacent voxels
+            # to set how finely to resample and redistribute density.
+            jump = 3 * int(np.max(abs(chan - chan_next)) + 1)
+
+            for j in range(jump):
+                weight = 1.0 * j / jump
+                chan_intermediate = np.floor(chan * (1 - weight) + chan_next * weight).astype(int)
+                ppv[:, :, chan_intermediate] += den_z / float(jump) 
+
+    else:
+        #vbins = np.append(vcen - dv /2, vcen[-1] + dv/2) #Left edges + rightmost edge velocity channels.
+        #The channel numbers in each xy pixel are scaled by a unique ID.
+        voxel_channel_2d_scaled = nchan * np.arange(voxel_channel_2d.shape[0])[:,None] + voxel_channel_2d
+        limit = nchan * voxel_channel_2d.shape[0]
+        
+        ppv = np.bincount(voxel_channel_2d_scaled.ravel(), weights=den.ravel(), minlength=limit+1)[:-1]
+        ppv.shape = den.shape[:-1] + (nchan,) #Reshape into a PPV cube.
 
     return ppv 
 
