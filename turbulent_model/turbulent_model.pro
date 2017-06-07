@@ -4,7 +4,9 @@ pro turbulent_model, outfile=outfile, dist=dist,$
                      fwhm=fwhm, beta=beta, r=r, dr=dr,$
                      vexp=vexp, depth_offset=depth_offset,$
                      vel_offset=vel_offset, v0=v0,$
-                     ignore_cloud=ignore_cloud
+                     ignore_cloud=ignore_cloud,$
+                     write_fits=write_fits,$
+                     save_ppv=save_ppv
 
   ;- EDIT THESE NUMBERS
 ;   dist = 414.                       ;- distance to Orion A, pc -  Menten + 2007
@@ -43,6 +45,9 @@ pro turbulent_model, outfile=outfile, dist=dist,$
   if N_elements(vel_offset) eq 0 then vel_offset = 0.0
   if N_elements(v0) eq 0 then v0 = 13.6
   if N_elements(ignore_cloud) eq 0 then ignore_cloud = 0
+  if N_elements(write_fits) eq 0 then write_fits = 1
+  if N_elements(save_ppv) eq 0 then save_ppv = 0
+
 
   ;- do computation at pixel scale 2x finer than end result
   scale = pix_size / 206265. * dist / 2 ;- pc per pixel
@@ -121,40 +126,47 @@ pro turbulent_model, outfile=outfile, dist=dist,$
   for i = 0, sz[3]-1, 1 do begin
      ppv[*,*,i] = convolve(reform(ppv[*,*,i]), psf, ft_psf = ft_psf)
   endfor
+  
+  if save_ppv then begin
+    save, ppv, outfile
+  endif
 
+  if write_fits then begin
   ;- make a header
-  mkhdr, hdr, ppv
+    print, "Writing fits."
+    mkhdr, hdr, ppv
 
-  sxaddpar, hdr, 'CTYPE1', 'RA---TAN'
-  sxaddpar, hdr, 'CRPIX1', sz[1]/2.
-  sxaddpar, hdr, 'CRVAL1', acen, 'DEGREES'
-  sxaddpar, hdr, 'CDELT1', pix_size / 3600., 'DEGREES'
+    sxaddpar, hdr, 'CTYPE1', 'RA---TAN'
+    sxaddpar, hdr, 'CRPIX1', sz[1]/2.
+    sxaddpar, hdr, 'CRVAL1', acen, 'DEGREES'
+    sxaddpar, hdr, 'CDELT1', pix_size / 3600., 'DEGREES'
 
-  sxaddpar, hdr, 'CTYPE2', 'DEC--TAN'
-  sxaddpar, hdr, 'CRPIX2', sz[2]/2.
-  sxaddpar, hdr, 'CRVAL2', dcen, 'DEGREES'
-  sxaddpar, hdr, 'CDELT2', pix_size / 3600., 'DEGREES'
+    sxaddpar, hdr, 'CTYPE2', 'DEC--TAN'
+    sxaddpar, hdr, 'CRPIX2', sz[2]/2.
+    sxaddpar, hdr, 'CRVAL2', dcen, 'DEGREES'
+    sxaddpar, hdr, 'CDELT2', pix_size / 3600., 'DEGREES'
 
-  sxaddpar, hdr, 'CTYPE3', 'VELO-LSR'
-  sxaddpar, hdr, 'CRPIX3', sz[3]/2.
-  sxaddpar, hdr, 'CRVAL3', v0, 'KM/S'
-  sxaddpar, hdr, 'CDELT3', vstep, 'KM/S'
-  sxaddpar, hdr, 'CUNIT3', 'km/s'
+    sxaddpar, hdr, 'CTYPE3', 'VELO-LSR'
+    sxaddpar, hdr, 'CRPIX3', sz[3]/2.
+    sxaddpar, hdr, 'CRVAL3', v0, 'KM/S'
+    sxaddpar, hdr, 'CDELT3', vstep, 'KM/S'
+    sxaddpar, hdr, 'CUNIT3', 'km/s'
 
-  sxaddpar, hdr, 'THICK', thickness, 'Cloud Thickness (pc)'
-  sxaddpar, hdr, 'DIST', dist, 'Distance to cloud (pc)'
-  sxaddpar, hdr, 'V_FWHM', fwhm, 'Cloud velocity spread (km/s)'
-  sxaddpar, hdr, 'BETA', beta, 'Cloud velocity power spectrum index'
-  sxaddpar, hdr, 'VEXP', vexp, 'Expansion vel (km/s - cap to midplane)'
-  sxaddpar, hdr, 'R', r, 'Bubble size (pc)'
-  sxaddpar, hdr, 'DR', dr, 'Bubble thickness (pc)'
-  sxaddpar, hdr, 'ZOFF', depth_offset, 'Bubble depth offset (pc)'
-  sxaddpar, hdr, 'VOFF', vel_offset, 'Bubble-Cloud vel (km/s)'
+    sxaddpar, hdr, 'THICK', thickness, 'Cloud Thickness (pc)'
+    sxaddpar, hdr, 'DIST', dist, 'Distance to cloud (pc)'
+    sxaddpar, hdr, 'V_FWHM', fwhm, 'Cloud velocity spread (km/s)'
+    sxaddpar, hdr, 'BETA', beta, 'Cloud velocity power spectrum index'
+    sxaddpar, hdr, 'VEXP', vexp, 'Expansion vel (km/s - cap to midplane)'
+    sxaddpar, hdr, 'R', r, 'Bubble size (pc)'
+    sxaddpar, hdr, 'DR', dr, 'Bubble thickness (pc)'
+    sxaddpar, hdr, 'ZOFF', depth_offset, 'Bubble depth offset (pc)'
+    sxaddpar, hdr, 'VOFF', vel_offset, 'Bubble-Cloud vel (km/s)'
 
-  ;- write out result
-  writefits, outfile, ppv, hdr ;- the ppv cube
-;  writefits, "den.fits", den
-;  writefits, "vel.fits", vel
+    ;- write out result
+    writefits, outfile, ppv, hdr ;- the ppv cube
+  endif
+  writefits, "den.fits", den
+  writefits, "vel.fits", vel
 
 ;- write out ppv, den, vel as a multi-extension cube
 ;  file = 'all_'+outfile

@@ -6,13 +6,17 @@ import astropy.units as u
 from astropy.convolution import Gaussian2DKernel, convolve, convolve_fft
 from astropy.io import fits
 
+def main():
+    pass    
+
+
 def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
     vstep=0.099*u.km/u.s, acen=83.72707*u.deg, dcen=-5.07792*u.deg,
     thickness=0.0*u.pc, fwhm=0.0*u.km/u.s, beta=0.0, r=0.22*u.pc,
     dr=0.2*u.pc, vexp=2.2*u.km/u.s, depth_offset=0.*u.pc, 
     vel_offset=0.*u.km/u.s, v0=13.6*u.km/u.s, chan_pad=1.,
     ignore_cloud=True, write_fits=True, return_hdu=True,
-    return_ppp=False, downsample=True, smooth=True):
+    return_ppp=False, downsample=True, smooth=True, working_grid_factor=2.):
     """Summary
     
     Parameters
@@ -72,8 +76,8 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
 
    # Work in a pixel scale 2x finer than end result. 
     if ignore_cloud:
-        scale = dist.to(u.pc) * pix_size.to(u.radian).value / 2. # pc per pixel
-        box_size = np.floor(4 * r / scale) # Number of pixels per side of ppp box.
+        scale = u.Quantity(dist, u.pc) * u.Quantity(pix_size, u.radian).value / working_grid_factor # pc per pixel
+        box_size = np.floor(4 * u.Quantity(r, u.pc) / scale) # Number of pixels per side of ppp box.
 
         # den = np.zeros(3*[box_size])
         # x, y, z = np.indices(3*[box_size]) - np.floor(box_size / 2) #Index w.r.t center of box.
@@ -100,9 +104,9 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
         #Gridding PPV cube.
         ppv = ppp2ppv(den, vel.value, vcen.value)
         if downsample:
-            ppv = congrid(ppv, (ppv.shape[0]/2, ppv.shape[1]/2, ppv.shape[2]))
+            ppv = congrid(ppv, (ppv.shape[0]//working_grid_factor, ppv.shape[1]//working_grid_factor, ppv.shape[2]))
         if smooth:
-            gauss = Gaussian2DKernel(stddev=2) #2 pixels
+            gauss = Gaussian2DKernel(stddev = 2 / np.sqrt(8 * np.log(2))) #2 pixels FWHM
 
             for i in range(ppv.shape[2]):
                  ppv[:,:,i] = convolve_fft(ppv[:,:,i], gauss, normalize_kernel=True)
@@ -207,7 +211,7 @@ def ppp2ppv(den, vel, vcen):
     #The channel numbers in each xy pixel are scaled by a unique ID.
     voxel_channel_2d_scaled = nchan * np.arange(voxel_channel_2d.shape[0])[:,None] + voxel_channel_2d
     limit = nchan * voxel_channel_2d.shape[0]
-    print(limit, voxel_channel_2d_scaled.shape, den.shape)
+    
     ppv = np.bincount(voxel_channel_2d_scaled.ravel(), weights=den.ravel(), minlength=limit+1)[:-1]
     ppv.shape = den.shape[:-1] + (nchan,) #Reshape into a PPV cube.
 
@@ -345,3 +349,7 @@ def radial_profile(array, center=None, mode='average',
         return profile, SEM, rbin_centers
     else:
         return profile, rbin_centers
+
+
+if __name__ == "__main__":
+    main()
