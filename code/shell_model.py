@@ -18,7 +18,8 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
     dr=0.2*u.pc, vexp=2.2*u.km/u.s, depth_offset=0.*u.pc, 
     vel_offset=0.*u.km/u.s, v0=13.6*u.km/u.s, chan_pad=1.,
     ignore_cloud=True, write_fits=True, return_hdu=True,
-    return_ppp=False, downsample=True, smooth=True, working_grid_factor=2.):
+    return_ppp=False, downsample=True, smooth=True, working_grid_factor=2.,
+    interpolate_ppv=False):
     """Summary
     
     Parameters
@@ -112,7 +113,7 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
         vcen = np.linspace(vlo, vhi, (vhi - vlo) / vstep)
 
         #Gridding PPV cube.
-        ppv = ppp2ppv(den, vel.value, vcen.value)
+        ppv = ppp2ppv(den, vel.value, vcen.value, interpolate=interpolate_ppv)
         if downsample:
             ppv = congrid(ppv, (ppv.shape[0]//working_grid_factor, ppv.shape[1]//working_grid_factor, ppv.shape[2]))
         if smooth:
