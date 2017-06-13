@@ -9,8 +9,63 @@ from astropy.io import fits
 def main():
     """Summary
     """
-    pass    
+    from spectral_cube import SpectralCube
+    from aplpy import FITSFigure
+    import numpy as np
+    import os
+    from astropy.io import fits
+    import astropy.units as u
+    import warnings
+    import numpy as np
+    import shells
+    from scipy.ndimage.filters import gaussian_filter
+    import shell_model
+    import matplotlib.pyplot as plt
 
+    cubefile12co = "../nro_maps/12CO_20161017_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms_YS.fits"
+    regionfile = "../shell_candidates/AllShells.reg"
+
+    # For Shell 18
+    n=17
+    shell_list = shells.get_shells()
+    shell = shell_list[n]
+
+    outfile = '../turbulent_model/shell18_nocloud.fits'
+    model_pars = {
+        'outfile':"'{}'".format(outfile),
+        'dist':414, # pc
+        'pix_size':7.5, # arcsec
+        'vstep':0.099, # km/s
+        'acen':shell.ra.value, # deg
+        'dcen':shell.dec.value, # deg
+        'thickness':0.0, # pc
+        'fwhm':0.0, # km/s
+        'beta':0.0, # spectral index
+        'r':0.22, # pc
+        'dr':0.2, # pc
+        'vexp':2.2, # km/s
+        'depth_offset':0.0, # pc
+        'vel_offset':0.0, # km/s
+        'v0':13.6, # km/s
+        'ignore_cloud':1 #Ignore cloud.
+                }
+
+    ppv_interp, den_interp, vel_interp = shell_model.ppv_model(dist=model_pars['dist']*u.pc, pix_size=model_pars['pix_size']*u.arcsec,\
+                                             vstep=model_pars['vstep']*u.km/u.s, acen=shell.ra, dcen=shell.dec,\
+                                             r=model_pars['r']*u.pc, dr=model_pars['dr']*u.pc,\
+                                             vexp=model_pars['vexp']*u.km/u.s, v0=model_pars['v0']*u.km/u.s,\
+                                             interpolate_ppv=True)
+
+
+    pv = pv_average(
+        cube=SpectralCube.read(ppv_interp),
+        ra_center=shell.ra, dec_center=shell.dec,
+        width=pv_width, length=pv_length, angle_step=10*u.deg)
+
+    fig = plt.figure(figsize=(10,10))
+    fig1 = FITSFigure(pv, figure=fig, subplot=(1,1,1))
+    fig1.show_grayscale()
+    fig1.savefig("pv_interp.png")
 
 def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
     vstep=0.099*u.km/u.s, acen=83.72707*u.deg, dcen=-5.07792*u.deg,
@@ -236,9 +291,10 @@ def ppp2ppv(den, vel, vcen, interpolate=False):
         ppv = np.empty((den.shape[0], den.shape[1], nchan))
         nz = den.shape[2]
         for z in range(nz):
+            print(z)
             z_next = min(z + 1, nz - 1)
-            chan = voxel_channel_2d[:, :, z]
-            chan_next = voxel_channel_2d[:, :, z_next]
+            chan = voxel_channel[:, :, z]
+            chan_next = voxel_channel[:, :, z_next]
             den_z = den[:, :, z]
 
             # Use maximum absolute difference between channels in z-adjacent voxels
