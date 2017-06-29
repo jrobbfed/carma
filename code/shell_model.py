@@ -5,24 +5,25 @@ import numpy as np
 import astropy.units as u
 from astropy.convolution import Gaussian2DKernel, convolve, convolve_fft
 from astropy.io import fits
+from spectral_cube import SpectralCube
+from aplpy import FITSFigure
+import shells
+import matplotlib.pyplot as plt
 
 def main():
     """Summary
     """
-    from spectral_cube import SpectralCube
-    from aplpy import FITSFigure
+    
     import numpy as np
     import os
     from astropy.io import fits
     import astropy.units as u
     import warnings
     import numpy as np
-    import shells
     from scipy.ndimage.filters import gaussian_filter
     import shell_model
-    import matplotlib.pyplot as plt
 
-    cubefile12co = "../nro_maps/12CO_20161017_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms_YS.fits"
+    cubefile12co = "../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits"
     regionfile = "../shell_candidates/AllShells.reg"
 
     # For Shell 18
@@ -33,26 +34,29 @@ def main():
     outfile = '../turbulent_model/shell18_nocloud.fits'
     model_pars = {
         'outfile':"'{}'".format(outfile),
-        'dist':414, # pc
-        'pix_size':7.5, # arcsec
-        'vstep':0.099, # km/s
+        'dist':414*u.pc, # pc
+        'pix_size':7.5*u.arcsec, # arcsec
+        'vstep':0.099*u.km/u.s, # km/s
         'acen':shell.ra.value, # deg
         'dcen':shell.dec.value, # deg
         'thickness':0.0, # pc
         'fwhm':0.0, # km/s
         'beta':0.0, # spectral index
-        'r':0.22, # pc
-        'dr':0.2, # pc
-        'vexp':2.2, # km/s
+        'R':0.22*u.pc, # pc
+        'dr':0.2*u.pc, # pc
+        'vexp':2.2*u.km/u.s, # km/s
         'depth_offset':0.0, # pc
         'vel_offset':0.0, # km/s
-        'v0':13.6, # km/s
-        'ignore_cloud':1 #Ignore cloud.
-                }
+        'v0':13.6*u.km/u.s, # km/s
+        'ignore_cloud':1, #Ignore cloud.
+        'method':'sample',
+        'write_fits':False,
+        'samples_per_voxel':27
+        }
 
-    ppv_interp, den_interp, vel_interp = shell_model.ppv_model(dist=model_pars['dist']*u.pc, pix_size=model_pars['pix_size']*u.arcsec,\
+    ppv = shell_model.ppv_model(dist=model_pars['dist']*u.pc, pix_size=model_pars['pix_size']*u.arcsec,\
                                              vstep=model_pars['vstep']*u.km/u.s, acen=shell.ra, dcen=shell.dec,\
-                                             r=model_pars['r']*u.pc, dr=model_pars['dr']*u.pc,\
+                                             R=model_pars['R']*u.pc, dr=model_pars['dr']*u.pc,\
                                              vexp=model_pars['vexp']*u.km/u.s, v0=model_pars['v0']*u.km/u.s,\
                                              interpolate_ppv=True)
 
@@ -67,14 +71,121 @@ def main():
     fig1.show_grayscale()
     fig1.savefig("pv_interp.png")
 
+def compare(plot_file=None, cube_file="../nro_maps/../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits",
+    regionfile="../shell_candidates/AllShells.reg", 
+    pv_width_in_pixels=3., pv_length_in_radii=3., pv_angle=0*u.deg, pv_angle_step=90*u.deg,
+    average_pv_obs=True, average_pv_model=False, model_pars=None,
+    normalize=True, contour_levels=20, draw_radius=True):
+    """Summary
+    
+    Parameters
+    ----------
+    cube_file : str, optional
+        Observed cube file to read.
+    regionfile : str, optional
+        Description
+    pv_width_pixels : float, optional
+        Description
+    pv_length_radii : float, optional
+        Description
+    pv_angle : TYPE, optional
+        Description
+    pv_angle_step : TYPE, optional
+        Description
+    average_pv_obs : bool, optional
+        Description
+    average_pv_model : bool, optional
+        Description
+    model_pars : dict, optional
+        Parameters to pass to `ppv_model`. If None, 
+        the parameters are the defaul values in `ppv_model`.
+    
+    Deleted Parameters
+    ------------------
+    model_pars : TYPE, optional
+        Description
+    """
+    try:
+        cube_model = SpectralCube.read(ppv_model(**model_pars))
+    except:
+        cube_model = SpectralCube.read(ppv_model())
+
+    head_model = cube_model.header
+    cube_obs = SpectralCube.read(cube_file).subcube(
+                                cube_model.longitude_extrema[1],
+                                cube_model.longitude_extrema[0],
+                                cube_model.latitude_extrema[0],
+                                cube_model.latitude_extrema[1],
+                                cube_model.spectral_extrema[0],
+                                cube_model.spectral_extrema[1])
+    pv_width = pv_width_in_pixels * head_model['CDELT1'] * u.Unit(head_model['CUNIT1'])
+    pv_length = pv_length_in_radii * (head_model['R'] / head_model['DIST']) * u.radian
+    ra_center = head_model['CRVAL1'] * u.deg
+    dec_center = head_model['CRVAL2'] * u.deg
+
+    if average_pv_obs:
+        pv_obs = shells.pv_average(cube=cube_obs,
+         ra_center=ra_center, dec_center=dec_center,
+         width=pv_width, length=pv_length, angle_step=pv_angle_step)
+    else:
+        pv_obs = shells.pv_slice(cube=cube_obs,
+         ra_center=ra_center, dec_center=dec_center,
+         width=pv_width, length=pv_length, angle=pv_angle)
+
+    if average_pv_model:
+        pv_model = shells.pv_average(cube=cube_model,
+         ra_center=ra_center, dec_center=dec_center,
+         width=pv_width, length=pv_length, angle_step=pv_angle_step)
+    else:
+        pv_model = shells.pv_slice(cube=cube_model,
+         ra_center=ra_center, dec_center=dec_center,
+         width=pv_width, length=pv_length, angle=pv_angle)
+
+    if normalize:
+        pv_obs.data /= np.nanmax(pv_obs.data)
+        pv_model.data /= np.nanmax(pv_model.data)
+
+    fig = plt.figure(figsize=(20,10))
+
+    title = """angle = {}, length = {} , width = {},
+        r = {} pc, dr = {} pc, v0 = {} km/s, vexp = {} km/s""".format(
+        pv_angle.round(2), pv_length.to(u.arcmin).round(2), pv_width.to(u.arcsec).round(2),
+        head_model['r'], head_model['dr'], head_model['v0'], head_model['vexp'])
+
+    figpv = FITSFigure(pv_obs, figure=fig, subplot=((1,2,1)))
+    figpv.show_grayscale(aspect='auto')
+    figpv.show_contour(pv_model, levels=contour_levels)
+    figpv.set_title(title)
+
+    figmom0 = FITSFigure(cube_obs.moment0().hdu, figure=fig, subplot=((1,2,2)))
+    figmom0.show_grayscale()
+    #figmom0.show_contour(cube_model.moment0().hdu, levels=int(contour_levels/2))
+    figmom0.set_title(title)
+
+    if draw_radius:
+        r_degrees = (head_model['R'] / head_model['DIST']) * 360. / (2 * np.pi) 
+        dr_degrees = (head_model['DR'] / head_model['DIST']) * 360. / (2 * np.pi)
+
+        figmom0.show_circles(ra_center.value, dec_center.value, r_degrees)
+        figmom0.show_circles(ra_center.value, dec_center.value, r_degrees - dr_degrees / 2.,
+         linestyle='--', edgecolor='red')
+        figmom0.show_circles(ra_center.value, dec_center.value, r_degrees + dr_degrees / 2.,
+         linestyle='--', edgecolor='red')
+
+    if plot_file:
+        fig.savefig(plot_file)
+
+    return fig
+
 def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
     vstep=0.099*u.km/u.s, acen=83.72707*u.deg, dcen=-5.07792*u.deg,
-    thickness=0.0*u.pc, fwhm=0.0*u.km/u.s, beta=0.0, r=0.22*u.pc,
+    thickness=0.0*u.pc, fwhm=0.0*u.km/u.s, beta=0.0, R=0.22*u.pc,
     dr=0.2*u.pc, vexp=2.2*u.km/u.s, depth_offset=0.*u.pc, 
-    vel_offset=0.*u.km/u.s, v0=13.6*u.km/u.s, chan_pad=1.,
-    ignore_cloud=True, write_fits=True, return_hdu=True,
+    vel_offset=0.*u.km/u.s, v0=13.6*u.km/u.s,
+    ignore_cloud=True, write_fits=False, return_hdu=True,
     return_ppp=False, downsample=True, smooth=True, working_grid_factor=2.,
-    interpolate_ppv=False):
+    interpolate_ppv=False, method='sample', samples_per_voxel=27.,
+    pad_pixels=5, pad_channels=5):
     """Summary
     
     Parameters
@@ -103,9 +214,8 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
     beta : number, optional
         Turbulent spectral index of cloud.
         Not implemented in this function, requires outside call to idl program.
-    r : number or length-type astropy.Unit, optional
-        Radius of shell. Assumes pc if not specified.
-        Radius is measured from center to midpoint of shell rim.
+    R : TYPE, optional
+        Description
     dr : number or length-type astropy.Unit, optional
         Thickness of shell rim. Assumes pc if not specified.
     vexp : number or speed-type astropy.Unit, optional
@@ -116,8 +226,6 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
         Not implemented in this function, requires outside call to idl program.
     v0 : number or speed-type astropy.Unit, optional
         Systemic velocity of shell. Assumes km/s if not specified.
-    chan_pad : float, optional
-        Factor to pad the ppv cube on either end in velocity channel space.
     ignore_cloud : bool, optional
         If True, ignore cloud completely. If not, will need to 
         call to idl program.
@@ -133,44 +241,106 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
         Description
     working_grid_factor : float, optional
         Description
+    interpolate_ppv : bool, optional
+        Description
+    method : str, optional
+        Description
+    samples_per_voxel : float, optional
+        Description
+    pad_pixels : int, optional
+        Description
+    pad_channels : int, optional
+        Description
     
     Returns
     -------
     TYPE
         Description
+    
+    Deleted Parameters
+    ------------------
+    r : number or length-type astropy.Unit, optional
+        Radius of shell. Assumes pc if not specified.
+        Radius is measured from center to midpoint of shell rim.
+    chan_pad : float, optional
+        Factor to pad the ppv cube on either end in velocity channel space.
     """
 
-   # Work in a pixel scale 2x finer than end result. 
     if ignore_cloud:
-        scale = u.Quantity(dist, u.pc) * u.Quantity(pix_size, u.radian).value / working_grid_factor # pc per pixel
-        box_size = np.floor(4 * u.Quantity(r, u.pc) / scale) # Number of pixels per side of ppp box.
+   # Work in a pixel scale 2x finer than end result. 
+        if method == "sample":
+            """
+            So, we don’t need to create I(x,y,z) and v(x,y,z) grids, since I(x,y,vz) only depends on x, y, z and the constants v_exp and v_off.
 
-        # den = np.zeros(3*[box_size])
-        # x, y, z = np.indices(3*[box_size]) - np.floor(box_size / 2) #Index w.r.t center of box.
-        x, y, z = np.indices(3*[box_size]) - np.floor(box_size / 2) #Index w.r.t center of box.
+    - Start off with a resolution greater than needed at the end, then can bin the resulting (x, y, vz) space to the requested resolution.
 
-        rr = np.sqrt(x ** 2. + y ** 2. + z ** 2.) * scale 
+    We should not need any interpolation if working with an appropriate resolution.
 
-        #inside = rr < r - dr/2.
-        #on = (rr >= r - dr/2.) & (rr < r + dr/2.) 
-        #outside = rr >= r + dr/2.
+    - This method will treat the expanding shell as many individual identical particles with (x,y,z,vz).
 
-        #ratio = np.sum(inside) / np.sum(on)
-        den = ((rr >= r - dr/2.) & (rr < r + dr/2.)).astype(int) #Density is 1 on rim of shell, 0 elsewhere.
+    Bin into voxels of size [dx,dy,channel_width]
+            """
+            
+            pix_pc = u.Quantity(dist, u.pc) * u.Quantity(pix_size, u.radian).value # pc per pixel
+            shell_volume = (4./3.) * np.pi * ((R+dr/2)**3. - (R-dr/2)**3.)
+            n_points = int((shell_volume / pix_pc ** 3.) * samples_per_voxel)
+            #Sample a Unit Sphere
+            theta = np.random.uniform(0, 2*np.pi, n_points)
+            z0 = np.random.uniform(-1., 1., n_points)
+            x0 = np.sqrt(1 - z0**2.)*np.cos(theta)
+            y0 = np.sqrt(1 - z0**2.)*np.sin(theta)
 
-        #Velocity field of bubble.
-        #This is the z-component of velocity, assuming l.o.s. is in z direction. 
-        #From similar triangles, z / r = v_z / v_r : v_r -> vexp, v_z -> vel, r*scale -> rr, z*scale -> z
-        vel = den * vexp * z * scale / rr      
-        vel[rr == 0] = 0 #Fix pole.
+            #Sample radius from distribution that has uniform volume density
+            r = np.random.uniform((R.value - dr.value/2)**3., (R.value + dr.value/2)**3., n_points) ** (1./3.)
+            x, y, z = x0*r, y0*r, z0*r
 
-        vlo, vhi = -1. * chan_pad * vexp, chan_pad * vexp
-        vcen = np.linspace(vlo, vhi, (vhi - vlo) / vstep)
+            #Z-component of velocities
+            vz = vexp * z / r + v0
 
-        #Gridding PPV cube.
-        ppv = ppp2ppv(den, vel.value, vcen.value, interpolate=interpolate_ppv)
-        if downsample:
-            ppv = congrid(ppv, (ppv.shape[0]//working_grid_factor, ppv.shape[1]//working_grid_factor, ppv.shape[2]))
+            #Make spatial and velocity bins with midpoint in center of middle bin.
+            #pad_pixels = 5
+            pix_start = -R - dr/2 - pad_pixels*pix_pc
+            pix_end = R + dr/2 + pad_pixels*pix_pc
+            pix_bins = symmetric_bins(pix_start.value, pix_end.value, pix_pc.value)
+
+            #pad_channels = 5
+            vstart = v0 - vexp - pad_channels*vstep
+            vend = v0 + vexp + pad_channels*vstep
+            vz_bins = symmetric_bins(vstart.value, vend.value, vstep.value)
+
+            ppv, edges = np.histogramdd((x, y, vz.value), bins=(pix_bins, pix_bins, vz_bins))
+
+        else:
+            scale = u.Quantity(dist, u.pc) * u.Quantity(pix_size, u.radian).value / working_grid_factor # pc per pixel
+            box_size = np.floor(4 * u.Quantity(R, u.pc) / scale) # Number of pixels per side of ppp box.
+
+            # den = np.zeros(3*[box_size])
+            # x, y, z = np.indices(3*[box_size]) - np.floor(box_size / 2) #Index w.r.t center of box.
+            x, y, z = np.indices(3*[box_size]) - np.floor(box_size / 2) #Index w.r.t center of box.
+
+            rr = np.sqrt(x ** 2. + y ** 2. + z ** 2.) * scale 
+
+            #inside = rr < r - dr/2.
+            #on = (rr >= r - dr/2.) & (rr < r + dr/2.) 
+            #outside = rr >= r + dr/2.
+
+            #ratio = np.sum(inside) / np.sum(on)
+            den = ((rr >= R - dr/2.) & (rr < R + dr/2.)).astype(int) #Density is 1 on rim of shell, 0 elsewhere.
+
+            #Velocity field of bubble.
+            #This is the z-component of velocity, assuming l.o.s. is in z direction. 
+            #From similar triangles, z / r = v_z / v_r : v_r -> vexp, v_z -> vel, r*scale -> rr, z*scale -> z
+            vel = den * vexp * z * scale / rr      
+            vel[rr == 0] = 0 #Fix pole.
+
+            vlo, vhi = -vexp - vstep * pad_channels, vexp + vstep * pad_channels
+            vcen = np.linspace(vlo, vhi, (vhi - vlo) / vstep)
+
+            #Gridding PPV cube.
+            ppv = ppp2ppv(den, vel.value, vcen.value, interpolate=interpolate_ppv)
+            if downsample:
+                ppv = congrid(ppv, (ppv.shape[0]//working_grid_factor, ppv.shape[1]//working_grid_factor, ppv.shape[2]))
+
         if smooth:
             gauss = Gaussian2DKernel(stddev = 2 / np.sqrt(8 * np.log(2))) #2 pixels FWHM
 
@@ -182,17 +352,17 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
         if return_hdu:
             h = fits.Header()
             h["CTYPE1"] = "RA---TAN"
-            h["CRPIX1"] = ppv.shape[0]/2.
+            h["CRPIX1"] = ppv.shape[2]/2. + 0.5
             h["CRVAL1"] = (u.Quantity(acen, u.deg).value, 'DEGREES')
             h["CDELT1"] = (u.Quantity(pix_size, u.arcsec).to(u.deg).value, 'DEGREES')
 
             h["CTYPE2"] = "DEC--TAN"
-            h["CRPIX2"] = ppv.shape[1]/2.
+            h["CRPIX2"] = ppv.shape[1]/2. + 0.5
             h["CRVAL2"] = (u.Quantity(dcen, u.deg).value, 'DEGREES')
             h["CDELT2"] = (u.Quantity(pix_size, u.arcsec).to(u.deg).value, 'DEGREES')
 
             h["CTYPE3"] = "VELO-LSR"
-            h["CRPIX3"] = ppv.shape[2]/2.
+            h["CRPIX3"] = ppv.shape[0]/2. + 0.5
             h["CRVAL3"] = (u.Quantity(v0, u.km/u.s).value, 'KM/S')
             h["CDELT3"] = (u.Quantity(vstep, u.km/u.s).value, 'KM/S')
             h["CUNIT3"] = "km/s" 
@@ -202,20 +372,50 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
             h['V_FWHM'] = (u.Quantity(fwhm, u.km/u.s).value, 'Cloud velocity spread (km/s)')
             h['BETA'] = (beta, 'Cloud velocity power spectrum index')
             h['VEXP'] = (u.Quantity(vexp, u.km/u.s).value, 'Expansion vel (km/s - cap to midplane)')
-            h['R'] = (u.Quantity(r, u.pc).value, 'Bubble size (pc)')
+            h['R'] = (u.Quantity(R, u.pc).value, 'Bubble size (pc)')
             h['DR'] = (u.Quantity(dr, u.pc).value, 'Bubble thickness (pc)')
             h['ZOFF'] = (u.Quantity(depth_offset, u.pc).value, 'Bubble depth offset (pc)')
-            h['VOFF'] = (u.Quantity(vel_offset, u.km/u.s).value, 'Bubble-Cloud vel (km/s)')
+            h['VOFF'] = (u.Quantity(vel_offset, u.km/u.s).value, 'Bubble-Cloud velocity offset (km/s)')
+            h['V0'] = (u.Quantity(v0, u.km/u.s).value, "Systemic Velocity (km/s)")
            
             ppv = fits.PrimaryHDU(ppv, h)
 
 
         if write_fits:
             ppv.writeto(outfile, overwrite=True)
+        if return_ppp:
+            return ppv, den, vel
+        else:
+            return ppv
 
-        return ppv, den, vel
-
-
+def symmetric_bins(start, end, step):
+    """
+    Returns bin edges that are symmetric around the `mid` value,
+    with the `mid` value falling into the midpoint of the 
+    central bin. mid = (end - start) / 2
+    
+    Parameters
+    ----------
+    start : TYPE
+        Description
+    end : TYPE
+        Description
+    step : TYPE
+        Description
+    
+    Returns
+    -------
+    TYPE
+        Description
+    """
+    mid = (end + start) / 2.
+    bins_upper = np.arange(mid + step/2.,
+                           end + step/2.,
+                           step)
+    bins_lower = np.arange(mid - step/2.,
+                           start - step/2.,
+                           -step)[::-1]
+    return np.append(bins_lower, bins_upper)
 
 def congrid(a, newdims, method='nearest'):
     """
@@ -449,6 +649,54 @@ def radial_profile(array, center=None, mode='average',
         return profile, SEM, rbin_centers
     else:
         return profile, rbin_centers
+
+def pv_average(cube=None, ra_center=None, dec_center=None,
+    width=22.5*u.arcsec, length=5*u.arcmin,
+    angle_range=[0*u.deg, 360.*u.deg], angle_step=10*u.deg,
+    mode='average'):
+    """Returns a postion-velocity slice of `cube` from pvextractor,
+    averaged over `angle`. If `angle_step` == None, step by `width`
+    
+    Parameters
+    ----------
+    cube : None, optional
+        Description
+    ra_center : None, optional
+        Description
+    dec_center : None, optional
+        Description
+    width : TYPE, optional
+        Description
+    length : TYPE, optional
+        Description
+    angle_range : TYPE, optional
+        Description
+    angle_step : TYPE, optional
+        Description
+    mode : str, optional
+        Description
+    
+    Returns
+    -------
+    TYPE
+        Description
+    """
+
+
+    import shells
+    import numpy as np
+    from astropy.io import fits
+    
+    angle_list = np.linspace(angle_range[0], angle_range[1],
+                             (angle_range[1] + angle_step) / angle_step)
+    pv_list = [shells.pv_slice(cube=cube, ra_center=ra_center, dec_center=dec_center,
+                               angle=angle, width=width, length=length)
+               for angle in angle_list]
+    if mode == 'average':
+        average_data = np.mean(np.array([hdu.data for hdu in pv_list]), axis=0)
+        print(average_data.shape)
+        average_HDU = fits.PrimaryHDU(average_data, header=pv_list[0].header)
+        return average_HDU
 
 
 if __name__ == "__main__":

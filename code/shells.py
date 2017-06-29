@@ -20,7 +20,7 @@ from matplotlib.widgets import Slider, Button, RadioButtons
 import matplotlib
 
 orion_dist = 414*u.pc #pc
-shells_score3 = [3, 6, 9, 11, 17, 18, 21, 24, 25, 30, 37]
+shells_score3 = [3, 6, 9, 11, 17, 18, 21, 24, 25, 30, 37, 38]
 
 #fwhm_to_
 
@@ -1324,6 +1324,29 @@ def pv_slice(cube=None, ra_center=None, dec_center=None,
         return (pv_slice, path)
     else:
         return pv_slice
+
+
+def pv_average(cube=None, ra_center=None, dec_center=None,
+    width=22.5*u.arcsec, length=5*u.arcmin,
+    angle_range=[0*u.deg, 360.*u.deg], angle_step=10*u.deg,
+    mode='average'):
+    """Returns a postion-velocity slice of `cube` from pvextractor,
+    averaged over `angle`. If `angle_step` == None, step by `width`
+    """
+    import shells
+    import numpy as np
+    from astropy.io import fits
+    
+    angle_list = np.linspace(angle_range[0], angle_range[1],
+                             (angle_range[1] + angle_step) / angle_step)
+    pv_list = [shells.pv_slice(cube=cube, ra_center=ra_center, dec_center=dec_center,
+                               angle=angle, width=width, length=length)
+               for angle in angle_list]
+    if mode == 'average':
+        average_data = np.mean(np.array([hdu.data for hdu in pv_list]), axis=0)
+        print(average_data.shape)
+        average_HDU = fits.PrimaryHDU(average_data, header=pv_list[0].header)
+        return average_HDU
 
 
 def plot_pv(cube=None, ra_center=None, dec_center=None, vel=[None, None],
