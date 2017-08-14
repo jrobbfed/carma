@@ -183,7 +183,8 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
     dr=0.2*u.pc, vexp=2.2*u.km/u.s, depth_offset=0.*u.pc, 
     vel_offset=0.*u.km/u.s, v0=13.6*u.km/u.s,
     ignore_cloud=True, write_fits=False, return_hdu=True,
-    return_ppp=False, downsample=True, smooth=True, working_grid_factor=2.,
+    return_ppp=False, downsample=True, smooth=True, smooth_fwhm=2.
+    working_grid_factor=2.,
     interpolate_ppv=False, method='sample', samples_per_voxel=27.,
     pad_pixels=5, pad_channels=5):
     """Summary
@@ -342,7 +343,7 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
                 ppv = congrid(ppv, (ppv.shape[0]//working_grid_factor, ppv.shape[1]//working_grid_factor, ppv.shape[2]))
 
         if smooth:
-            gauss = Gaussian2DKernel(stddev = 2 / np.sqrt(8 * np.log(2))) #2 pixels FWHM
+            gauss = Gaussian2DKernel(stddev = smooth_fwhm / np.sqrt(8 * np.log(2))) #FWHM to std. dev. of gaussian.
 
             for i in range(ppv.shape[2]):
                  ppv[:,:,i] = convolve_fft(ppv[:,:,i], gauss, normalize_kernel=True)
