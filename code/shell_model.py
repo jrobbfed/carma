@@ -183,7 +183,7 @@ def ppv_model(outfile=None, dist=414*u.pc, pix_size=7.5*u.arcsec,
     dr=0.2*u.pc, vexp=2.2*u.km/u.s, depth_offset=0.*u.pc, 
     vel_offset=0.*u.km/u.s, v0=13.6*u.km/u.s,
     ignore_cloud=True, write_fits=False, return_hdu=True,
-    return_ppp=False, downsample=True, smooth=True, smooth_fwhm=2.
+    return_ppp=False, downsample=True, smooth=True, smooth_fwhm=2.,
     working_grid_factor=2.,
     interpolate_ppv=False, method='sample', samples_per_voxel=27.,
     pad_pixels=5, pad_channels=5):
