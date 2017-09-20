@@ -1,3 +1,4 @@
+*.mpg
 catalogs
 __pycache__/
 combined_maps
