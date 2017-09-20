@@ -71,7 +71,7 @@ def main():
     fig1.show_grayscale()
     fig1.savefig("pv_interp.png")
 
-def compare(plot_file=None, cube_file="../nro_maps/../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits",
+def compare(plot_file=None, cube_file="../nro_maps/12CO_20170514_FOREST-BEARS_spheroidal_grid7.5_dV0.099kms_xyb_YS.fits",
     regionfile="../shell_candidates/AllShells.reg", 
     pv_width_in_pixels=3., pv_length_in_radii=3., pv_angle=0*u.deg, pv_angle_step=90*u.deg,
     average_pv_obs=True, average_pv_model=False, model_pars=None,
