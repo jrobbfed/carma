@@ -20,7 +20,13 @@ from matplotlib.widgets import Slider, Button, RadioButtons
 import matplotlib
 
 orion_dist = 414*u.pc #pc
-shells_score3 = [3, 6, 9, 11, 17, 18, 21, 24, 25, 30, 37, 38]
+nro_12co = "../nro_maps/12CO_20170514_FOREST-BEARS_spheroidal_grid7.5_dV0.099kms_xyb_YS_regrid0.11kms_reproj.fits"
+nro_13co = "../nro_maps/13CO_BEARS-FOREST_20170913_7.5grid_Spheroidal_Tmb_0.11kms_xy_YS.fits" 
+best_shells = [3,6,9,11,17,18,21,24,25,30,36,37]
+north_shells = [18,19,20,21,22,23,24,29,40]
+central_shells = [16,17,26,30,36,38,39]
+south_shells = [3,4,5,6,7,15,28,33,34,35]
+l1641_shells = [1,2,8,9,10,11,12,13,14,25,27,31,32,37,41,42]
 
 #fwhm_to_
 
@@ -48,10 +54,10 @@ def main():
 #      show_shells=False,title=r"Combined $^{12}$CO Peak T$_{MB}$",
 #      dist=orion_dist, vmin=None, vmax=None, scalebar_color='white',
 #      scalebar_pc=1.,recenter=False, ra=83.99191, dec=-5.6611303, radius=0.117325)
-
-    plot_overview(plotname="12co_nroonly_peak_full_shells.png", show_shells=True,
+    
+    plot_overview(plotname="../paper/figs/12co_nroonly_peak_full_shells.png", show_shells=True,
      dist=orion_dist, vmin=None, vmax=None, scalebar_color='black', scale_factor = 1.,
-     title=r"", shells_highlight=shells_score3, circle_style='dotted', circle_linewidth=1.5,
+     title=r"", shells_highlight=best_shells, circle_style='dotted', circle_linewidth=1.5,
      scalebar_pc=1. #,recenter=False, ra=83.99191, dec=-5.6611303, radius=0.117325
      )
 
@@ -135,7 +141,7 @@ def main():
     #plot_overview(cube="/Volumes/Untitled/13co_pix_2.cm.fits", plotname="13co_combined_peak.png", show_shells=False)
     #return
     #channel_vmax = [12.9, 14]
-    for nshell in range(23,45):
+    for nshell in range(17,18):
         shell = shell_list[nshell-1]
         ra, dec, radius = shell.ra.value, shell.dec.value, shell.radius.value
 
@@ -677,11 +683,11 @@ def get_shells(velocity_file='../shell_candidates/AllShells_vrange.txt',
 
     return shell_list
 
-def plot_overview(cube='../nro_maps/12CO_20170514_FOREST-BEARS_spheroidal_grid7.5_dV0.099kms_xyb_YS_regrid0.11kms_reproj.fits',
+def plot_overview(cube=nro_12co,
  region_file='../shell_candidates/AllShells.reg', mode='peak', plotname='12co_peak_shells.png',
  interactive=False, show_shells=True, shells_highlight=None, dist=orion_dist, vmin=None, vmax=None,
  scalebar_color="white", scalebar_pc = 1., scale_factor=1., pmin=0.25,
- pmax=99.75, cbar_label=r"T$_{MB}$ v [K km/s]",
+ pmax=99.75, cbar_label=r"Peak T$_{\rm MB}$ [K]",
  circle_color='white', circle_linewidth=1, circle_style="solid", return_fig=False, show=True,
  title=r"$^{12}$CO Peak T$_{MB}$", recenter=False, ra=None, dec=None, radius=None):
     """
