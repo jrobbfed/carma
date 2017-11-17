@@ -1,0 +1,13 @@
+# Region file format: DS9 version 4.1
+global color=green dashlist=8 3 width=1 font="helvetica 10 normal roman" select=1 highlite=1 dash=0 fixed=0 edit=1 move=1 delete=1 include=1 source=1
+fk5
+box(5:35:22.800,-5:06:37.10,1200",1200",0) # color=red text={OMC 2/3} dash=1 tag={Subregions} tag={Davis09 Regions}
+box(5:35:07.500,-4:47:15.00,1185",1185",359.983) # color=red text={NGC 1977} dash=1 tag={Davis09 Regions}
+box(5:35:20.511,-5:03:52.57,4027.97",1866.24",359.983) # color=blue text={North (OMC 2/3/NGC1977)} tag={My Subregions} tag={My Subregions}
+box(5:35:00.369,-5:39:57.78,1213.06",836.176",359.983) # color=red text={OMC 4} dash=1 tag={Davis09 Regions}
+box(5:35:20.416,-6:02:36.29,1188",1501.2",359.983) # color=red text={OMC 5} dash=1 tag={Davis09 Regions}
+box(5:36:40.011,-6:30:38.52,1192.5",1392.36",359.983) # color=red text={L1641N} dash=1 tag={Davis09 Regions}
+box(5:35:20.246,-6:28:33.44,1200",1387.5",359.983) # color=red text={HH 33/40, 34} dash=1 tag={Davis09 Regions}
+box(5:35:21.494,-5:55:32.83,4039.36",2580.3",359.983) # color=blue text={South (OMC 4/5)} tag={My Subregions} tag={My Subregions}
+box(5:36:41.417,-6:44:23.62,4180.38",3281.31",359.983) # color=blue text={L1641N/NGC1999} tag={My Subregions} tag={My Subregions}
+box(5:35:20.223,-5:26:41.69,4041",882.009",359.983) # color=blue text={Central (OMC 1)} tag={My Subregions}

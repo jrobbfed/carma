@@ -6,7 +6,7 @@ import pyregion
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from astropy.wcs import WCS
-from wcsaxes import WCSAxes
+#from wcsaxes import WCSAxes
 from astropy.io import (fits, ascii)
 from astropy.table import Table, Column
 #from astropy.io import ascii
@@ -642,31 +642,7 @@ def get_shells(velocity_file='../shell_candidates/AllShells_vrange.txt',
     """
     Read a ds9 region file and return a list of Shell objects corresponding to the
     regions in the file. 
-    
-    Parameters
-    ----------
-    velocity_file : str, optional
-        Description
-    region_file : str, optional
-        Description
-    ra_col : str, optional
-        Description
-    dec_col : str, optional
-        Description
-    radius_col : str, optional
-        Description
-    vmin_col : str, optional
-        Description
-    vmax_col : str, optional
-        Description
-    ra_unit : str, optional
-        Description
-    dec_unit : str, optional
-        Description
-    radius_unit : str, optional
-        Description
-    v_unit : str, optional
-        Description
+  
     """
     shell_list = []
     try:

@@ -25,31 +25,31 @@ berne_dec = [-5.8*u.deg, -4.95*u.deg]
 berne_ra = [5.62*15*u.deg, 5.554*15*u.deg]
 def main():
     dist = 414*u.pc
-    # table_shell_parameters()
+    table_shell_parameters()
     table_shell_physics(scale_energy=1e44, scale_mdot=1e-7, scale_L=1e31, scale_Edot=1e31)
-    #table_subregions(scale_energy=1e46)
+    table_subregions(scale_energy=1e46)
 
 
-    # plot_physicsrange(column=1, plotname="massrange_all_1213co5sig.png")
-    # plot_physicsrange(column=2, plotname="momentumrange_all_1213co5sig.png")
-    # plot_physicsrange(column=3, plotname="energyrange_all_1213co5sig.png")
+    plot_physicsrange(column=1, plotname="massrange_all_1213co5sig.png")
+    plot_physicsrange(column=2, plotname="momentumrange_all_1213co5sig.png")
+    plot_physicsrange(column=3, plotname="energyrange_all_1213co5sig.png")
 
     # plot_physicsrange(column=1, plotname=None, best_n=north_shells)
     # plot_physicsrange(column=2, plotname=None, best_n=north_shells)
-    plot_physicsrange(column=3, plotname=None, best_n=north_shells)
+    # plot_physicsrange(column=3, plotname=None, best_n=north_shells)
     # plot_physicsrange(column=3, plotname=None, best_n=set(north_shells).intersection(best_shells))
     # # plot_physicsrange(column=1, plotname=None, best_n=central_shells)
     # # plot_physicsrange(column=2, plotname=None, best_n=central_shells)
-    plot_physicsrange(column=3, plotname=None, best_n=central_shells)
+    # plot_physicsrange(column=3, plotname=None, best_n=central_shells)
     # plot_physicsrange(column=3, plotname=None, best_n=set(central_shells).intersection(best_shells))    
     # # plot_physicsrange(column=1, plotname=None, best_n=south_shells)
     # # plot_physicsrange(column=2, plotname=None, best_n=south_shells)
-    plot_physicsrange(column=3, plotname=None, best_n=south_shells)
+    # plot_physicsrange(column=3, plotname=None, best_n=south_shells)
     # plot_physicsrange(column=3, plotname=None, best_n=set(south_shells).intersection(best_shells))    
     # # plot_physicsrange(column=1, plotname=None, best_n=south_shells)
-    # # plot_physicsrange(column=1, plotname=None, best_n=l1641_shells)
-    # # plot_physicsrange(column=2, plotname=None, best_n=l1641_shells)
-    plot_physicsrange(column=3, plotname=None, best_n=l1641_shells)
+    # print(plot_physicsrange(column=1, plotname=None, best_n=l1641_shells))
+    # print(plot_physicsrange(column=2, plotname=None, best_n=l1641_shells))
+    # print("Energy: ", plot_physicsrange(column=3, plotname=None, best_n=l1641_shells))
     # plot_physicsrange(column=3, plotname=None, best_n=set(l1641_shells).intersection(best_shells))    
 
     # all_low_tables = glob.glob("shell*properties*low_13co_1.4.txt")
@@ -139,7 +139,7 @@ def main():
 
     # shell_list = shells.get_shells()
 
-    # for n in range(39,40):
+    # for n in range(42,43):
     #     #shell = shell_list[n]
     #     print("Doing Shell {}".format(n))
     #     shell = shell_list[n-1]
@@ -242,6 +242,9 @@ def main():
 
 
     #     np.savetxt("shell{}_properties_hi_1213co5sig.txt".format(n), properties_hi)
+
+###########################################-----------------------------------
+
     # # plt.figure()
     # plt.imshow(subcube_shell_12co_correct.moment0().data, interpolation='none')
     # plt.colorbar()
@@ -614,7 +617,7 @@ def table_shell_parameters(param_file="shell_parameters_full.txt", all_n=np.aran
 def plot_physicsrange(low_name="_properties_low_1213co5sig",
  mid_name="_properties_mid_1213co5sig", hi_name="_properties_hi_1213co5sig", name_tail=".txt",
     all_n=np.arange(1,43), best_n=best_shells, mode='median',
-    column=1, plotname='massrange_all.png'):
+    column=1, plotname='massrange_all.png', lw=0.7, ms=4., mew=0.7):
     import matplotlib.lines as mlines
     plt.figure()
 
@@ -653,21 +656,22 @@ def plot_physicsrange(low_name="_properties_low_1213co5sig",
 
 
             plt.plot([np.min([low,mid,hi]), np.max([low,mid,hi])], [n,n],
-                color='k', ls='-')
-            plt.plot(np.median([low,mid,hi]), n, marker='o', color='k')
+                color='k', ls='-', lw=lw)
+            plt.plot(np.median([low,mid,hi]), n, marker='o', color='k', ms=ms)
             
 
         else:
             plt.plot([np.min([low,mid,hi]), np.max([low,mid,hi])], [n,n],
-                color='k', ls=':')
-            plt.plot(np.median([low,mid,hi]), n, marker='o', markerfacecolor='white', color='k')
+                color='k', ls=':', lw=lw)
+            plt.plot(np.median([low,mid,hi]), n, marker='o', markerfacecolor='white', color='k',
+                ms=ms, mew=mew)
             
 
     if column == 1:
-        plt.xlim([-10.,450.])
+        plt.xlim([-10.,505.])
         plt.xlabel(r"Mass [$M_\odot$]")
     if column == 2:
-        plt.xlim([-50., 1800])
+        plt.xlim([-50., 2000])
         plt.xlabel(r"Momentum [$M_\odot$ km/s]")
     if column == 3:
         plt.xlim([-0.2e46, 8e46])
@@ -675,9 +679,11 @@ def plot_physicsrange(low_name="_properties_low_1213co5sig",
 
     plt.ylabel("Shell Number")
     best_line = mlines.Line2D([], [],
-     color='k', marker='o', linestyle='solid', label='Best 12 shells')
+     color='k', marker='o', linestyle='solid', label='Best 12 shells',
+      lw=lw, ms=ms, mew=mew)
     other_line = mlines.Line2D([], [],
-     color='k',marker='o', markerfacecolor='white', linestyle='dashed', label='Other shells')
+     color='k',marker='o', markerfacecolor='white', linestyle='dotted', label='Other shells',
+      lw=lw, ms=ms, mew=mew)
     plt.legend(handles=[best_line, other_line], loc='best')
     try:
         plt.savefig(plotname, dpi=200)
@@ -1225,9 +1231,9 @@ def Qrot_partial(Tex, B0_k=2.765*u.K, N=20):
     #Tex = u.Quantity(Tex, u.K)
     Qrot = np.zeros(Tex.shape)
     for J in range(N+1):
-        Qrot += (2*J + 1) * np.exp(
+        Qrot = Qrot + (2*J + 1) * np.exp(
             -B0_k*J*(J+1)/Tex)
-    print(Qrot)
+    
     return Qrot
 
 
