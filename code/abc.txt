@@ -1,0 +1,1 @@
+Shell&Mass [M$_\odot$]&Momentum [M$_\odot$ km s$^{-1}$]&Energy [$10^{47.0}$ erg]&Mass Loss Rate [$10^{7.0}$ M$_\odot$ yr$^{-1}$]\\

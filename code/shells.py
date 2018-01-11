@@ -6,7 +6,7 @@ import pyregion
 import matplotlib.pyplot as plt
 from matplotlib import cm
 from astropy.wcs import WCS
-from wcsaxes import WCSAxes
+#from wcsaxes import WCSAxes
 from astropy.io import (fits, ascii)
 from astropy.table import Table, Column
 #from astropy.io import ascii
@@ -20,7 +20,13 @@ from matplotlib.widgets import Slider, Button, RadioButtons
 import matplotlib
 
 orion_dist = 414*u.pc #pc
-shells_score3 = [3, 6, 9, 11, 17, 18, 21, 24, 25, 30, 37]
+nro_12co = "../nro_maps/12CO_20170514_FOREST-BEARS_spheroidal_grid7.5_dV0.099kms_xyb_YS_regrid0.11kms_reproj.fits"
+nro_13co = "../nro_maps/13CO_BEARS-FOREST_20170913_7.5grid_Spheroidal_Tmb_0.11kms_xy_YS.fits" 
+best_shells = [3,6,9,11,17,18,21,24,25,30,36,37]
+north_shells = [18,19,20,21,22,23,24,29,40]
+central_shells = [16,17,26,30,36,38,39]
+south_shells = [3,4,5,6,7,15,28,33,34,35]
+l1641_shells = [1,2,8,9,10,11,12,13,14,25,27,31,32,37,41,42]
 
 #fwhm_to_
 
@@ -48,11 +54,12 @@ def main():
 #      show_shells=False,title=r"Combined $^{12}$CO Peak T$_{MB}$",
 #      dist=orion_dist, vmin=None, vmax=None, scalebar_color='white',
 #      scalebar_pc=1.,recenter=False, ra=83.99191, dec=-5.6611303, radius=0.117325)
-
-#     plot_overview(plotname="12co_nroonly_peak_full.png", show_shells=False,
-#      dist=orion_dist, vmin=None, vmax=None, scalebar_color='black', scale_factor =
-#      1.,title=r"NRO $^{12}$CO Peak T$_{MB}$",
-#      scalebar_pc=1,recenter=False, ra=83.99191, dec=-5.6611303, radius=0.117325)
+    
+    plot_overview(plotname="../paper/figs/12co_nroonly_peak_full_shells.png", show_shells=True,
+     dist=orion_dist, vmin=None, vmax=None, scalebar_color='black', scale_factor = 1.,
+     title=r"", shells_highlight=best_shells, circle_style='dotted', circle_linewidth=1.5,
+     scalebar_pc=1. #,recenter=False, ra=83.99191, dec=-5.6611303, radius=0.117325
+     )
 
     # plot_overview(cube='../combined_maps/12co_pix_2.cm.fits', plotname="12co_combined_mom0_cometary.png",
     #  show_shells=False, title=r"Combined Integrated $^{12}$CO",
@@ -65,12 +72,12 @@ def main():
     #  scale_factor=1./1000, title=r"NRO Integrated $^{12}$CO",
     #  scalebar_pc=0.2,recenter=True, ra=83.99191, dec=-5.6611303, radius=0.117325)
 
-    plot_overview(cube='../combined_maps/12co_pix_2.cm.fits', plotname="12co_combined_peak_full_shells.png",
-     show_shells=True, shells_highlight=shells_score3, title=r"Combined $^{12}$CO Peak T$_{MB}$",
-     dist=orion_dist, vmin=None, vmax=None, scalebar_color='white', circle_style='dotted',
-     scalebar_pc=1.,recenter=False, ra=83.99191, dec=-5.6611303, radius=0.117325)
+    # plot_overview(cube='../combined_maps/12co_pix_2.cm.fits', plotname="12co_combined_peak_full_shells.png",
+    #  show_shells=True, shells_highlight=shells_score3, title=r"Combined $^{12}$CO Peak T$_{MB}$",
+    #  dist=orion_dist, vmin=None, vmax=None, scalebar_color='white', circle_style='dotted',
+    #  scalebar_pc=1.,recenter=False, ra=83.99191, dec=-5.6611303, radius=0.117325)
 
-    return
+    # return
 
     mips_l1641_file = '../catalogs/MIPS_L1641a_24um.fits'
     mips_onc_file = '../catalogs/MIPS_ONC_24um.fits'
@@ -133,8 +140,8 @@ def main():
     #plot_overview(plotname="12co_nro_peak.png", show_shells=False)
     #plot_overview(cube="/Volumes/Untitled/13co_pix_2.cm.fits", plotname="13co_combined_peak.png", show_shells=False)
     #return
-    channel_vmax = [12.9, 14]
-    for nshell in [30,]:
+    #channel_vmax = [12.9, 14]
+    for nshell in range(17,18):
         shell = shell_list[nshell-1]
         ra, dec, radius = shell.ra.value, shell.dec.value, shell.radius.value
 
@@ -188,13 +195,13 @@ def main():
         #cube_file = "../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits"
         
         
-        plot_channels(cube=cube_file, ra=ra, dec=dec, radius=radius,
-            source_lists=None, stretch='linear', pad_factor=1.5, vel_min=shell.vmin.value, vel_max=14.,
-            plotname='12co_channels_shell'+str(nshell)+'.png', chan_step=2, plot_simbad_sources=False,
-            vmin=None, vmax=None, max_chans=12,
-            #cbar_label="Counts",
-            source_ra=[obaf_ra, yso_ra], source_dec=[obaf_dec, yso_dec],
-            source_colors=['white', 'red'], source_markers=['*', 'None'], source_sizes=[200,15], dpi=300)
+        # plot_channels(cube=cube_file, ra=ra, dec=dec, radius=radius,
+        #     source_lists=None, stretch='linear', pad_factor=1.5, vel_min=shell.vmin.value, vel_max=shell.vmax.value,
+        #     plotname='12co_channels_shell'+str(nshell)+'.png', chan_step=2, plot_simbad_sources=False,
+        #     vmin=None, vmax=None, max_chans=12,
+        #     #cbar_label="Counts",
+        #     source_ra=[obaf_ra, yso_ra], source_dec=[obaf_dec, yso_dec],
+        #     source_colors=['white', 'red'], source_markers=['*', '+'], source_sizes=[200,15], dpi=300)
 
         # angle = 90*u.deg
         # pv = plot_pv(cube=cube_file, ra_center=shell.ra, dec_center=shell.dec,
@@ -374,6 +381,8 @@ class Shell(object):
     
         self.vmin = vmin * u.Unit(vunit)
         self.vmax = vmax * u.Unit(vunit)
+
+
 
 def worldgrid(hdu, wcs=None, origin=0, returnorder='radec', returnunit=None):
     """
@@ -633,31 +642,7 @@ def get_shells(velocity_file='../shell_candidates/AllShells_vrange.txt',
     """
     Read a ds9 region file and return a list of Shell objects corresponding to the
     regions in the file. 
-    
-    Parameters
-    ----------
-    velocity_file : str, optional
-        Description
-    region_file : str, optional
-        Description
-    ra_col : str, optional
-        Description
-    dec_col : str, optional
-        Description
-    radius_col : str, optional
-        Description
-    vmin_col : str, optional
-        Description
-    vmax_col : str, optional
-        Description
-    ra_unit : str, optional
-        Description
-    dec_unit : str, optional
-        Description
-    radius_unit : str, optional
-        Description
-    v_unit : str, optional
-        Description
+  
     """
     shell_list = []
     try:
@@ -674,11 +659,11 @@ def get_shells(velocity_file='../shell_candidates/AllShells_vrange.txt',
 
     return shell_list
 
-def plot_overview(cube='../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits',
- region_file='../nro_maps/AllShells.reg', mode='peak', plotname='12co_peak_shells.png',
+def plot_overview(cube=nro_12co,
+ region_file='../shell_candidates/AllShells.reg', mode='peak', plotname='12co_peak_shells.png',
  interactive=False, show_shells=True, shells_highlight=None, dist=orion_dist, vmin=None, vmax=None,
  scalebar_color="white", scalebar_pc = 1., scale_factor=1., pmin=0.25,
- pmax=99.75, cbar_label=r"T$_{MB}$ v [K km/s]",
+ pmax=99.75, cbar_label=r"Peak T$_{\rm MB}$ [K]",
  circle_color='white', circle_linewidth=1, circle_style="solid", return_fig=False, show=True,
  title=r"$^{12}$CO Peak T$_{MB}$", recenter=False, ra=None, dec=None, radius=None):
     """
@@ -1214,7 +1199,7 @@ def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, ci
     #fig.subplots_adjust(wspace=None, hspace=None)
     fig.canvas.draw()
     fig.savefig(plotname, dpi=dpi, bbox_inches='tight')
-    #fig.close()
+#    fig.close()
 
 def channel_slicer(cube=None, ra=None, dec=None, radius=None,
                    title=None, pad_factor=2., chan_init=0,
@@ -1324,6 +1309,29 @@ def pv_slice(cube=None, ra_center=None, dec_center=None,
         return (pv_slice, path)
     else:
         return pv_slice
+
+
+def pv_average(cube=None, ra_center=None, dec_center=None,
+    width=22.5*u.arcsec, length=5*u.arcmin,
+    angle_range=[0*u.deg, 360.*u.deg], angle_step=10*u.deg,
+    mode='average'):
+    """Returns a postion-velocity slice of `cube` from pvextractor,
+    averaged over `angle`. If `angle_step` == None, step by `width`
+    """
+    import shells
+    import numpy as np
+    from astropy.io import fits
+    
+    angle_list = np.linspace(angle_range[0], angle_range[1],
+                             (angle_range[1] + angle_step) / angle_step)
+    pv_list = [shells.pv_slice(cube=cube, ra_center=ra_center, dec_center=dec_center,
+                               angle=angle, width=width, length=length)
+               for angle in angle_list]
+    if mode == 'average':
+        average_data = np.mean(np.array([hdu.data for hdu in pv_list]), axis=0)
+        print(average_data.shape)
+        average_HDU = fits.PrimaryHDU(average_data, header=pv_list[0].header)
+        return average_HDU
 
 
 def plot_pv(cube=None, ra_center=None, dec_center=None, vel=[None, None],

@@ -1,0 +1,6 @@
+#subregion, momentum, energy, ref, comments
+#momentum in Msun km/s and energy in erg
+North, 24.9, 6.8e45, Takahishi08, "Total impact of ~15 OMC 2/3 outflows detected by Takahashi et al. 2008. Subset of this measured by Williams 2003 was 2.9 x 10^44 erg"
+Central, NaN, 1e47, Bally17, "Energy of OMC1 outflow complex is estimated to be 4e46 [Snell 1984] to 4e47 erg [Kwan and Scoville 1976]."
+South, NaN, 1.35e46, Berne14, "Cites Rodriguez-Franco99. This is the OrionS outflow (in the very north of OMC-4/hard to disentangle from OMC1"
+L1641N, 170, 1.28e46, "Nakamura12,Morgan91", "Combining two datasets: # 90 7.4e45 Morgan91 "Average of 7.1e44 erg LOWER LIMIT / 1.4e46 UPPER LIMIT --- 21.3 Msun km/s LOWER LIMIT / 159 Msun km/s UPPER LIMIT 3 outflows south of l1641n cluster possibly associated with V380 and HH 1/2." #l1641n 80 5.4e45 Nakamura12 "Outflows in the L1641N cluster core.
