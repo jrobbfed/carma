@@ -14,25 +14,48 @@ nro_13co_divided = "../nro_maps/13CO_20170518_FOREST-BEARS_spheroidal_grid7.5_dV
 
 
 
-
-best_shells = [3,6,9,11,17,18,21,24,25,30,36,37]
-north_shells = [18,19,20,21,22,23,24,29,40]
-central_shells = [16,17,26,30,36,38,39]
-south_shells = [3,4,5,6,7,15,28,33,34,35]
-l1641_shells = [1,2,8,9,10,11,12,13,14,25,27,31,32,37,41,42]
+#Old numbering
+# best_shells = [3,6,9,11,17,18,21,24,25,30,36,37]
+# north_shells = [18,19,20,21,22,23,24,29,40]
+# central_shells = [16,17,26,30,36,38,39]
+# south_shells = [3,4,5,6,7,15,28,33,34,35]
+# l1641_shells = [1,2,8,9,10,11,12,13,14,25,27,31,32,37,41,42]
+#New N-S ordering
+best_shells = [1,5,6,7,11,13,25,28,32,37,40,42]
+north_shells = [1,2,3,4,5,6,7,8,9]
+central_shells = [10,11,12,13,14,15,16]
+south_shells = [17,18,19,20,21,22,23,24,25,26]
+l1641_shells = [27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42]
 
 berne_dec = [-5.8*u.deg, -4.95*u.deg]
 berne_ra = [5.62*15*u.deg, 5.554*15*u.deg]
 def main():
     dist = 414*u.pc
-    table_shell_parameters()
-    table_shell_physics(scale_energy=1e44, scale_mdot=1e-7, scale_L=1e31, scale_Edot=1e31)
-    table_subregions(scale_energy=1e46)
+    # north_energy, central_energy, south_energy, l1641n_energy = [
+    # 7.8e46, 2e47, 1.4e47, 1.6e47]
+    # north_m, central_m, south_m, l1641n_m = np.array([4048, 3736, 5001, 5196])*u.Msun
+    # north_r, central_r, south_r, l1641n_r = np.array([2, 1, 2.5, 2])*u.pc
+    # north_sigma, central_sigma, south_sigma, l1641n_sigma = np.array([1.6, 1.7, 1.6, 1.6])*u.km/u.s
+    # north_dpdt, central_dpdt, south_dpdt, l1641n_dpdt = dpdt(north_m, north_r, north_sigma), dpdt(central_m, central_r, central_sigma), dpdt(south_m, south_r, south_sigma), dpdt(l1641n_m, l1641n_r, l1641n_sigma)
+
+    # turbs = [north_energy, central_energy, south_energy, l1641n_energy]
+    # turb_dpdt = [north_dpdt, central_dpdt, south_dpdt, l1641n_dpdt]
+    # print(turbs, turb_dpdt)
+    # table_shell_parameters(param_file="shell_parameters_full_NtoS.txt", best_n=best_shells,
+    # table_name="shell_parameters_NtoS_tex_texp.txt", usecols=[0,1,2,3,4,5,6,7,8], show_texp=True)
+   #  table_shell_physics(scale_energy=1e44, scale_mdot=1e-7, scale_L=1e31, scale_Edot=1e31,
+   #    scale_dpdt=1e-4, low_name="_properties_low_1213co5sig_NtoSorder",
+        # mid_name="_properties_mid_1213co5sig_NtoSorder", hi_name="_properties_hi_1213co5sig_NtoSorder",
+        # table_name="shell_physics_all_5sig_NtoS.txt")
+    #table_subregions(scale_energy=1e46)
 
 
-    plot_physicsrange(column=1, plotname="massrange_all_1213co5sig.png")
-    plot_physicsrange(column=2, plotname="momentumrange_all_1213co5sig.png")
-    plot_physicsrange(column=3, plotname="energyrange_all_1213co5sig.png")
+    plot_physicsrange(column=1, plotname="../paper/figs/massrange_all.png", low_name="_properties_low_1213co5sig_NtoSorder",
+ mid_name="_properties_mid_1213co5sig_NtoSorder", hi_name="_properties_hi_1213co5sig_NtoSorder")
+    plot_physicsrange(column=2, plotname="../paper/figs/momentumrange_all.png", low_name="_properties_low_1213co5sig_NtoSorder",
+ mid_name="_properties_mid_1213co5sig_NtoSorder", hi_name="_properties_hi_1213co5sig_NtoSorder")
+    plot_physicsrange(column=3, plotname="../paper/figs/energyrange_all.png", low_name="_properties_low_1213co5sig_NtoSorder",
+ mid_name="_properties_mid_1213co5sig_NtoSorder", hi_name="_properties_hi_1213co5sig_NtoSorder")
 
     # plot_physicsrange(column=1, plotname=None, best_n=north_shells)
     # plot_physicsrange(column=2, plotname=None, best_n=north_shells)
@@ -366,7 +389,7 @@ def hist_physics(table_list=None, table_list_shaded=None, mode='median', column=
 def table_shell_physics(low_name="_properties_low_1213co5sig", mid_name="_properties_mid_1213co5sig",
     hi_name="_properties_hi_1213co5sig", name_tail=".txt", all_n=np.arange(1,43), best_n=best_shells, np_func=np.median,
     table_name="shell_physics_all_5sig.txt", usecols=[0,1,2,3], colnames=["v_exp", "mass", "momentum", "energy"],
-    scale_energy=1., scale_mdot=1., scale_Edot=1., scale_L=1., scale_momentum=1.):
+    scale_energy=1., scale_mdot=1., scale_Edot=1., scale_L=1., scale_momentum=1., scale_dpdt=1.):
     
     #from astropy.table import Table
     
@@ -378,6 +401,7 @@ def table_shell_physics(low_name="_properties_low_1213co5sig", mid_name="_proper
               "Momentum&"
               "Energy&"
               "Mechanical Luminosity&"
+              "Momentum Injection Rate&"
               "Wind Mass Loss Rate&"
               "Wind Energy Injection Rate\\\\", file=f)
 
@@ -386,17 +410,19 @@ def table_shell_physics(low_name="_properties_low_1213co5sig", mid_name="_proper
               "[10 M$_\\odot$ km s$^{{-1}}$]&"
               "[$10^{{{}}}$ erg]&"
               "[$10^{{{}}}$ erg s$^{{-1}}$]&"
+              "[$10^{{{}}}$ M$_\\odot$ km s$^{{-1}}$ yr$^{{-1}}$]&"
               "[$10^{{{}}}$ M$_\\odot$ yr$^{{-1}}$]&"
               "[$10^{{{}}}$ erg s$^{{-1}}$]\\\\".format(
                 int(np.log10(scale_energy)),
                 int(np.log10(scale_L)),
+                int(np.log10(scale_dpdt)),
                 int(np.log10(scale_mdot)),
                 int(np.log10(scale_Edot))
                 ), file=f)
-        n_Edot = np.zeros(3)
-        c_Edot = np.zeros(3)
-        s_Edot = np.zeros(3)
-        l_Edot = np.zeros(3)
+        n_dpdt = np.zeros(3)
+        c_dpdt = np.zeros(3)
+        s_dpdt = np.zeros(3)
+        l_dpdt = np.zeros(3)
         for n in all_n:
             params = np.loadtxt("shell_parameters_full.txt")
             params = params[params[:,0] == 1.*n, 1:][0]
@@ -406,6 +432,7 @@ def table_shell_physics(low_name="_properties_low_1213co5sig", mid_name="_proper
             v0_best, v0_sig = params[6], params[7]
 
             t_dyn = (r_best*u.pc / (vexp_best*u.km/u.s)).to(u.s).value
+            t_dyn_yr = t_dyn / 3.154e7
 
             low = np_func(np.loadtxt("shell{}{}{}".format(n, low_name, name_tail), usecols=usecols), axis=0)
             mid = np_func(np.loadtxt("shell{}{}{}".format(n, mid_name, name_tail), usecols=usecols), axis=0)
@@ -416,6 +443,7 @@ def table_shell_physics(low_name="_properties_low_1213co5sig", mid_name="_proper
             momentum_three = np.array([low[2], mid[2], hi[2]])
             energy_three = np.array([low[3], mid[3], hi[3]]) / scale_energy
             L_three = np.array([low[3], mid[3], hi[3]]) / t_dyn / scale_L
+            dpdt_three = momentum_three / t_dyn_yr / scale_dpdt
             mdot_three = mass_loss_rate(momentum_three*u.Msun*u.km/u.s).value / scale_mdot
             Edot_three = wind_energy_rate(momentum_three*u.Msun*u.km/u.s).value / scale_Edot
 
@@ -423,17 +451,18 @@ def table_shell_physics(low_name="_properties_low_1213co5sig", mid_name="_proper
             mid_momentum, hi_momentum, low_momentum = np.median(momentum_three)/scale_momentum, np.max(momentum_three)/scale_momentum, np.min(momentum_three)/scale_momentum
             mid_energy, hi_energy, low_energy = np.median(energy_three), np.max(energy_three), np.min(energy_three)
             mid_L, hi_L, low_L = np.median(L_three), np.max(L_three), np.min(L_three)
+            mid_dpdt, hi_dpdt, low_dpdt = np.median(dpdt_three), np.max(dpdt_three), np.min(dpdt_three)
             mid_mdot, hi_mdot, low_mdot = np.median(mdot_three), np.max(mdot_three), np.min(mdot_three)
             mid_Edot, hi_Edot, low_Edot = np.median(Edot_three), np.max(Edot_three), np.min(Edot_three)
 
             if n in north_shells: 
-                n_Edot += np.array([low_Edot, mid_Edot, hi_Edot])
+                n_dpdt += np.array([low_dpdt, mid_dpdt, hi_dpdt])
             elif n in central_shells:
-                c_Edot += np.array([low_Edot, mid_Edot, hi_Edot])
+                c_dpdt += np.array([low_dpdt, mid_dpdt, hi_dpdt])
             elif n in south_shells:
-                s_Edot += np.array([low_Edot, mid_Edot, hi_Edot])
+                s_dpdt += np.array([low_dpdt, mid_dpdt, hi_dpdt])
             elif n in l1641_shells:
-                l_Edot += np.array([low_Edot, mid_Edot, hi_Edot])
+                l_dpdt += np.array([low_dpdt, mid_dpdt, hi_dpdt])
 
             def nice_round(x, max_decimal=1):
                 if x < 1:
@@ -448,19 +477,22 @@ def table_shell_physics(low_name="_properties_low_1213co5sig", mid_name="_proper
                   "&${:.4g}~[{:.4g}, {:.4g}]$"
                   "&${:.4g}~[{:.4g}, {:.4g}]$"
                   "&${:.4g}~[{:.4g}, {:.4g}]$"
+                  "&${:.4g}~[{:.4g}, {:.4g}]$"
                   "&${:.4g}~[{:.4g}, {:.4g}]$\\\\".format(
                 n, nice_round(mid_mass), nice_round(low_mass), nice_round(hi_mass),
                    nice_round(mid_momentum), nice_round(low_momentum), nice_round(hi_momentum),
                    nice_round(mid_energy), nice_round(low_energy), nice_round(hi_energy),
                    nice_round(mid_L), nice_round(low_L), nice_round(hi_L),
+                   nice_round(mid_dpdt), nice_round(low_dpdt), nice_round(hi_dpdt),
                    nice_round(mid_mdot), nice_round(low_mdot), nice_round(hi_mdot),
                    nice_round(mid_Edot), nice_round(low_Edot), nice_round(hi_Edot)),
                   file=f)
 
-        print("Edot North: ", n_Edot)
-        print("Edot Central: ", c_Edot)
-        print("Edot South: ", s_Edot)
-        print("Edot L1641: ", l_Edot)
+        print("dpdt North: ", n_dpdt)
+        print("dpdt Central: ", c_dpdt)
+        print("dpdt South: ", s_dpdt)
+        print("dpdt L1641: ", l_dpdt)
+        print("dpdt TOT: ", n_dpdt + c_dpdt + s_dpdt + l_dpdt)
 
 def table_subregions(cube_12co="../nro_maps/12CO_20170514_FOREST-BEARS_spheroidal_grid7.5_dV0.099kms_xyb_YS_regrid0.11kms_reproj.fits",
     cube_13co="../nro_maps/13CO_BEARS-FOREST_20170913_7.5grid_Spheroidal_Tmb_0.11kms_xy_YS.fits",
@@ -534,8 +566,14 @@ def table_subregions(cube_12co="../nro_maps/12CO_20170514_FOREST-BEARS_spheroida
     #     )
     north_energy, central_energy, south_energy, l1641n_energy = [
     7.8e46, 2e47, 1.4e47, 1.6e47]
+    north_m, central_m, south_m, l1641n_m = np.array([4048, 3736, 5001, 5196])*u.Msun
+    north_r, central_r, south_r, l1641n_r = np.array([2, 1, 2.5, 2])*u.pc
+    north_sigma, central_sigma, south_sigma, l1641n_sigma = np.array([1.6, 1.7, 1.6, 1.6])*u.km/u.s
+    north_dpdt, central_dpdt, south_dpdt, l1641n_dpdt = dpdt(north_m, north_r, north_sigma), dpdt(central_m, central_r, central_sigma), dpdt(south_m, south_r, south_sigma), dpdt(l1641n_m, l1641n_r, l1641n_sigma)
+
     turbs = [north_energy, central_energy, south_energy, l1641n_energy]
-    print(turbs)
+    turb_dpdt = [north_dpdt, central_dpdt, south_dpdt, l1641n_dpdt]
+    print(turbs, turb_dpdt)
     outflow_table = ascii.read(outflow_file)
     print(outflow_table['energy'])
 
@@ -587,29 +625,56 @@ def table_subregions(cube_12co="../nro_maps/12CO_20170514_FOREST-BEARS_spheroida
         "\\end{tabular}"
         "\\end{table*}", file=f)
 
-def table_shell_parameters(param_file="shell_parameters_full.txt", all_n=np.arange(1,43), best_n=best_shells,
-    table_name="shell_parameters_tex.txt", usecols=[0,1,2,3,4,5,6,7,8]):
-    
+def table_shell_parameters(param_file="shell_parameters_full_NtoS.txt", all_n=np.arange(1,43), best_n=best_shells,
+    table_name="shell_parameters_NtoS_tex.txt", usecols=[0,1,2,3,4,5,6,7,8], show_texp=False):
+    from astropy.coordinates import SkyCoord
     #from astropy.table import Table
-    
+    kmspc_toMyr = 0.9778
     
     with open(table_name, 'w') as f:
-
-        print("Shell&"
-              "$R$ [pc]&"
-              "$dr$ [pc]&"
-              "$v_{\\rm exp}$ km s$^{-1}$&"
-              "$v_{\\rm 0}$ km s$^{-1}$&", file=f)
+        if show_texp:
+            print("Shell&"
+                  "$\\alpha (J2000)/\\delta (J2000)$&"
+                  "$R$ [pc]&"
+                  "$dr$ [pc]&"
+                  "$v_{\\rm exp}$ km s$^{-1}$&"
+                  "$v_{\\rm 0}$ km s$^{-1}$&"
+                  "$t_{\\tm exp}$ Myr&", file=f)
+            
+        else:
+            print("Shell&"
+                  "$R$ [pc]&"
+                  "$dr$ [pc]&"
+                  "$v_{\\rm exp}$ km s$^{-1}$&"
+                  "$v_{\\rm 0}$ km s$^{-1}$&", file=f)
 
         data = np.loadtxt(param_file)
-
+        shell_list = shells.get_shells(velocity_file="../shell_candidates/AllShells_vrange_NtoS.txt",
+            region_file="../shell_candidates/AllShells_NtoS.reg")
         for n in all_n:
             i = n-1
             line = data[i]
-            print("${}$&${}\pm{}$&${}\pm{}$&${}\pm{}$&${}\pm{}$\\\\".format(
-                int(line[0]), line[1], line[2], line[3], line[4], line[5],
-                line[6], line[7], line[8]),
-                file=f)
+
+            shell = shell_list[i]
+            hms = SkyCoord(shell.ra, shell.dec).ra.hms
+            dms = SkyCoord(shell.ra, shell.dec).dec.dms
+            ra_str = "${}^{{\\rm h}}{}^{{\\rm m}}{}^{{\\rm s}}.{}$".format(
+                int(hms.h), int(hms.m), int(round(hms.s,1)), str(round(hms.s,1))[-1])
+            dec_str = "${}\\arcdeg{}\\arcmin{}\\arcsec$".format(
+                int(dms.d), int(dms.m), int(round(dms.s)))
+
+            if show_texp:
+                texp = (line[1]/line[5]) * kmspc_toMyr #Myr
+                e_texp = texp * np.sqrt((line[2]/line[1])**2. + (line[6]/line[5])**2.)
+                print("${}$&{}/{}&${:.3f}\pm{:.3f}$&${:.3f}\pm{:.3f}$&${:.2f}\pm{:.2f}$&${:.2f}\pm{:.2f}$&${:.2f}\pm{:.2f}$\\\\".format(
+                    int(line[0]), ra_str, dec_str, line[1], line[2], line[3], line[4], line[5],
+                    line[6], line[7], line[8], texp, e_texp),
+                    file=f)
+            else:
+                print("${}$&${:.3f}\pm{:.3f}$&${:.3f}\pm{:.3f}$&${:.2f}\pm{:.2f}$&${:.2f}\pm{:.2f}$\\\\".format(
+                    int(line[0]), line[1], line[2], line[3], line[4], line[5],
+                    line[6], line[7], line[8]),
+                    file=f)
 
 
 
@@ -1296,6 +1361,8 @@ def dissipation_rate(E_turb):
     """
     return E_turb / 5e6*u.yr
 
+def dpdt(M, R, sigma_los):
+    return (6.4E-4*u.Msun*u.km/(u.s*u.yr)) * (M / (500*u.Msun)) * (R / (0.5*u.pc))**(-1.) * (sigma_los / (u.km/u.s))**2.
 
 
 if __name__ == '__main__':

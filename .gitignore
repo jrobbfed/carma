@@ -1,3 +1,4 @@
+*.bck*
 *.mpg
 catalogs
 __pycache__/
