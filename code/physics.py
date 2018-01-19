@@ -50,12 +50,13 @@ def main():
     #table_subregions(scale_energy=1e46)
 
 
-    plot_physicsrange(column=1, plotname="../paper/figs/massrange_all.png", low_name="_properties_low_1213co5sig_NtoSorder",
- mid_name="_properties_mid_1213co5sig_NtoSorder", hi_name="_properties_hi_1213co5sig_NtoSorder")
-    plot_physicsrange(column=2, plotname="../paper/figs/momentumrange_all.png", low_name="_properties_low_1213co5sig_NtoSorder",
- mid_name="_properties_mid_1213co5sig_NtoSorder", hi_name="_properties_hi_1213co5sig_NtoSorder")
-    plot_physicsrange(column=3, plotname="../paper/figs/energyrange_all.png", low_name="_properties_low_1213co5sig_NtoSorder",
- mid_name="_properties_mid_1213co5sig_NtoSorder", hi_name="_properties_hi_1213co5sig_NtoSorder")
+ #    plot_physicsrange(column=1, plotname="../paper/figs/massrange_all.png", low_name="_properties_low_1213co5sig_NtoSorder",
+ # mid_name="_properties_mid_1213co5sig_NtoSorder", hi_name="_properties_hi_1213co5sig_NtoSorder")
+ #    plot_physicsrange(column=2, plotname="../paper/figs/momentumrange_all.png", low_name="_properties_low_1213co5sig_NtoSorder",
+ # mid_name="_properties_mid_1213co5sig_NtoSorder", hi_name="_properties_hi_1213co5sig_NtoSorder")
+ #    plot_physicsrange(column=3, plotname="../paper/figs/energyrange_all.png", low_name="_properties_low_1213co5sig_NtoSorder",
+ # mid_name="_properties_mid_1213co5sig_NtoSorder", hi_name="_properties_hi_1213co5sig_NtoSorder",
+ # scale=1e46)
 
     # plot_physicsrange(column=1, plotname=None, best_n=north_shells)
     # plot_physicsrange(column=2, plotname=None, best_n=north_shells)
@@ -682,7 +683,7 @@ def table_shell_parameters(param_file="shell_parameters_full_NtoS.txt", all_n=np
 def plot_physicsrange(low_name="_properties_low_1213co5sig",
  mid_name="_properties_mid_1213co5sig", hi_name="_properties_hi_1213co5sig", name_tail=".txt",
     all_n=np.arange(1,43), best_n=best_shells, mode='median',
-    column=1, plotname='massrange_all.png', lw=0.7, ms=4., mew=0.7):
+    column=1, plotname='massrange_all.png', lw=0.7, ms=4., mew=0.7, scale=1.):
     import matplotlib.lines as mlines
     plt.figure()
 
@@ -720,15 +721,15 @@ def plot_physicsrange(low_name="_properties_low_1213co5sig",
             total_hi += np.max([low,mid,hi])
 
 
-            plt.plot([np.min([low,mid,hi]), np.max([low,mid,hi])], [n,n],
+            plt.plot([np.min([low,mid,hi])/scale, np.max([low,mid,hi])/scale], [n,n],
                 color='k', ls='-', lw=lw)
-            plt.plot(np.median([low,mid,hi]), n, marker='o', color='k', ms=ms)
+            plt.plot(np.median([low,mid,hi])/scale, n, marker='o', color='k', ms=ms)
             
 
         else:
-            plt.plot([np.min([low,mid,hi]), np.max([low,mid,hi])], [n,n],
+            plt.plot([np.min([low,mid,hi])/scale, np.max([low,mid,hi])/scale], [n,n],
                 color='k', ls=':', lw=lw)
-            plt.plot(np.median([low,mid,hi]), n, marker='o', markerfacecolor='white', color='k',
+            plt.plot(np.median([low,mid,hi])/scale, n, marker='o', markerfacecolor='white', color='k',
                 ms=ms, mew=mew)
             
 
@@ -739,8 +740,8 @@ def plot_physicsrange(low_name="_properties_low_1213co5sig",
         plt.xlim([-50., 2000])
         plt.xlabel(r"Momentum [$M_\odot$ km/s]")
     if column == 3:
-        plt.xlim([-0.2e46, 8e46])
-        plt.xlabel(r"Kinetic Energy [erg]")
+        plt.xlim([-0.2, 8])
+        plt.xlabel(r"Kinetic Energy [$10^{46}$ erg]")
 
     plt.ylabel("Shell Number")
     best_line = mlines.Line2D([], [],

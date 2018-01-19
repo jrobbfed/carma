@@ -46,7 +46,7 @@ irac2_onc_file = '../catalogs/IRAC_ONC_ch2_merged_clean.fits'
 irac4_l1641_file = '../catalogs/IRAC_L1641_ch4_merged_clean_northup.fits'
 irac4_onc_file = '../catalogs/IRAC_ONC_ch4_merged_clean_northup.fits'
 
-planck_herschel_file = '../catalogs/planck_herschel.fits'
+planck_herschel_file = '../catalogs/planck_herschel_dustT.fits'
 
 region_file = '../shell_candidates/AllShells_NtoS.reg'
 vrange_file = '../shell_candidates/AllShells_vrange_NtoS.txt'
@@ -68,6 +68,9 @@ hst_rgbpars = dict([
 ['vmax_b',3.08]])
 
 pvargs_file = "shell_figures/plot_pv_args.txt"
+stampargs_file = "shell_figures/plot_stamp_args.txt"
+chanargs_file = "shell_figures/plot_channels_args.txt"
+
 
 def main():
     
@@ -90,18 +93,23 @@ def main():
     hops = fits.open(hops_file)[1].data
     hops_ra, hops_dec, hops_label = hops['RAJ2000'], hops['DEJ2000'], hops['Class']
 
+    #Open IR images
 
-    ir_l1641_hdu = fits.open(irac4_l1641_file)[0]
-    ir_onc_hdu = fits.open(irac4_onc_file)[0]
+    irac1_l1641_hdu = fits.open(irac1_l1641_file)[0]
+    irac1_onc_hdu = fits.open(irac1_onc_file)[0]
+    # irac2_l1641_hdu = fits.open(irac2_l1641_file)[0]
+    # irac2_onc_hdu = fits.open(irac2_onc_file)[0]
+    irac4_l1641_hdu = fits.open(irac4_l1641_file)[0]
+    irac4_onc_hdu = fits.open(irac4_onc_file)[0]
+    mips_l1641_hdu = fits.open(mips_l1641_file)[0]
+    mips_onc_hdu = fits.open(mips_onc_file)[0]
+    planck_herschel_hdu = fits.open(planck_herschel_file)[0]
 
     # spec_cube = SpectralCube.read(nro_13co)
-    spec_cube = SpectralCube.read(nro_12co)
-    molecule_name = "12CO"
+    spec_cube_12co = SpectralCube.read(nro_12co)
+    spec_cube_13co = SpectralCube.read(nro_13co)
     # low_sigma, hi_sigma, step_sigma = 10, 22, 2
 
-    ra_grid = spec_cube.spatial_coordinate_map[1].to(u.deg).value
-    dec_grid = spec_cube.spatial_coordinate_map[0].to(u.deg).value
-    vel_grid = spec_cube.spectral_axis
     pad_factor = 1.8
 
     # plot_overview(show_shells=True)
@@ -111,31 +119,69 @@ def main():
     # channel_vmax = [12.9, 14]
     
     pvargs_table = ascii.read(pvargs_file)
-    for nshell in [11]:
+    stampargs_table = ascii.read(stampargs_file)
+    chanargs_table = ascii.read(chanargs_file)
+
+    for nshell in [6]:
+
+
         shell = shell_list[nshell-1]
         pvargs = dict()
+        stampargs = dict()
+        chanargs = dict()
         for arg in pvargs_table[nshell-1].colnames:
             pvargs[arg] = pvargs_table[nshell-1][arg]
+        for arg in stampargs_table[nshell-1].colnames:
+            stampargs[arg] = stampargs_table[nshell-1][arg]
+        for arg in chanargs_table[nshell-1].colnames:
+            chanargs[arg] = chanargs_table[nshell-1][arg]
 
-        print(pvargs)
+        print(pvargs, stampargs)
         #ra, dec, radius = shell.ra.value, shell.dec.value, shell.radius.value
         ra, dec, radius = shell.ra.value, shell.dec.value, ((206265. / 3600.) * shell_parameters['r'][nshell-1]*u.pc / orion_dist).value
         thickness = ((206265. / 3600.) * shell_parameters['dr'][nshell-1]*u.pc / orion_dist).value
 
+
+        # Pick the specified IR map.
+        if stampargs['ir'] == 'irac1':
+            ir_l1641_hdu = irac1_l1641_hdu
+            ir_onc_hdu = irac1_onc_hdu
+        elif stampargs['ir'] == 'irac2':
+            ir_l1641_hdu = irac2_l1641_hdu
+            ir_onc_hdu = irac2_onc_hdu
+        elif stampargs['ir'] == 'irac4':
+            ir_l1641_hdu = irac4_l1641_hdu
+            ir_onc_hdu = irac4_onc_hdu
+        elif stampargs['ir'] == 'mips':
+            ir_l1641_hdu = mips_l1641_hdu
+            ir_onc_hdu = mips_onc_hdu
+        elif stampargs['ir'] == 'planck_herschel':
+            ir_l1641_hdu = planck_herschel_hdu
+            ir_onc_hdu = planck_herschel_hdu
+
+
         l1641_xy = WCS(ir_l1641_hdu).wcs_world2pix(ra, dec, 0)
-        #print(l1641_xy)
+        # For postage stamps: Pick the correct IR coverage.
         if  (l1641_xy[0] >= 0) & (l1641_xy[0] <= ir_l1641_hdu.shape[1]) & \
            (l1641_xy[1] >= 0) & (l1641_xy[1] <= ir_l1641_hdu.shape[0]):
             ir_hdu = ir_l1641_hdu
         else:
             ir_hdu = ir_onc_hdu
-
         if nshell == 40:
             ir_hdu = fits.open("../catalogs/rgb_2d.fits")[0]
             rgb = "../catalogs/hst.png"
             pad_factor = 3.5
 
         #Extract sub_cube around shell.
+        if stampargs['molecule'] == '12co':
+            spec_cube = spec_cube_12co
+        elif stampargs['molecule'] == '13co':
+            spec_cube = spec_cube_13co
+
+        ra_grid = spec_cube.spatial_coordinate_map[1].to(u.deg).value
+        dec_grid = spec_cube.spatial_coordinate_map[0].to(u.deg).value
+        #vel_grid = spec_cube.spectral_axis
+
         subcube_mask = (abs(ra_grid - ra) < radius * pad_factor) &\
                (abs(dec_grid - dec) < radius * pad_factor)
         sub_cube = spec_cube.with_mask(subcube_mask).minimal_subcube()
@@ -156,11 +202,11 @@ def main():
 
         mask_inshell = (abs(ra_grid - ra) < radius) &\
                (abs(dec_grid - dec) < radius)
-        subcube_inshell = spec_cube.with_mask(mask_inshell).minimal_subcube().spectral_slab(shell.vmin, shell.vmax)
-        mom0_hdu_inshell = subcube_inshell.moment0().hdu
+        #subcube_inshell = spec_cube.with_mask(mask_inshell).minimal_subcube().spectral_slab(shell.vmin, shell.vmax)
+#        mom0_hdu_inshell = subcube_inshell.moment0().hdu
 
         #Calculate contour levels.
-        empty_channel = spec_cube.closest_spectral_channel(500*u.Unit('m/s'))
+#        empty_channel = spec_cube.closest_spectral_channel(500*u.Unit('m/s'))
         # sigma = np.nanstd(spec_cube[empty_channel][subcube_mask]).value
         #print("sigma: {}".format(sigma))
         delta_vel = (sub_cube.spectral_extrema[1] - sub_cube.spectral_extrema[0]).value
@@ -188,18 +234,19 @@ def main():
         # vmin = 900.
         # vmax = 2000.
     #     #Shell 40 12co mom0 contours:
-        # low_sigma, hi_sigma, step_sigma = 20.01, 32.01, 3.
-        # vmin = 0.
-        # vmax = 0.
+        #low_sigma, hi_sigma, step_sigma = 20.01, 32.01, 3.
+        #vmin = 0.
+        #vmax = 0.
     #     #Shell 42 13co mom0 contours:
     #     #low_sigma, hi_sigma, step_sigma = 3, 8, 1
 
         #Shell 11 12co mom0 contours:
-        low_sigma, hi_sigma, step_sigma = 35, 75, 8     
-        vmin = 0.
-        vmax = 70000.
-
-        contour_levels = np.arange(low_sigma*mom0_sigma, (hi_sigma+1)*mom0_sigma, step_sigma*mom0_sigma)
+        # low_sigma, hi_sigma, step_sigma = 35, 75, 8     
+        # vmin = 0.
+        # vmax = 70000.
+        #auto contour
+        contour_levels = np.arange(stampargs['low_sigma']*mom0_sigma,
+         (stampargs['hi_sigma']+1)*mom0_sigma, stampargs['step_sigma']*mom0_sigma)
         #13co contours:
         #contour_levels = np.linspace(20*sigma, 100*sigma, 8)
         print("Contours drawn at {} or {} sigma.".format(contour_levels, contour_levels / mom0_sigma))
@@ -218,28 +265,41 @@ def main():
         # source_ra, source_dec, source_labels = obaf_ra, obaf_dec, obaf_id
         #source_labels[~obaf_in_shell] = "" 
         print(ra, dec, radius)
-        plotname = '../paper/figs/mom0{}shell{}_{}{}to{}_stamp.png'.format('8micron', nshell, molecule_name, str(shell.vmin.value).replace('.','_'), str(shell.vmax.value).replace('.','_'))
+        plotname = 'shell_figures/mom0{}shell{}_{}{}to{}_stamp.png'.format(stampargs['ir'], nshell, stampargs['molecule'], str(shell.vmin.value).replace('.','_'), str(shell.vmax.value).replace('.','_'))
         dpi=200.
-        if nshell == 11:
-            scalebar_corner = 'bottom'
+        if nshell == 40:
+            rgb = "../catalogs/hst.png"
+        else:
+            rgb = None
+        print("source_ra: ",source_ra)
+        print("source_dec: ", source_dec)
+        auto_scale=False
+        auto_contour=False
+        # print(ir_hdu.header)
+        #For testing:
+        # auto_scale=True
+        # auto_contour=True
+        # ir_hdu = mom0_hdu
         fig = plot_stamp(map=ir_hdu,
             ra=ra, dec=dec, radius=radius,
-            thickness=thickness, rgb=None,
-            circle_color='red', scalebar_pc=0.1, scalebar_corner=scalebar_corner, nan_color='black',
+            thickness=thickness, rgb=rgb,
+            circle_color='red', nan_color='black',
             pad_factor=pad_factor, contour_map=mom0_hdu, contour_levels=contour_levels, contour_color='white',
-            vmin=vmin, vmax=vmax,
+            auto_contour=auto_contour, auto_contour_nlevels=5,
             stretch='linear', plot_simbad_sources=False, dist=orion_dist,
-            auto_scale=False, auto_scale_mode='median', auto_scale_pad_factor=0.8, auto_scale_nsigma=5.,
+            auto_scale=auto_scale, auto_scale_mode='median', auto_scale_pad_factor=0.8, auto_scale_nsigma=5.,
             cbar_label="Counts", cmap='inferno', show_colorbar=False,
             plotname=plotname,
             source_colors=['white', 'cyan'], source_markers=['*', '+'], source_sizes=[300,50],
             source_edge_colors=['black','cyan'],
             # source_colors='white', source_markers='*', source_sizes=300,
             # source_labels=[obaf_id, None], dpi=200
-            source_ra=source_ra, source_dec=source_dec, 
-            source_labels=source_labels, label_offset=[-0.0026, -0.0035],
-            return_fig=True, dpi=dpi, tick_color='gray'
+            source_ra=source_ra, source_dec=source_dec,
+            source_labels=source_labels,
+            return_fig=True, dpi=dpi, tick_color='gray', **stampargs
             )
+
+
 
         if nshell == 10:
             fig.add_label(83.950,-5.53,"Infrared Spur",color='white',size=16)
@@ -260,15 +320,31 @@ def main():
 
             fig.show_markers(hh35ra, hh35dec, c='white', marker='.', s=300.)
             fig.show_markers(v380ra, v380dec, c='white', marker='*', s=300.)
-
             fig.add_label(hh35ra-0.004, hh35dec, "HH 35", color='white', size=16)
-            fig.add_label(v380ra-0.004, v380dec-0.004, "V380 Ori", color='white', size=16)
+            fig.add_label(v380ra-0.0055, v380dec-0.002, "V380 Ori", color='white', size=16)
         if nshell == 11:
 
             pass
         fig.savefig(plotname, dpi=dpi) 
 
-
+        ir_dict = {"irac1":"Spitzer 3.6~$\mu$m",
+                   "irac2":"Spitzer 4.5~$\mu$m",
+                   "irac4":"Spitzer 8~$\mu$m",
+                   "planck_herschel":"Herschel-Planck dust temperature"
+                   }
+        if stampargs['molecule'] == '12co':
+            stamp_molecule_str = "$^{12}$CO"
+        elif stampargs['molecule'] == '13co':
+            stamp_molecule_str = "$^{13}$CO"
+        stamp_caption = "{} map toward Shell {}.".format(ir_dict[stampargs['ir']], nshell)+\
+        " Contours show {} integrated from {} to {}~km~s$^{{-1}}$.".format(stamp_molecule_str, str(shell.vmin.value), str(shell.vmax.value))+\
+        " Contours are drawn from {} to {}$\sigma$ with steps of {}$\sigma$, where $\sigma = {}$~K~km~s$^{{-1}}$.".format(
+            int(round(stampargs['low_sigma'])), int(round(stampargs['hi_sigma'])), int(round(stampargs['step_sigma'])), round(mom0_sigma/1000.,1))
+        caption_file = '.'.join(plotname.split('.')[:-1]) + "_caption.txt"
+        f = open(caption_file, 'w')
+        f.write(stamp_caption)
+        f.close()
+        print(stamp_caption)
     #     #cube_file = "../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits"
         
         
@@ -374,7 +450,8 @@ def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, ci
     vmin : int, optional
         Description
     vmax : int, optional
-        Description
+        Description0
+
     plot_simbad_sources : bool, optional
         Description
     simbad_type : str, optional
@@ -846,15 +923,16 @@ def plot_overview(cube=nro_12co, subregion_file="../subregions/my_subregions.reg
 def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, thickness=None,
     circle_color='red', rgb=None, scalebar_pc=0.2, scalebar_corner='bottom',
     pad_factor=1.5, contour_map=None, contour_levels=5, contour_color='white',
+    auto_contour=False, auto_contour_nlevels=5,
     source_ra=None, source_dec=None, source_lists=None, source_ra_colnames='RAJ2000',
     source_dec_colnames='DEJ2000', source_colors='cyan', source_edge_colors=None,
-    source_markers=None, source_sizes=None,
-    source_labels=None, label_size=15, label_offset=[0, 0],
+    source_markers=None, source_sizes=None, label_sources=True,
+    source_labels=None, label_size=15, label_offset_ra=0, label_offset_dec=0,
     plotname='shell_stamp.png', return_fig=False, nan_color='white',
     stretch='linear', vmin=0, vmax=3000, plot_simbad_sources=True, simbad_type='star', simbad_color='cyan',
     dist=orion_dist , cbar_label=r'T$_{MB}v$ [K m/s]', show_colorbar=True,
     auto_scale=True, auto_scale_mode='min/max', auto_scale_nsigma=1.,
-    auto_scale_pad_factor=None, dpi=300, cmap='viridis', tick_color='gray'):
+    auto_scale_pad_factor=None, dpi=300, cmap='viridis', tick_color='gray', **args):
     """
     Parameters
     ----------
@@ -1014,7 +1092,14 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, t
 
     #CONTOURS
     if contour_map:
-        contour = fig.show_contour(contour_map, levels=contour_levels, colors=contour_color)
+        if auto_contour:
+            sig = (contour_levels[1] - contour_levels[0]) / args['step_sigma']
+            contour_levels = np.linspace(np.nanmin(contour_map.data), np.nanmax(contour_map.data), auto_contour_nlevels)
+            print("Contours from {} to {} sigma, with sigma = {}".format(contour_levels[0]/sig, contour_levels[-1]/sig, sig))
+            contour = fig.show_contour(contour_map, levels=contour_levels, colors=contour_color)
+            
+        else:
+            contour = fig.show_contour(contour_map, levels=contour_levels, colors=contour_color)
         #print("Contour levels: {}".format(contour_levels))
     #COLORBAR
     if show_colorbar:
@@ -1042,7 +1127,7 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, t
     fig.scalebar.set_label("{} pc".format(scalebar_pc))
 
     #POINT SOURCES
-    if np.any(source_ra[0]) and np.any(source_ra[1]):
+    if np.any(source_ra[0]) or np.any(source_ra[1]):
         print("Using source_ra/dec these parameters are set.")
         try:
             fig.show_markers(source_ra, source_dec,
@@ -1050,7 +1135,7 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, t
              edgecolor=source_edge_colors, s=source_sizes, label=source_labels)
 
             for j in range(len(source_ra)):
-                fig.add_label(source_ra[j] + label_offset[0], source_dec[j] + label_offset[1], source_labels[j],
+                fig.add_label(source_ra[j] + label_offset_ra, source_dec[j] + label_offset_dec, source_labels[j],
                  color=source_colors, size=label_size)
 
         except TypeError:
@@ -1069,25 +1154,31 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, t
                 # source_ra[i] = source_ra[i][in_shell]
                 # source_dec[i] = source_dec[i][in_shell]
                 print("Showing markers.")
-                fig.show_markers(source_ra[i], source_dec[i], c=source_colors[i],
-                 marker=source_markers[i], s=source_sizes[i],
-                 edgecolor=source_edge_colors[i])   
+                try:
+                    fig.show_markers(source_ra[i], source_dec[i], c=source_colors[i],
+                     marker=source_markers[i], s=source_sizes[i],
+                     edgecolor=source_edge_colors[i])   
+                except:
+                    pass
 
                 for j in range(len(source_ra[i])):
                     try:
                         print("Adding {} out of {} labels.".format(j+1, len(source_ra[i])))
                         if "T Ori" in source_labels[i][j]:
-                            label_offset = [-0.005, 0.]
+                            label_offset_ra = -0.005
+                            label_offset_dec = 0.
                             source_colors[i] = 'white'
                         elif "Ori C" in source_labels[i][j]:
-                            label_offset = [0., 0.005]
+                            label_offset_ra = 0.
+                            label_offset_dec = 0.005
                             source_colors[i] = 'black'
                         elif "V1073" in source_labels[i][j]:
-                            label_offset = [0., 0.005]
+                            label_offset_ra = 0.
+                            label_offset_dec = 0.005
                             source_colors[i] = 'black'
 
-                        fig.add_label(source_ra[i][j] + label_offset[0],
-                             source_dec[i][j] + label_offset[1], source_labels[i][j],
+                        fig.add_label(source_ra[i][j] + label_offset_ra,
+                             source_dec[i][j] + label_offset_dec, source_labels[i][j],
                              horizontalalignment="left",
                              color=source_colors[i], size=label_size)
 

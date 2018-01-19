@@ -1,0 +1,1 @@
+Herschel-Planck dust temperature map toward Shell 5. Contours show $^{12}$CO integrated from 10.9 to 11.9~km~s$^{-1}$. Contours are drawn from 60 to 100$\sigma$ with steps of 10$\sigma$, where $\sigma = 0.4$~K~km~s$^{-1}$.
