@@ -171,7 +171,8 @@ def main():
             ir_hdu = fits.open("../catalogs/rgb_2d.fits")[0]
             rgb = "../catalogs/hst.png"
             pad_factor = 3.5
-
+        if nshell == 17 or nshell == 18:
+            ir_hdu = ir_onc_hdu
         #Extract sub_cube around shell.
         if stampargs['molecule'] == '12co':
             spec_cube = spec_cube_12co
@@ -277,14 +278,14 @@ def main():
         auto_contour=False
         # print(ir_hdu.header)
         #For testing:
-        # auto_scale=True
         # auto_contour=True
-        # ir_hdu = mom0_hdu
+        auto_scale=True
+        ir_hdu = mom0_hdu
         fig = plot_stamp(map=ir_hdu,
             ra=ra, dec=dec, radius=radius,
             thickness=thickness, rgb=rgb,
             circle_color='red', nan_color='black',
-            pad_factor=pad_factor, contour_map=mom0_hdu, contour_levels=contour_levels, contour_color='white',
+            pad_factor=pad_factor, contour_map=mom0_hdu, contour_levels=contour_levels,
             auto_contour=auto_contour, auto_contour_nlevels=5,
             stretch='linear', plot_simbad_sources=False, dist=orion_dist,
             auto_scale=auto_scale, auto_scale_mode='median', auto_scale_pad_factor=0.8, auto_scale_nsigma=5.,
@@ -325,11 +326,19 @@ def main():
         if nshell == 11:
 
             pass
+        if nshell == 17:
+            hd_ra = 083.4795275 
+            hd_dec = -05.6069169
+            fig.show_markers(hd_ra, hd_dec, c='white', marker='*', s=300., edgecolor='black')
+            fig.add_label(hd_ra + stampargs['label_offset_ra'], hd_dec + stampargs['label_offset_dec'], "HD 36782",
+             color=stampargs['label_color'], size=stampargs['label_size'], horizontalalignment='left')
+
         fig.savefig(plotname, dpi=dpi) 
 
         ir_dict = {"irac1":"Spitzer 3.6~$\mu$m",
                    "irac2":"Spitzer 4.5~$\mu$m",
                    "irac4":"Spitzer 8~$\mu$m",
+                   "mips":"Spitzer 24~$\mu$m",
                    "planck_herschel":"Herschel-Planck dust temperature"
                    }
         if stampargs['molecule'] == '12co':
@@ -927,7 +936,7 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, t
     source_ra=None, source_dec=None, source_lists=None, source_ra_colnames='RAJ2000',
     source_dec_colnames='DEJ2000', source_colors='cyan', source_edge_colors=None,
     source_markers=None, source_sizes=None, label_sources=True,
-    source_labels=None, label_size=15, label_offset_ra=0, label_offset_dec=0,
+    source_labels=None, label_size=15, label_offset_ra=0, label_offset_dec=0, label_color='white',
     plotname='shell_stamp.png', return_fig=False, nan_color='white',
     stretch='linear', vmin=0, vmax=3000, plot_simbad_sources=True, simbad_type='star', simbad_color='cyan',
     dist=orion_dist , cbar_label=r'T$_{MB}v$ [K m/s]', show_colorbar=True,
@@ -1180,7 +1189,7 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, t
                         fig.add_label(source_ra[i][j] + label_offset_ra,
                              source_dec[i][j] + label_offset_dec, source_labels[i][j],
                              horizontalalignment="left",
-                             color=source_colors[i], size=label_size)
+                             color=label_color, size=label_size)
 
                     except TypeError:
                         pass
