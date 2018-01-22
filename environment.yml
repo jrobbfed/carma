@@ -1,0 +1,4 @@
+name: carma
+dependencies:
+- python=3
+- numpy
