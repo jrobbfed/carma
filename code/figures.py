@@ -122,7 +122,7 @@ def main():
     stampargs_table = ascii.read(stampargs_file)
     chanargs_table = ascii.read(chanargs_file)
 
-    for nshell in [6]:
+    for nshell in [18]:
 
 
         shell = shell_list[nshell-1]
