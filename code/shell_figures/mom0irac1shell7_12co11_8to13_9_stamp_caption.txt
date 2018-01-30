@@ -1,1 +1,0 @@
-Spitzer 3.6~$\mu$m map toward Shell 7. Contours show $^{12}$CO integrated from 11.8 to 13.9~km~s$^{-1}$. Contours are drawn from 30 to 70$\sigma$ with steps of 10$\sigma$, where $\sigma = 0.9$~K~km~s$^{-1}$.

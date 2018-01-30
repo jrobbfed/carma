@@ -18,7 +18,7 @@ shell pv_angle pv_angle_step average_pv_obs vmin vmax pmin pmax molecule
 17 0 90 1 None None 0.25 99.75 12co
 18 0 90 1 None None 0.25 99.75 13co
 19 0 90 1 None None 0.25 99.75 12co
-20 0 90 1 None None 0.25 99.75 13co
+20 0 90 1 None None 0.25 99.75 12co
 21 0 90 1 None None 0.25 99.75 12co
 22 0 90 1 None None 0.25 99.75 13co
 23 0 90 1 None None 0.25 99.75 12co

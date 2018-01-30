@@ -1,0 +1,1 @@
+$^{12}$CO channel maps of Shell 39. White stars indicate intermediate-mass stars of spectral type B, A, and F. Cyan crosses indicate young stellar objects from the Spitzer Orion catalog. The full shell radius is shown as a dashed circle. Velocities are with respect to the local standard of rest. The scalebar has a length of 0.1~pc.

@@ -1,3 +1,4 @@
+import os
 from spectral_cube import SpectralCube
 import pyregion
 import matplotlib.pyplot as plt
@@ -34,11 +35,11 @@ central_shells = [10,11,12,13,14,15,16]
 south_shells = [17,18,19,20,21,22,23,24,25,26]
 l1641_shells = [27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42]
 
-mips_l1641_file = '../catalogs/MIPS_L1641a_24um.fits'
-mips_onc_file = '../catalogs/MIPS_ONC_24um.fits'
+mips_l1641_file = '../catalogs/MIPS_L1641a_24um_northup.fits'
+mips_onc_file = '../catalogs/MIPS_ONC_24um_northup.fits'
 
-irac1_l1641_file = '../catalogs/IRAC_L1641_ch1_merged_clean.fits'
-irac1_onc_file = '../catalogs/IRAC_ONC_ch1_merged_clean.fits'
+irac1_l1641_file = '../catalogs/IRAC_L1641_ch1_merged_clean_northup.fits'
+irac1_onc_file = '../catalogs/IRAC_ONC_ch1_merged_clean_northup.fits'
 
 irac2_l1641_file = '../catalogs/IRAC_L1641_ch2_merged_clean.fits'
 irac2_onc_file = '../catalogs/IRAC_ONC_ch2_merged_clean.fits'
@@ -73,13 +74,18 @@ chanargs_file = "shell_figures/plot_channels_args.txt"
 
 
 def main():
-    
-    # plot_overview(plotname="../paper/figs/12co_nroonly_peak_full_shells.png", show_shells=True,
-    #  dist=orion_dist, vmin=None, vmax=None, scalebar_color='black', scale_factor = 1.,
-    #  title=r"", shells_highlight=best_shells, circle_style='dotted', circle_linewidth=1.5,
-    #  scalebar_pc=2., tick_color="gray", region_file=region_file #,recenter=False, ra=83.99191, dec=-5.6611303, radius=0.117325
-    #  )
+    all = np.arange(1,43)
+    make_stamps()
+    # make_channels()
+    # make_pv([20])
 
+     # plot_overview(plotname="../paper/figs/12co_nroonly_peak_full_shells.png", show_shells=True,
+     #     dist=orion_dist, vmin=None, vmax=None, scalebar_color='black', scale_factor = 1.,
+     #     title=r"", shells_highlight=best_shells, circle_style='dotted', circle_linewidth=1.5,
+     #     scalebar_pc=2., tick_color="gray", region_file=region_file#, number_shells=True#,recenter=False, ra=83.99191, dec=-5.6611303, radius=0.117325
+     #     )
+def make_channels(nshell_list):
+    
     shell_list = shells.get_shells(region_file=region_file, velocity_file=vrange_file)
     shell_parameters = ascii.read(parameter_file) 
     obaf = ascii.read(obaf_file)
@@ -90,8 +96,93 @@ def main():
     yso = fits.open(yso_file)[1].data
     yso_ra, yso_dec, yso_label = yso['RAJ2000'], yso['DEJ2000'], yso['Cl']
 
-    hops = fits.open(hops_file)[1].data
-    hops_ra, hops_dec, hops_label = hops['RAJ2000'], hops['DEJ2000'], hops['Class']
+    spec_cube_12co = SpectralCube.read(nro_12co)
+    spec_cube_13co = SpectralCube.read(nro_13co)
+
+
+    chanargs_table = ascii.read(chanargs_file)
+
+    
+    for nshell in nshell_list:
+        if nshell == 40:
+            pad_factor = 3.5
+        else:
+            pad_factor = 1.8
+        shell = shell_list[nshell-1] 
+        ra, dec, radius = shell.ra.value, shell.dec.value, ((206265. / 3600.) * shell_parameters['r'][nshell-1]*u.pc / orion_dist).value
+
+        chanargs = dict()
+        for arg in chanargs_table[nshell-1].colnames:
+            chanargs[arg] = chanargs_table[nshell-1][arg]
+        
+        if chanargs['molecule'] == '12co':
+            cube = spec_cube_12co
+        elif chanargs['molecule'] == '13co':
+            cube = spec_cube_13co
+        if nshell < 10:
+            plotname = "shell_figures/chans/shell0{}_{}_channels.png".format(str(nshell), chanargs['molecule'])
+        else:
+            plotname = "shell_figures/chans/shell{}_{}_channels.png".format(str(nshell), chanargs['molecule']) 
+
+        if chanargs['vel_min'] == 0:
+            chanargs['vel_min'] = shell.vmin
+            chanargs['vel_max'] = shell.vmax
+            print("Plotting channels between {} and {}.".format(shell.vmin, shell.vmax))
+        
+        if nshell == 19 or nshell == 22:
+            obaf_in_shell = ((obaf_ra - ra) ** 2. + (obaf_dec - dec) ** 2.) <= (radius*1.5) ** 2.
+        else:
+            obaf_in_shell = ((obaf_ra - ra) ** 2. + (obaf_dec - dec) ** 2.) <= (radius*pad_factor) ** 2.
+        print(obaf_in_shell)
+        if nshell == 33:
+            yso_in_shell = ((yso_ra - ra) ** 2. + (yso_dec - dec) ** 2.) <= (1.5*radius) ** 2.
+        else:
+            yso_in_shell = ((yso_ra - ra) ** 2. + (yso_dec - dec) ** 2.) <= (radius) ** 2.
+
+        source_ra, source_dec, source_labels = [obaf_ra[obaf_in_shell], yso_ra[yso_in_shell]], [obaf_dec[obaf_in_shell], yso_dec[yso_in_shell]], [obaf_id[obaf_in_shell], None]
+
+        # plot_channels(cube=cube, ra=ra, dec=dec, radius=radius,
+        #     source_lists=None, stretch='linear', pad_factor=pad_factor,
+        #     #vel_min=11*u.km/u.s, vel_max=13.5*u.km/u.s,
+        #     # vel_min=9.3*u.km/u.s, vel_max=11.7*u.km/u.s,
+        #     # max_chans=12, chan_step=1,
+        #     plotname=plotname, plot_simbad_sources=False,
+        #     cmap='gist_yarg', text_color='red',
+        #     # xspacing_in_s=10.,
+        #     #cbar_label="Counts",
+        #     source_ra=source_ra, source_dec=source_dec,
+        #     source_colors=['white', 'cyan'], source_edge_colors=['black','cyan'],
+        #     source_markers=['*', '+'],
+        #     source_sizes=[160,15], dpi=300,
+        #     auto_scale=True, **chanargs)
+        
+        if chanargs['molecule'] == '12co':
+            molecule_str = "$^{12}$CO"
+        elif chanargs['molecule'] == '13co':
+            molecule_str = "$^{13}$CO"
+        caption = "{} channel maps of Shell {}.".format(molecule_str, nshell)+\
+        " White stars indicate intermediate-mass stars of spectral type B, A, and F. Cyan crosses indicate young stellar objects from the Spitzer Orion catalog."+\
+        " The full shell radius is shown as a dashed circle. Velocities are with respect to the local standard of rest. The scalebar has a length of {}~pc.".format(chanargs['scalebar_pc'])
+        caption_file = '.'.join(plotname.split('.')[:-1]) + "_caption.txt"
+        f = open(caption_file, 'w')
+        f.write(caption)
+        f.close()
+        print(caption)
+        os.system("open {}".format(plotname))
+
+def make_stamps():
+    
+   
+
+    shell_list = shells.get_shells(region_file=region_file, velocity_file=vrange_file)
+    shell_parameters = ascii.read(parameter_file) 
+    obaf = ascii.read(obaf_file)
+    obaf_ra, obaf_dec, obaf_id, obaf_sptype = np.array(obaf['RA']), np.array(obaf['DEC']),\
+     np.array([" ".join([word for word in line.split() if '*' not in word]).strip("b'") for line in obaf['MAIN_ID']]),\
+     np.array([sp.strip("b'") for sp in obaf['SP_TYPE']])
+
+    yso = fits.open(yso_file)[1].data
+    yso_ra, yso_dec, yso_label = yso['RAJ2000'], yso['DEJ2000'], yso['Cl']
 
     #Open IR images
 
@@ -120,10 +211,11 @@ def main():
     
     pvargs_table = ascii.read(pvargs_file)
     stampargs_table = ascii.read(stampargs_file)
-    chanargs_table = ascii.read(chanargs_file)
 
-    for nshell in [18]:
+    for nshell in np.arange(1,43):
 
+        if nshell == 21:
+            pad_factor = 1.75
 
         shell = shell_list[nshell-1]
         pvargs = dict()
@@ -133,8 +225,6 @@ def main():
             pvargs[arg] = pvargs_table[nshell-1][arg]
         for arg in stampargs_table[nshell-1].colnames:
             stampargs[arg] = stampargs_table[nshell-1][arg]
-        for arg in chanargs_table[nshell-1].colnames:
-            chanargs[arg] = chanargs_table[nshell-1][arg]
 
         print(pvargs, stampargs)
         #ra, dec, radius = shell.ra.value, shell.dec.value, shell.radius.value
@@ -171,7 +261,7 @@ def main():
             ir_hdu = fits.open("../catalogs/rgb_2d.fits")[0]
             rgb = "../catalogs/hst.png"
             pad_factor = 3.5
-        if nshell == 17 or nshell == 18:
+        if nshell == 17 or nshell == 18 or nshell == 19 or nshell==21 or nshell==22 or nshell==23:
             ir_hdu = ir_onc_hdu
         #Extract sub_cube around shell.
         if stampargs['molecule'] == '12co':
@@ -254,19 +344,22 @@ def main():
 
         #Get source coordinates.
         print(obaf_ra, obaf_dec, radius)
-        obaf_in_shell = ((obaf_ra - ra) ** 2. + (obaf_dec - dec) ** 2.) <= (radius*pad_factor) ** 2.
+        if nshell == 19 or nshell == 22:
+            obaf_in_shell = ((obaf_ra - ra) ** 2. + (obaf_dec - dec) ** 2.) <= (radius*1.5) ** 2.
+        else:
+            obaf_in_shell = ((obaf_ra - ra) ** 2. + (obaf_dec - dec) ** 2.) <= (radius*pad_factor) ** 2.
         print(obaf_in_shell)
-        yso_in_shell = ((yso_ra - ra) ** 2. + (yso_dec - dec) ** 2.) <= (radius) ** 2.
+        if nshell == 33:
+            yso_in_shell = ((yso_ra - ra) ** 2. + (yso_dec - dec) ** 2.) <= (1.5*radius) ** 2.
+        else:
+            yso_in_shell = ((yso_ra - ra) ** 2. + (yso_dec - dec) ** 2.) <= (radius) ** 2.
 
-        yso_ra, yso_dec, yso_label = yso_ra[yso_in_shell], yso_dec[yso_in_shell], yso_label[yso_in_shell]
-        obaf_ra, obaf_dec, obaf_id = obaf_ra[obaf_in_shell], obaf_dec[obaf_in_shell], obaf_id[obaf_in_shell]
-        print(yso_ra, yso_dec, yso_label)
-        source_ra, source_dec, source_labels = [obaf_ra, yso_ra], [obaf_dec, yso_dec], [obaf_id, None]
+        source_ra, source_dec, source_labels = [obaf_ra[obaf_in_shell], yso_ra[yso_in_shell]], [obaf_dec[obaf_in_shell], yso_dec[yso_in_shell]], [obaf_id[obaf_in_shell], None]
         print(source_ra, source_dec, source_labels)
         # source_ra, source_dec, source_labels = obaf_ra, obaf_dec, obaf_id
         #source_labels[~obaf_in_shell] = "" 
         print(ra, dec, radius)
-        plotname = 'shell_figures/mom0{}shell{}_{}{}to{}_stamp.png'.format(stampargs['ir'], nshell, stampargs['molecule'], str(shell.vmin.value).replace('.','_'), str(shell.vmax.value).replace('.','_'))
+        plotname = 'shell_figures/shell{}mom0{}_{}{}to{}_stamp.png'.format(nshell, stampargs['ir'], stampargs['molecule'], str(shell.vmin.value).replace('.','_'), str(shell.vmax.value).replace('.','_'))
         dpi=200.
         if nshell == 40:
             rgb = "../catalogs/hst.png"
@@ -279,61 +372,61 @@ def main():
         # print(ir_hdu.header)
         #For testing:
         # auto_contour=True
-        auto_scale=True
-        ir_hdu = mom0_hdu
-        fig = plot_stamp(map=ir_hdu,
-            ra=ra, dec=dec, radius=radius,
-            thickness=thickness, rgb=rgb,
-            circle_color='red', nan_color='black',
-            pad_factor=pad_factor, contour_map=mom0_hdu, contour_levels=contour_levels,
-            auto_contour=auto_contour, auto_contour_nlevels=5,
-            stretch='linear', plot_simbad_sources=False, dist=orion_dist,
-            auto_scale=auto_scale, auto_scale_mode='median', auto_scale_pad_factor=0.8, auto_scale_nsigma=5.,
-            cbar_label="Counts", cmap='inferno', show_colorbar=False,
-            plotname=plotname,
-            source_colors=['white', 'cyan'], source_markers=['*', '+'], source_sizes=[300,50],
-            source_edge_colors=['black','cyan'],
-            # source_colors='white', source_markers='*', source_sizes=300,
-            # source_labels=[obaf_id, None], dpi=200
-            source_ra=source_ra, source_dec=source_dec,
-            source_labels=source_labels,
-            return_fig=True, dpi=dpi, tick_color='gray', **stampargs
-            )
+        # auto_scale=True
+        # ir_hdu = mom0_hdu
+        # fig = plot_stamp(map=ir_hdu,
+        #     ra=ra, dec=dec, radius=radius,
+        #     thickness=thickness, rgb=rgb,
+        #     circle_color='red', nan_color='black',
+        #     pad_factor=pad_factor, contour_map=mom0_hdu, contour_levels=contour_levels,
+        #     auto_contour=auto_contour, auto_contour_nlevels=5,
+        #     stretch='linear', plot_simbad_sources=False, dist=orion_dist,
+        #     auto_scale=auto_scale, auto_scale_mode='median', auto_scale_pad_factor=0.8, auto_scale_nsigma=5.,
+        #     cbar_label="Counts", cmap='inferno', show_colorbar=False,
+        #     plotname=plotname,
+        #     source_colors=['white', 'cyan'], source_markers=['*', '+'], source_sizes=[300,50],
+        #     source_edge_colors=['black','cyan'],
+        #     # source_colors='white', source_markers='*', source_sizes=300,
+        #     # source_labels=[obaf_id, None], dpi=200
+        #     source_ra=source_ra, source_dec=source_dec,
+        #     source_labels=source_labels,
+        #     return_fig=True, dpi=dpi, tick_color='gray', **stampargs
+        #     )
 
 
 
-        if nshell == 10:
-            fig.add_label(83.950,-5.53,"Infrared Spur",color='white',size=16)
-        if nshell == 39:
-            #HH 35 ra/dec: 84.0937 -06.6978
-            hh35ra = 84.0937
-            hh35dec = -6.6978
-            fig.show_markers(hh35ra, hh35dec, c='white', marker='.', s=300.)
-            fig.add_label(hh35ra-0.01, hh35dec, "HH 35", color='white', size=16 )
-            pass
-        if nshell == 40:
-            #HH 35 ra/dec: 84.0937 -06.6978
-            hh35ra = 84.0937
-            hh35dec = -6.6978
+        # if nshell == 10:
+        #     fig.add_label(83.950,-5.53,"Infrared Spur",color='white',size=16)
+        # if nshell == 39:
+        #     #HH 35 ra/dec: 84.0937 -06.6978
+        #     hh35ra = 84.0937
+        #     hh35dec = -6.6978
+        #     fig.show_markers(hh35ra, hh35dec, c='white', marker='.', s=300.)
+        #     fig.add_label(hh35ra-0.01, hh35dec, "HH 35", color='white', size=16 )
+        #     pass
+        # if nshell == 40:
+        #     #HH 35 ra/dec: 84.0937 -06.6978
+        #     hh35ra = 84.0937
+        #     hh35dec = -6.6978
 
-            v380ra = 84.10596457
-            v380dec = -6.71602374
+        #     v380ra = 84.10596457
+        #     v380dec = -6.71602374
 
-            fig.show_markers(hh35ra, hh35dec, c='white', marker='.', s=300.)
-            fig.show_markers(v380ra, v380dec, c='white', marker='*', s=300.)
-            fig.add_label(hh35ra-0.004, hh35dec, "HH 35", color='white', size=16)
-            fig.add_label(v380ra-0.0055, v380dec-0.002, "V380 Ori", color='white', size=16)
-        if nshell == 11:
+        #     fig.show_markers(hh35ra, hh35dec, c='white', marker='.', s=300.)
+        #     # fig.show_markers(v380ra, v380dec, c='white', marker='*', s=300.)
+        #     fig.add_label(hh35ra-0.0035, hh35dec-0.001, "HH 35", color='white', size=16)
+        #     # fig.add_label(v380ra-0.0055, v380dec-0.002, "V380 Ori", color='white', size=16)
+        # if nshell == 11:
 
-            pass
-        if nshell == 17:
-            hd_ra = 083.4795275 
-            hd_dec = -05.6069169
-            fig.show_markers(hd_ra, hd_dec, c='white', marker='*', s=300., edgecolor='black')
-            fig.add_label(hd_ra + stampargs['label_offset_ra'], hd_dec + stampargs['label_offset_dec'], "HD 36782",
-             color=stampargs['label_color'], size=stampargs['label_size'], horizontalalignment='left')
+        #     pass
+        # if nshell == 17:
+        #     hd_ra = 083.4795275 
+        #     hd_dec = -05.6069169
+        #     fig.show_markers(hd_ra, hd_dec, c='white', marker='*', s=300., edgecolor='black')
+        #     fig.add_label(hd_ra + stampargs['label_offset_ra'], hd_dec + stampargs['label_offset_dec'], "HD 36782",
+        #      color=stampargs['label_color'], size=stampargs['label_size'], horizontalalignment='left')
 
-        fig.savefig(plotname, dpi=dpi) 
+        # fig.savefig(plotname, dpi=dpi) 
 
         ir_dict = {"irac1":"Spitzer 3.6~$\mu$m",
                    "irac2":"Spitzer 4.5~$\mu$m",
@@ -348,65 +441,94 @@ def main():
         stamp_caption = "{} map toward Shell {}.".format(ir_dict[stampargs['ir']], nshell)+\
         " Contours show {} integrated from {} to {}~km~s$^{{-1}}$.".format(stamp_molecule_str, str(shell.vmin.value), str(shell.vmax.value))+\
         " Contours are drawn from {} to {}$\sigma$ with steps of {}$\sigma$, where $\sigma = {}$~K~km~s$^{{-1}}$.".format(
-            int(round(stampargs['low_sigma'])), int(round(stampargs['hi_sigma'])), int(round(stampargs['step_sigma'])), round(mom0_sigma/1000.,1))
+            int(round(stampargs['low_sigma'])), int(round(stampargs['hi_sigma'])), int(round(stampargs['step_sigma'])), round(mom0_sigma/1000.,1))+\
+                    " The large solid circle and dashed annulus indicate the best-fit radius and thickness of the CO shell, respectively."+\
+                    " White stars indicate intermediate-mass stars of spectral type B, A, and F. Cyan crosses indicate young stellar objects from the Spitzer Orion catalog."
         caption_file = '.'.join(plotname.split('.')[:-1]) + "_caption.txt"
         f = open(caption_file, 'w')
         f.write(stamp_caption)
         f.close()
         print(stamp_caption)
+        os.system("open {}".format(plotname))
     #     #cube_file = "../nro_maps/12CO_20161002_FOREST-BEARS_spheroidal_xyb_grid7.5_0.099kms.fits"
         
         
-        # plot_channels(cube=nro_12co, ra=ra, dec=dec, radius=radius,
-        #     source_lists=None, stretch='linear', pad_factor=pad_factor,
-        #     #vel_min=11*u.km/u.s, vel_max=13.5*u.km/u.s,
-        #     vel_min=9.3*u.km/u.s, vel_max=11.7*u.km/u.s,
-        #     plotname='../paper/figs/12co_channels_shell'+str(nshell)+'.png', chan_step=1, plot_simbad_sources=False,
-        #     vmin=0, vmax=15., max_chans=12, cmap='gist_yarg', text_color='red',
-        #     xspacing_in_s=10.,
-        #     #cbar_label="Counts",
-        #     source_ra=[obaf_ra, yso_ra], source_dec=[obaf_dec, yso_dec],
-        #     source_colors=['white', 'cyan'], source_edge_colors=['black','cyan'],
-        #     source_markers=['*', '+'],
-        #     source_sizes=[160,15], dpi=300, auto_scale_pad_factor=pad_factor,
-        #     auto_scale=True)
+
         # # shell_list = shells.get_shells()
         # # shell = shell_list[nshell-1]
+def make_pv(nshell_list):
 
-        # model_pars = {
-        #     'dist':414*u.pc, # pc
-        #     'pix_size':7.5*u.arcsec, # arcsec
-        #     'vstep':0.110*u.km/u.s, # km/s
-        #     'acen':shell.ra, # deg
-        #     'dcen':shell.dec, # deg
-        #     'R':0.22*u.pc, # pc
-        #     'dr':0.2*u.pc, # pc
-        #     'vexp':2.5*u.km/u.s, # km/s
-        #     'v0':13.6*u.km/u.s, # km/s
-        #     'samples_per_voxel':27}
+    # spec_cube_12co = SpectralCube.read(nro_12co)
+    # spec_cube_13co = SpectralCube.read(nro_13co)
+
+    pvargs_table = ascii.read(pvargs_file)
+    shell_list = shells.get_shells()
+    shell_parameters = ascii.read(parameter_file) 
+    for nshell in nshell_list:
+
+        shell = shell_list[nshell-1]
+        model_pars = {
+            'dist':414*u.pc, # pc
+            'pix_size':7.5*u.arcsec, # arcsec
+            'vstep':0.110*u.km/u.s, # km/s
+            'acen':shell.ra, # deg
+            'dcen':shell.dec, # deg
+            'R':0.22*u.pc, # pc
+            'dr':0.2*u.pc, # pc
+            'vexp':2.5*u.km/u.s, # km/s
+            'v0':13.6*u.km/u.s, # km/s
+            'samples_per_voxel':27}
+        print(shell.ra, shell.dec)
         
-        # model_pars['R'] = shell_parameters['r'][nshell-1] * u.pc
-        # model_pars['dr'] = shell_parameters['dr'][nshell-1]* u.pc
-        # model_pars['vexp'] = shell_parameters['vexp'][nshell-1] * u.km / u.s
-        # model_pars['v0'] = shell_parameters['vsys'][nshell-1] * u.km / u.s
+        pvargs = dict()
 
-        # plot_file = '../paper/figs/shell'+str(nshell)+'_pv_'+pvargs['molecule']+'.png'
+        for arg in pvargs_table[nshell-1].colnames:
+            pvargs[arg] = pvargs_table[nshell-1][arg]
 
-        # if pvargs['molecule'] == '12co':
-        #     cube_file=nro_12co
-        # elif pvargs['molecule'] == '13co':
-        #     cube_file=nro_13co
+        model_pars['R'] = shell_parameters['r'][nshell-1] * u.pc
+        model_pars['dr'] = shell_parameters['dr'][nshell-1]* u.pc
+        model_pars['vexp'] = shell_parameters['vexp'][nshell-1] * u.km / u.s
+        model_pars['v0'] = shell_parameters['vsys'][nshell-1] * u.km / u.s
+
+        plot_file = 'shell_figures/pv/shell'+str(nshell)+'_pv_'+pvargs['molecule']+'.png'
+
+        if pvargs['molecule'] == '12co':
+            cube_file=nro_12co
+        elif pvargs['molecule'] == '13co':
+            cube_file=nro_13co
 
         # fig = plot_pv(plot_file=plot_file,
         #     cube_file=cube_file,
         #     model_pars=model_pars, normalize=False,
         #     contour_levels=20, pv_length_in_radii=5,
         #     remove_first_contour=True, **pvargs)
+        if pvargs['molecule'] == '12co':
+            molecule_str = "$^{12}$CO"
+        elif pvargs['molecule'] == '13co':
+            molecule_str = "$^{13}$CO"
+        
+        if pvargs['average_pv_obs'] == 1:
+            extract_str = "We extract emission along {} equally spaced slices through the center of the shell and then average.".format(
+                    str(int(360./pvargs['pv_angle_step'])))
+        else:
+            extract_str = "We extract emission along a slice through the center of the shell at position angle {}$\arcdeg$~east of north.".format(
+                    str(int(pvargs['pv_angle'])))
+
+        caption = "Position-velocity diagram of {} map toward Shell {}. ".format(molecule_str, nshell)+\
+        extract_str+\
+        " Darker colors indicate more intense emission."+\
+        " Contours show the model that best represents the shell."
+        caption_file = '.'.join(plot_file.split('.')[:-1]) + "_caption.txt"
+        f = open(caption_file, 'w')
+        f.write(caption)
+        f.close()
+        print(caption)
+        os.system("open {}".format(plot_file))            
         # pv = plot_pv(cube=cube_file, ra_center=shell.ra, dec_center=shell.dec,
         #      vel=[shell.vmin - 1*u.km/u.s, shell.vmax + 1*u.km/u.s], length=shell.radius*4.,
-             # width=7.5*u.arcsec, angle=angle,
-             # pad_factor=1., plotname='12co_pv_shell'+str(nshell)+'_angle'+str(angle.value)+'.png',
-             # stretch='linear', auto_scale=True, dpi=900.)
+        #      width=7.5*u.arcsec, angle=angle,
+        #      pad_factor=1., plotname='12co_pv_shell'+str(nshell)+'_angle'+str(angle.value)+'.png',
+        #      stretch='linear', auto_scale=True, dpi=900.)
 
 
 def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, circle_color='white',
@@ -415,9 +537,10 @@ def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, ci
     source_ra_colnames='RAJ2000', tick_color = 'gray',
     source_dec_colnames='DEJ2000', source_colors='blue', source_edge_colors='blue',
     plotname='shell_stamp.png', return_subplot=True,
-    stretch='linear', vmin=20, vmax=50, plot_simbad_sources=True, simbad_type='star', simbad_color='green',
+    stretch='linear', plot_simbad_sources=True, simbad_type='star', simbad_color='green',
     vel_min=0, vel_max=10, vel_unit=u.km/u.s, n_cols=3, max_chans=16,
-    chan_step=1, auto_scale=True, auto_scale_pad_factor=1., dpi=300):
+    chan_step=1, auto_scale=True, auto_scale_pad_factor=1., dpi=300, scalebar_pc=0.1,
+    scalebar_color='white', scalebar_corner='bottom_right', dist=orion_dist, **args):
     """
     Parameters
     ----------
@@ -498,6 +621,7 @@ def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, ci
         spec_cube = SpectralCube.read(cube)
     except ValueError:
         # `spec_cube` is a SpectralCube object
+        spec_cube = cube
         cube = cube.hdu
     #Find the min and max spectral channel.
     try:
@@ -585,22 +709,54 @@ def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, ci
         subplot.show_circles(ra, dec, radius, linestyle='dashed', edgecolor=circle_color,
             facecolor='none')
 
-            #POINT SOURCES
-        if source_ra and source_dec:
-            #Use source_ra/dec if these parameters are set.
+
+        #POINT SOURCES
+        if np.any(source_ra[0]) or np.any(source_ra[1]):
+            print("Using source_ra/dec these parameters are set.")
             try:
                 subplot.show_markers(source_ra, source_dec,
-                 c=source_colors, marker=source_markers, s=source_sizes,
-                 edgecolor=source_edge_colors)
-            except TypeError:
+                 c=source_colors, marker=source_markers,
+                 edgecolor=source_edge_colors, s=source_sizes)
+
+            except (TypeError,ValueError):
                 #If more than one source list to be plotted with different markers
                 #source_ra, source_dec, source_colors must be nested lists or ndarrays 
                 #with same shape.
                 #print(source_ra, source_dec, source_colors, source_markers, source_sizes)
+                print("""
+                    #If more than one source list to be plotted with different markers
+                #source_ra, source_dec, source_colors must be nested lists or ndarrays 
+                #with same shape.
+                #print(source_ra, source_dec, source_colors, source_markers, source_sizes)
+                    """)
                 for i in range(len(source_colors)):
-                    subplot.show_markers(source_ra[i], source_dec[i], c=source_colors[i],
-                     marker=source_markers[i], s=source_sizes[i],
-                     edgecolor=source_edge_colors[i])
+                    # in_shell = (source_ra[i]**2. + source_dec[i]**2.) <= radius**2.
+                    # source_ra[i] = source_ra[i][in_shell]
+                    # source_dec[i] = source_dec[i][in_shell]
+                    print("Showing markers.")
+                    try:
+                        subplot.show_markers(source_ra[i], source_dec[i], c=source_colors[i],
+                         marker=source_markers[i], s=source_sizes[i],
+                         edgecolor=source_edge_colors[i])   
+                    except:
+                        pass
+
+            #POINT SOURCES
+        # if source_ra and source_dec:
+        #     #Use source_ra/dec if these parameters are set.
+        #     try:
+        #         subplot.show_markers(source_ra, source_dec,
+        #          c=source_colors, marker=source_markers, s=source_sizes,
+        #          edgecolor=source_edge_colors)
+        #     except TypeError:
+        #         #If more than one source list to be plotted with different markers
+        #         #source_ra, source_dec, source_colors must be nested lists or ndarrays 
+        #         #with same shape.
+        #         #print(source_ra, source_dec, source_colors, source_markers, source_sizes)
+        #         for i in range(len(source_colors)):
+        #             subplot.show_markers(source_ra[i], source_dec[i], c=source_colors[i],
+        #              marker=source_markers[i], s=source_sizes[i],
+        #              edgecolor=source_edge_colors[i])
 
         elif source_lists and type(source_lists) is not list:
             try:
@@ -638,6 +794,14 @@ def plot_channels(cube=None, shellShape=None, ra=None, dec=None, radius=None, ci
         subplot.ticks.set_color(tick_color)
         subplot.ticks._ax1.tick_params(direction='in', which='both', axis='both')
         subplot.ticks._ax2.tick_params(direction='in', which='both', axis='both')
+
+        scalebar_deg = (206265 * scalebar_pc / (dist.to(u.pc).value * 3600)) 
+        vertices = np.array([[ra+scalebar_deg/2., ra-scalebar_deg/2.],
+                             [dec - radius*0.85*pad_factor]*2])
+        print(vertices)
+        subplot.show_lines([vertices], color=scalebar_color)
+        
+        
 
         #subplot.close()
     #Make the figure prettier.
@@ -717,7 +881,8 @@ def plot_pv(plot_file=None, cube_file="../nro_maps/12CO_20170514_FOREST-BEARS_sp
         pv_angle = pv_angle*u.deg
 
     try:
-        cube_model = SpectralCube.read(shell_model.ppv_model(pad_pixels=pad_pixels, **model_pars))
+        model_hdu = shell_model.ppv_model(pad_pixels=pad_pixels, **model_pars)
+        cube_model = SpectralCube.read(model_hdu)
     except:
         cube_model = SpectralCube.read(shell_model.ppv_model(pad_pixels=pad_pixels))
 
@@ -736,7 +901,7 @@ def plot_pv(plot_file=None, cube_file="../nro_maps/12CO_20170514_FOREST-BEARS_sp
     pv_length = pv_length_in_radii * (head_model['R'] / head_model['DIST']) * u.radian
     ra_center = head_model['CRVAL1'] * u.deg
     dec_center = head_model['CRVAL2'] * u.deg
-
+    print(ra_center, dec_center)
     if average_pv_obs:
         pv_obs = shells.pv_average(cube=cube_obs,
          ra_center=ra_center, dec_center=dec_center,
@@ -807,7 +972,7 @@ def plot_pv(plot_file=None, cube_file="../nro_maps/12CO_20170514_FOREST-BEARS_sp
 
     FormatKMS = FuncFormatter(lambda x,y: '{0:g}'.format(round(v0_kms + (x-1)*dv_kms,5)))
     fig.image.axes.yaxis.set_major_formatter(FormatKMS)
-
+    
     if plot_file:
         fig.save(plot_file)
 
@@ -822,7 +987,8 @@ def plot_overview(cube=nro_12co, subregion_file="../subregions/my_subregions.reg
  pmax=99.75, cbar_label=r"Peak T$_{\rm MB}$ [K]", tick_color="white",
  circle_color='white', circle_linewidth=1, circle_style="solid", return_fig=False, show=True,
  title=r"$^{12}$CO Peak T$_{MB}$", recenter=False, ra=None, dec=None, radius=None, show_subregions=True,
- subregion_color='red', subregion_linewidth=1, subregion_style='dashed'):
+ subregion_color='red', subregion_linewidth=1, subregion_style='dashed',
+ shell_numbers=True, number_offset_file="overview_number_offsets.txt", shell_number_size=8):
     """
     Show full image with all shells.
     
@@ -864,6 +1030,8 @@ def plot_overview(cube=nro_12co, subregion_file="../subregions/my_subregions.reg
     fig.tick_labels.set_xformat("hh:mm")
 
     fig.ticks.set_color(tick_color)
+    fig.ticks._ax1.tick_params(direction='in', which='both', axis='both')
+    fig.ticks._ax2.tick_params(direction='in', which='both', axis='both') 
     #fig.hide_yaxis_label()
     #fig.hide_ytick_labels()
     plt.title(title)
@@ -871,7 +1039,12 @@ def plot_overview(cube=nro_12co, subregion_file="../subregions/my_subregions.reg
     plt.ylabel("DEC (J2000)")
 
     if show_shells:
+        
         shell_list = shells.get_shells(region_file=region_file)
+        if shell_numbers:
+            offset_table = ascii.read('overview_number_offsets.txt')
+            ra_offset = offset_table['ra_offset']
+            dec_offset = offset_table['dec_offset']
         for i, shell in enumerate(shell_list):
             if shells_highlight:
                 if i+1 in shells_highlight:
@@ -883,6 +1056,14 @@ def plot_overview(cube=nro_12co, subregion_file="../subregions/my_subregions.reg
             else:
                 fig.show_circles(shell.ra.value, shell.dec.value, shell.radius.value, linestyle=circle_style, edgecolor=circle_color,
                     facecolor='none', linewidth=circle_linewidth)
+        
+            if shell_numbers:
+                fig.add_label(shell.ra.value+ra_offset[i], shell.dec.value+dec_offset[i], i+1, size=shell_number_size,
+                        color=circle_color)
+                if i == 39:
+                    fig.show_lines([np.array([[shell.ra.value+ra_offset[i]-0.02, shell.ra.value],
+                                              [shell.dec.value+dec_offset[i]+0.02, shell.dec.value ]])],
+                                              color=circle_color, linestyle='solid')                   
 
     if show_subregions:
         region_list = pyregion.open(subregion_file)
@@ -941,7 +1122,7 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, t
     stretch='linear', vmin=0, vmax=3000, plot_simbad_sources=True, simbad_type='star', simbad_color='cyan',
     dist=orion_dist , cbar_label=r'T$_{MB}v$ [K m/s]', show_colorbar=True,
     auto_scale=True, auto_scale_mode='min/max', auto_scale_nsigma=1.,
-    auto_scale_pad_factor=None, dpi=300, cmap='viridis', tick_color='gray', **args):
+    auto_scale_pad_factor=None, dpi=300, cmap='viridis', tick_color='gray', nshell=None, **args):
     """
     Parameters
     ----------
@@ -1147,7 +1328,7 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, t
                 fig.add_label(source_ra[j] + label_offset_ra, source_dec[j] + label_offset_dec, source_labels[j],
                  color=source_colors, size=label_size)
 
-        except TypeError:
+        except (TypeError,ValueError):
             #If more than one source list to be plotted with different markers
             #source_ra, source_dec, source_colors must be nested lists or ndarrays 
             #with same shape.
@@ -1172,23 +1353,46 @@ def plot_stamp(map=None, fig=None, shell=None, ra=None, dec=None, radius=None, t
 
                 for j in range(len(source_ra[i])):
                     try:
+                        horizontalalignment = "left"
                         print("Adding {} out of {} labels.".format(j+1, len(source_ra[i])))
                         if "T Ori" in source_labels[i][j]:
-                            label_offset_ra = -0.005
-                            label_offset_dec = 0.
+                            offset_ra = -0.005
+                            offset_dec = 0.
                             source_colors[i] = 'white'
                         elif "Ori C" in source_labels[i][j]:
-                            label_offset_ra = 0.
-                            label_offset_dec = 0.005
+                            offset_ra = 0.
+                            offset_dec = 0.005
                             source_colors[i] = 'black'
                         elif "V1073" in source_labels[i][j]:
-                            label_offset_ra = 0.
-                            label_offset_dec = 0.005
+                            offset_ra = 0.
+                            offset_dec = 0.005
                             source_colors[i] = 'black'
-
-                        fig.add_label(source_ra[i][j] + label_offset_ra,
-                             source_dec[i][j] + label_offset_dec, source_labels[i][j],
-                             horizontalalignment="left",
+                        elif "Brun 540" in source_labels[i][j]:
+                            offset_ra = 0.015
+                            offset_dec = +0.008
+                        elif "HD 37025" in source_labels[i][j]:
+                            offset_ra = 0.02
+                            offset_dec = -0.010
+                        elif "HD 37078" in source_labels[i][j] and nshell == 23:
+                            offset_ra = +0.026
+                            offset_dec = -0.01
+                        elif "TYC" in source_labels[i][j] and nshell == 36:    
+                            offset_ra = 0.08
+                            offset_dec = 0
+                        elif "V380 Ori" in source_labels[i][j] and nshell == 36:    
+                            offset_ra = 0.0
+                            offset_dec = -0.01
+                        elif "BD" in source_labels[i][j] and nshell == 36:    
+                            offset_ra = 0.0226
+                            offset_dec = -0.01
+                        else:
+                            offset_ra = label_offset_ra
+                            offset_dec = label_offset_dec
+                            horinzontalalignment="left"
+                            
+                        fig.add_label(source_ra[i][j] + offset_ra,
+                             source_dec[i][j] + offset_dec, source_labels[i][j],
+                             horizontalalignment=horizontalalignment,
                              color=label_color, size=label_size)
 
                     except TypeError:

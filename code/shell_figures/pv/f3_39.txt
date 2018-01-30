@@ -1,0 +1,1 @@
+Position-velocity diagram of $^{12}$CO map toward Shell 39. We extract emission along 4 equally spaced slices through the center of the shell and then average. Darker colors indicate more intense emission. Contours show the model that best represents the shell.

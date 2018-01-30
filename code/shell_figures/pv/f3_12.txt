@@ -1,0 +1,1 @@
+Position-velocity diagram of $^{13}$CO map toward Shell 12. We extract emission along a slice through the center of the shell at position angle 90$rcdeg$~east of north. Darker colors indicate more intense emission. Contours show the model that best represents the shell.

@@ -635,8 +635,8 @@ def data_cutout(data=None, wcs=None, ra=None, dec=None, radius=None, unit='deg',
     pix_reg = sky_reg.to_pix(wcs)
 
     mask.cutout(da)
-def get_shells(velocity_file='../shell_candidates/AllShells_vrange.txt',
-    region_file='../shell_candidates/AllShells.reg',
+def get_shells(velocity_file='../shell_candidates/AllShells_vrange_NtoS.txt',
+    region_file='../shell_candidates/AllShells_NtoS.reg',
     ra_col="ra", dec_col="dec", radius_col="radius", vmin_col='vmin', vmax_col='vmax',
     ra_unit='deg', dec_unit='deg', radius_unit='deg', v_unit='km/s'):
     """
@@ -727,7 +727,7 @@ def plot_overview(cube=nro_12co,
 
     #RECENTER
     if recenter:
-    	fig.recenter(ra, dec, radius)
+        fig.recenter(ra, dec, radius)
 
 
     #SCALEBAR

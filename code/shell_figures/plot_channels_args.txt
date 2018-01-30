@@ -1,43 +1,43 @@
-shell pv_angle pv_angle_step average_pv_obs vmin vmax pmin pmax molecule
-1 0 90 1 None None 0.25 99.75 12co
-2 0 90 1 None None 0.25 99.75 12co
-3 0 90 1 None None 0.25 99.75 12co
-4 0 90 1 None None 0.25 99.75 12co
-5 0 90 1 None None 0.25 99.75 12co
-6 0 90 1 None None 0.25 99.75 12co
-7 0 90 1 None None 0.25 99.75 12co
-8 0 90 1 None None 0.25 99.75 13co
-9 0 90 1 None None 0.25 99.75 12co
-10 0 90 1 None None 0.25 99.75 13co
-11 0 90 1 None None 0.25 99.75 12co
-12 0 90 1 None None 0.25 99.75 12co
-13 0 90 1 None None 0.25 99.75 12co
-14 0 90 1 None None 0.25 99.75 12co
-15 0 90 1 None None 0.25 99.75 12co
-16 0 90 1 None None 0.25 99.75 12co
-17 0 90 1 None None 0.25 99.75 12co
-18 0 90 1 None None 0.25 99.75 12co
-19 0 90 1 None None 0.25 99.75 12co
-20 0 90 1 None None 0.25 99.75 12co
-21 0 90 1 None None 0.25 99.75 12co
-22 0 90 1 None None 0.25 99.75 12co
-23 0 90 1 None None 0.25 99.75 12co
-24 0 90 1 None None 0.25 99.75 12co
-25 0 90 1 None None 0.25 99.75 12co
-26 0 90 1 None None 0.25 99.75 12co
-27 0 90 1 None None 0.25 99.75 12co
-28 0 90 1 None None 0.25 99.75 12co
-29 0 90 1 None None 0.25 99.75 12co
-30 0 90 1 None None 0.25 99.75 12co
-31 0 90 1 None None 0.25 99.75 12co
-32 0 90 1 None None 0.25 99.75 12co
-33 0 90 1 None None 0.25 99.75 12co
-34 0 90 1 None None 0.25 99.75 12co
-35 0 90 1 None None 0.25 99.75 12co
-36 0 90 1 None None 0.25 99.75 12co
-37 0 90 1 None None 0.25 99.75 12co
-38 0 90 1 None None 0.25 99.75 12co
-39 0 90 1 None None 0.25 99.75 12co
-40 0 90 1 None None 0.25 99.75 12co
-41 0 90 1 None None 0.25 99.75 12co
-42 0 90 1 None None 0.25 99.75 12co
+nshell vel_min vel_max max_chans chan_step xspacing_in_s scalebar_pc scalebar_color auto_scale_pad_factor molecule
+1 9.7 12.0 12 1 10 0.1 "red" 1.8 12co
+2 10.2 12.6 12 1 5 0.1 "red" 1.8 12co
+3 10.2 12.7 12 1 10 0.1 "red" 1.8 12co
+4 10.5 13 12 1 10 0.1 "red" 1.8 12co
+5 10.5 12.5 12 1 10 0.1 "red" 1.8 12co
+6 8.5 11 12 1 10 0.2 "red" 1.8 12co
+7 11.5 13.9 12 1 10 0.1 "red" 1.8 12co
+8 12.3 14.6 12 1 10 0.1 "red" 1.8 12co
+9 8.4 10.8 12 1 50 1 "red" 1.8 12co
+10 8.5 13.3 12 1 25 0.1 "red" 1.0 12co
+11 11.4 13.8 12 1 10 0.1 "red" 1.0 12co
+12 6.8 9.2 12 1 8 0.1 "red" 1.8 12co
+13 6.3 8.7 12 1 20 0.1 "red" 1.8 12co
+14 11.8 14.2 12 1 10 0.1 "red" 1.3 12co
+15 6.2 8.6 12 1 30 0.5 "red" 1.1 12co
+16 6.4 8.8 12 1 10 0.1 "red" 1.8 12co
+17 6.8 8.0 12 1 10 0.1 "red" 1.8 12co
+18 7.5 9.9 12 1 10 0.1 "red" 1.3 13co
+19 6. 13.2 12 1 30 0.4 "red" 1.8 12co
+20 8.6 11 12 1 10 0.1 "red" 1.8 12co
+21 6.9 11.7 12 1 30 0.5 "red" 1.1 12co
+22 7.6 10. 12 1 30 0.5 "red" 1. 12co
+23 6.4 10. 12 1 30 0.5 "red" 1.8 12co
+24 7.8 10.2 12 1 10 0.1 "red" 1.8 12co
+25 5.5 9.2 12 1 10 0.1 "red" 1.8 13co
+26 8 11.6 12 1 10 0.1 "red" 1.8 12co
+27 5.1 7.5 12 1 10 0.3 "red" 0.8 12co
+28 7.5 9.9 12 1 10 0.2 "red" 1.8 12co
+29 2.7 5.2 12 1 10 0.1 "red" 1.8 12co
+30 7.3 9.7 12 1 15 0.3 "red" 1.8 13co
+31 7.4 9.8 12 1 15 0.3 "red" 1.8 12co
+32 7. 9.4 12 1 15 0.1 "red" 1.8 12co
+33 8.4 10.8 12 1 10 0.1 "red" 1.8 12co
+34 7.6 10. 12 1 20 0.1 "red" 1.8 12co
+35 7.2 9.6 12 1 10 0.1 "red" 1.8 12co
+36 7. 9.4 12 1 30 0.5 "red" 1.8 13co
+37 5.2 8.8 12 1 20 0.3 "red" 1.8 12co
+38 6.9 9.3 12 1 15 0.2 "red" 1.8 13co
+39 8.9 11.4 12 1 10 0.1 "red" 1.8 12co
+40 9.3 11.7 12 1 5 0.1 "red" 2.5 12co
+41 8. 10.4 12 1 10 0.1 "red" 1.8 12co
+42 6.5 7.7 12 1 10 0.1 "red" 1.8 12co
