@@ -1,7 +1,5 @@
 from spectral_cube import SpectralCube
 import astropy.units as u
-import shell_model
-import shells
 import matplotlib.pyplot as plt
 import numpy as np
 import glob
@@ -30,6 +28,8 @@ l1641_shells = [27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42]
 berne_dec = [-5.8*u.deg, -4.95*u.deg]
 berne_ra = [5.62*15*u.deg, 5.554*15*u.deg]
 def main():
+    import shell_model
+    import shells
     dist = 414*u.pc
     # north_energy, central_energy, south_energy, l1641n_energy = [
     # 7.8e46, 2e47, 1.4e47, 1.6e47]
