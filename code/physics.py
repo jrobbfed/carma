@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import glob
 from astropy.io import ascii
+import shells
 #Calculate various physical quantities from
 #spectral cubes, spectra, and shell parameters.
 nro_12co = "../nro_maps/12CO_20170514_FOREST-BEARS_spheroidal_grid7.5_dV0.099kms_xyb_YS_regrid0.11kms_reproj.fits"
@@ -42,11 +43,11 @@ def main():
     # turb_dpdt = [north_dpdt, central_dpdt, south_dpdt, l1641n_dpdt]
     # print(turbs, turb_dpdt)
     # table_shell_parameters(param_file="shell_parameters_full_NtoS.txt", best_n=best_shells,
-    # table_name="shell_parameters_NtoS_tex_texp.txt", usecols=[0,1,2,3,4,5,6,7,8], show_texp=True)
-   #  table_shell_physics(scale_energy=1e44, scale_mdot=1e-7, scale_L=1e31, scale_Edot=1e31,
-   #    scale_dpdt=1e-4, low_name="_properties_low_1213co5sig_NtoSorder",
-        # mid_name="_properties_mid_1213co5sig_NtoSorder", hi_name="_properties_hi_1213co5sig_NtoSorder",
-        # table_name="shell_physics_all_5sig_NtoS.txt")
+    #     table_name="NEW_shell_parameters_NtoS_tex_texp.txt", usecols=[0,1,2,3,4,5,6,7,8], show_texp=True)
+    # table_shell_physics(param_file="shell_parameters_full_NtoS.txt", scale_energy=1e44, scale_mdot=1e-7, scale_L=1e31, scale_Edot=1e31,
+    #   scale_dpdt=1e-4, low_name="_properties_low_1213co5sig_NtoSorder",
+    #     mid_name="_properties_mid_1213co5sig_NtoSorder", hi_name="_properties_hi_1213co5sig_NtoSorder",
+    #     table_name="shell_physics_all_5sig_NtoS.txt")
     #table_subregions(scale_energy=1e46)
 
 
@@ -158,114 +159,116 @@ def main():
     #cube_13co = SpectralCube.read(nro_13co_divided)
     #return
 
-    # cube_12co = SpectralCube.read(nro_12co)
-    # cube_13co = SpectralCube.read(nro_13co)
+    cube_12co = SpectralCube.read(nro_12co)
+    cube_13co = SpectralCube.read(nro_13co)
 
-    # shell_list = shells.get_shells()
+    shell_list = shells.get_shells()
 
-    # for n in range(42,43):
-    #     #shell = shell_list[n]
-    #     print("Doing Shell {}".format(n))
-    #     shell = shell_list[n-1]
+    for n in range(1,2):
+        #shell = shell_list[n]
+        print("Doing Shell {}".format(n))
+        shell = shell_list[n-1]
+        print(n, shell.ra,shell.dec)
+        # break
 
+        params = np.loadtxt("shell_parameters_full_NtoS.txt")
+        params = params[params[:,0] == 1.*n, 1:][0]
+        r_best, r_sig = params[0], params[1]
+        dr_best, dr_sig = params[2], params[3]
+        vexp_best, vexp_sig = params[4], params[5]
+        v0_best, v0_sig = params[6], params[7]
 
-    #     params = np.loadtxt("shell_parameters_full.txt")
-    #     params = params[params[:,0] == 1.*n, 1:][0]
-    #     r_best, r_sig = params[0], params[1]
-    #     dr_best, dr_sig = params[2], params[3]
-    #     vexp_best, vexp_sig = params[4], params[5]
-    #     v0_best, v0_sig = params[6], params[7]
+        dv = 0.1
+        v0_sample = np.arange(v0_best-v0_sig, v0_best+v0_sig, dv)
+        print(v0_sample)
+        N = v0_sample.size
+        print(N)
 
-    #     dv = 0.1
-    #     v0_sample = np.arange(v0_best-v0_sig, v0_best+v0_sig+dv, dv)
-    #     N = v0_sample.size
-    #     print(N)
-
-    #     ### Loop over several v0 values for the minimum r, dr, vexp.
-    #     properties_low = np.empty((N, 4))
-    #     r = (r_best - r_sig) * u.pc
-    #     dr = (dr_best - dr_sig) * u.pc
-    #     vexp = (vexp_best - vexp_sig) * u.km/u.s
+        ## Loop over several v0 values for the minimum r, dr, vexp.
+        properties_low = np.empty((N, 4))
+        r = (r_best - r_sig) * u.pc
+        dr = (dr_best - dr_sig) * u.pc
+        vexp = (vexp_best - vexp_sig) * u.km/u.s
         
-    #     for i,v0 in enumerate(v0_sample):
+        for i,v0 in enumerate(v0_sample):
 
-    #         v0 = v0 * u.km/u.s   
-    #         # v0 = 14.25*u.km/u.s 
-    #         print(shell.ra, shell.dec, r, dr, vexp, v0) 
-    #         try:
-    #             mass, momentum, energy = calc_physics(
-    #             ra=shell.ra, dec=shell.dec, r=r, dr=dr, vexp=vexp, v0=v0, dist=dist,
-    #             cube_12co=cube_12co, cube_13co=cube_13co, shell=True, plot=False, shell_snr_cutoff=5.)
-    #             properties_low[i] = [v0.value, mass.value, momentum.value, energy.value]
+            v0 = v0 * u.km/u.s   
+            # v0 = 14.25*u.km/u.s 
+            print(shell.ra, shell.dec, r, dr, vexp, v0) 
+            try:
+                mass, momentum, energy = calc_physics(
+                ra=shell.ra, dec=shell.dec, r=r, dr=dr, vexp=vexp, v0=v0, dist=dist,
+                cube_12co=cube_12co, cube_13co=cube_13co, shell=True, plot=True, shell_snr_cutoff=5.)
+                properties_low[i] = [v0.value, mass.value, momentum.value, energy.value]
 
-    #             print("Shell Physical Properties:")
-    #             print("------------------------------")
-    #             print("Mass = {}".format(mass))
-    #             print("Expansion Velocity = {}".format(vexp))
-    #             print("Momentum = {}".format(momentum))
-    #             print("Energy = {}".format(energy))
-    #         except ValueError:
-    #             print("Shell {} failed due to mismatched data shape.".format(n))
+                print("Shell Physical Properties:")
+                print("------------------------------")
+                print("Mass = {}".format(mass))
+                print("Expansion Velocity = {}".format(vexp))
+                print("Momentum = {}".format(momentum))
+                print("Energy = {}".format(energy))
+            except ValueError:
+                print("Shell {} failed due to mismatched data shape.".format(n))
         
-    #     np.savetxt("shell{}_properties_low_1213co5sig.txt".format(n), properties_low)
+        np.savetxt("shell{}_properties_low_1213co5sig_NtoSorder.txt".format(n), properties_low)
 
-    #     ### Loop over several v0 values for the mid r, dr, vexp.
-    #     properties_mid = np.empty((N, 4))
-    #     r = (r_best) * u.pc
-    #     dr = (dr_best) * u.pc
-    #     vexp = (vexp_best) * u.km/u.s
+        ### Loop over several v0 values for the mid r, dr, vexp.
+        properties_mid = np.empty((N, 4))
+        r = (r_best) * u.pc
+        dr = (dr_best) * u.pc
+        vexp = (vexp_best) * u.km/u.s
    
-    #     for i,v0 in enumerate(v0_sample):
+        for i,v0 in enumerate(v0_sample):
 
-    #         v0 = v0 * u.km/u.s   
-    #         # v0 = 14.25*u.km/u.s 
-    #         print(shell.ra, shell.dec, r, dr, vexp, v0) 
-    #         try:
-    #             mass, momentum, energy = calc_physics(
-    #             ra=shell.ra, dec=shell.dec, r=r, dr=dr, vexp=vexp, v0=v0, dist=dist,
-    #             cube_12co=cube_12co, cube_13co=cube_13co, shell_snr_cutoff=5.)
-    #             properties_mid[i] = [v0.value, mass.value, momentum.value, energy.value]
+            v0 = v0 * u.km/u.s   
+            # v0 = 14.25*u.km/u.s 
+            print(shell.ra, shell.dec, r, dr, vexp, v0) 
+            try:
+                mass, momentum, energy = calc_physics(
+                ra=shell.ra, dec=shell.dec, r=r, dr=dr, vexp=vexp, v0=v0, dist=dist,
+                cube_12co=cube_12co, cube_13co=cube_13co, shell_snr_cutoff=5.)
+                properties_mid[i] = [v0.value, mass.value, momentum.value, energy.value]
 
-    #             print("Shell Physical Properties:")
-    #             print("------------------------------")
-    #             print("Mass = {}".format(mass))
-    #             print("Expansion Velocity = {}".format(vexp))
-    #             print("Momentum = {}".format(momentum))
-    #             print("Energy = {}".format(energy))
-    #         except ValueError:
-    #             print("Shell {} failed due to mismatched data shape.".format(n))
+                print("Shell Physical Properties:")
+                print("------------------------------")
+                print("Mass = {}".format(mass))
+                print("Expansion Velocity = {}".format(vexp))
+                print("Momentum = {}".format(momentum))
+                print("Energy = {}".format(energy))
+            except ValueError:
+                print("Shell {} failed due to mismatched data shape.".format(n))
         
-    #     np.savetxt("shell{}_properties_mid_1213co5sig.txt".format(n), properties_mid)
+        np.savetxt("shell{}_properties_mid_1213co5sig_NtoSorder.txt".format(n), properties_mid)
 
 
 
-    #     ### Loop over v0 values with the maximum r, dr, vexp.
-    #     properties_hi = np.empty((N, 4))
-    #     r = (r_best + r_sig) * u.pc
-    #     dr = (dr_best + dr_sig) * u.pc
-    #     vexp = (vexp_best + vexp_sig) * u.km/u.s
-    #     for i,v0 in enumerate(v0_sample):
+        ## Loop over v0 values with the maximum r, dr, vexp.
+        properties_hi = np.empty((N, 4))
+        r = (r_best + r_sig) * u.pc
+        dr = (dr_best + dr_sig) * u.pc
+        vexp = (vexp_best + vexp_sig) * u.km/u.s
+        for i,v0 in enumerate(v0_sample):
 
-    #         v0 = v0 * u.km/u.s   
-    #         print(shell.ra, shell.dec, r, dr, vexp, v0) 
-    #         try:
-    #             mass, momentum, energy = calc_physics(
-    #             ra=shell.ra, dec=shell.dec, r=r, dr=dr, vexp=vexp, v0=v0, dist=dist,
-    #             cube_12co=cube_12co, cube_13co=cube_13co, shell_snr_cutoff=5.)
-    #             properties_hi[i] = [v0.value, mass.value, momentum.value, energy.value]
+            v0 = v0 * u.km/u.s   
+            print(shell.ra, shell.dec, r, dr, vexp, v0) 
+            try:
+                mass, momentum, energy = calc_physics(
+                ra=shell.ra, dec=shell.dec, r=r, dr=dr, vexp=vexp, v0=v0, dist=dist,
+                cube_12co=cube_12co, cube_13co=cube_13co, shell_snr_cutoff=5.)
+                properties_hi[i] = [v0.value, mass.value, momentum.value, energy.value]
 
-    #             print("Shell Physical Properties:")
-    #             print("------------------------------")
-    #             print("Mass = {}".format(mass))
-    #             print("Expansion Velocity = {}".format(vexp))
-    #             print("Momentum = {}".format(momentum))
-    #             print("Energy = {}".format(energy))
-    #         except ValueError:
-    #             print("Shell {} failed due to mismatched data shape.".format(n))
+                print("Shell Physical Properties:")
+                print("------------------------------")
+                print("Mass = {}".format(mass))
+                print("Expansion Velocity = {}".format(vexp))
+                print("Momentum = {}".format(momentum))
+                print("Energy = {}".format(energy))
+            except ValueError:
+                print("Shell {} failed due to mismatched data shape.".format(n))
         
 
 
-    #     np.savetxt("shell{}_properties_hi_1213co5sig.txt".format(n), properties_hi)
+        np.savetxt("shell{}_properties_hi_1213co5sig_NtoSorder.txt".format(n), properties_hi)
 
 ###########################################-----------------------------------
 
@@ -387,7 +390,7 @@ def hist_physics(table_list=None, table_list_shaded=None, mode='median', column=
     if return_total:
         return np.sum(x)
 
-def table_shell_physics(low_name="_properties_low_1213co5sig", mid_name="_properties_mid_1213co5sig",
+def table_shell_physics(param_file="shell_parameters_full_NtoS.txt", low_name="_properties_low_1213co5sig", mid_name="_properties_mid_1213co5sig",
     hi_name="_properties_hi_1213co5sig", name_tail=".txt", all_n=np.arange(1,43), best_n=best_shells, np_func=np.median,
     table_name="shell_physics_all_5sig.txt", usecols=[0,1,2,3], colnames=["v_exp", "mass", "momentum", "energy"],
     scale_energy=1., scale_mdot=1., scale_Edot=1., scale_L=1., scale_momentum=1., scale_dpdt=1.):
@@ -408,7 +411,7 @@ def table_shell_physics(low_name="_properties_low_1213co5sig", mid_name="_proper
 
         print("Name&"
               "[M$_\\odot$]&"
-              "[10 M$_\\odot$ km s$^{{-1}}$]&"
+              "[M$_\\odot$ km s$^{{-1}}$]&"
               "[$10^{{{}}}$ erg]&"
               "[$10^{{{}}}$ erg s$^{{-1}}$]&"
               "[$10^{{{}}}$ M$_\\odot$ km s$^{{-1}}$ yr$^{{-1}}$]&"
@@ -425,7 +428,7 @@ def table_shell_physics(low_name="_properties_low_1213co5sig", mid_name="_proper
         s_dpdt = np.zeros(3)
         l_dpdt = np.zeros(3)
         for n in all_n:
-            params = np.loadtxt("shell_parameters_full.txt")
+            params = np.loadtxt(param_file)
             params = params[params[:,0] == 1.*n, 1:][0]
             r_best, r_sig = params[0], params[1]
             dr_best, dr_sig = params[2], params[3]
@@ -768,6 +771,7 @@ def calc_physics(ra=None, dec=None, r=0.17*u.pc, dr=0.05*u.pc,
     shell_snr_cutoff is the sigma cutoff for extracting the shell
     voxels.
     """
+    import shell_model
     #print(cube_12co.header['CDELT3'])
     from spectral_cube.lower_dimensional_structures import Projection
 
@@ -912,7 +916,7 @@ def calc_physics(ra=None, dec=None, r=0.17*u.pc, dr=0.05*u.pc,
         shell_mass = mass(shell_nH2, distance=414*u.pc, molecule='H2',
          mass_unit=u.Msun)
         shell_momentum = momentum(shell_mass, vexp)
-        shell_energy = energy(shell_mass, vexp)
+        shell_energy = energy(shell_mass, vexp, fwhm_to_3Dsigma=False)
         shell_luminosity = (shell_energy / (r / vexp)).to(u.erg/u.s)
     else:
 
@@ -1321,15 +1325,13 @@ def mass(column_density, distance=414*u.pc, molecule='H2',
     else:
         return u.Quantity(mass_map.nansum())
 
-
-
-
 def momentum(mass, velocity, unit=u.Msun*(u.km/u.s)):
     return (mass * velocity).to(unit)
-def energy(mass, velocity, unit=u.erg, fwhm_to_3Dsigma = True):
+def energy(mass, velocity, unit=u.erg, fwhm_to_3Dsigma = False):
     if fwhm_to_3Dsigma:
         return ((np.sqrt(3) / np.sqrt(8 * np.log(2))) * 0.5 * mass * velocity ** 2.).to(unit)
-    return (0.5 * mass * velocity ** 2.).to(unit)
+    else:
+        return (0.5 * mass * velocity ** 2.).to(unit)
 
 def mass_loss_rate(momentum, wind_velocity=200.*u.km/u.s, wind_timescale=1.*u.Myr):
     """
